@@ -34,4 +34,13 @@ class User extends Authenticatable
     public function country(){
         return $this->belongsTo('App\Country');
     }
+
+    public function isAdmin(){
+        foreach($this->roles as $role){
+            if($role->name == "Admin"){
+                return true;
+            }
+        }
+        return false;
+    }
 }

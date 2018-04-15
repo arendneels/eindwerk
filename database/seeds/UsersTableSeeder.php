@@ -29,6 +29,20 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'first_name' => "Client",
+            'last_name' => "Neels",
+            'address' => "Mijn adres",
+            'city' => "Eernegem",
+            'postal_code' => "8480",
+            'country_id' => 1,
+            'phone' => "0472/288 544",
+            'email' => "client@hotmail.com",
+            'password' => bcrypt('123456'),
+            'created_at' => date_create(),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('users')->insert([
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
             'address' => $faker->streetAddress,

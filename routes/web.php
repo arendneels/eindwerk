@@ -19,6 +19,12 @@ Route::get('/', function () {
     return view('welcome', compact('users'));
 });
 
+Route::middleware(['back'])->group(function () {
+    Route::get('/admin', function () {
+        return view('back.admin');
+    });
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
