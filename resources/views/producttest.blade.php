@@ -12,5 +12,8 @@
         @foreach($product->categories as $category)
             <p>{{ $category->name }}</p>
         @endforeach
+        @foreach($product->photos as $photo)
+            <p>{{ $photo->path() }}</p>
+        @endforeach
     @endforeach
 @endsection
