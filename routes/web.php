@@ -11,6 +11,9 @@
 |
 */
 
+use App\Role;
+use App\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
