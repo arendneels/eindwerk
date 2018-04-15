@@ -11,6 +11,7 @@
 |
 */
 
+use App\Product;
 use App\Role;
 use App\User;
 
@@ -19,10 +20,18 @@ Route::get('/', function () {
     return view('welcome', compact('users'));
 });
 
+Route::get('/producttest', function(){
+    $products = Product::all();
+    return view('producttest', compact('products'));
+});
+
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {
         return view('back.admin');
     });
+
+
+
 });
 
 Auth::routes();

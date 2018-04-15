@@ -9,4 +9,12 @@ class Product extends Model
     protected $fillable = [
         'name', 'article_no', 'price'
     ];
+
+    public function colors() {
+        return $this->belongsToMany('\App\Color');
+    }
+
+    public function categories() {
+        return $this->belongsToMany('\App\Category');
+    }
 }
