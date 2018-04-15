@@ -83,7 +83,13 @@
                 </div>
 
                 <p>Test</p>
-                <p></p>
+                @foreach($users as $user)
+                    <p>{{ $user->first_name }}</p>
+                    <p>{{ $user->country->name }}</p>
+                    @foreach($user->roles as $role)
+                        <p>{{ $role->name }}</p>
+                    @endforeach
+                @endforeach
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
