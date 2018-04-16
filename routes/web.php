@@ -32,6 +32,14 @@ Route::get('backtest', function(){
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {
         return view('back.admin');
+    })->name('admin');
+
+    Route::get('/admin/products/create', function () {
+        return view('back.products.create');
+    });
+
+    Route::get('/admin/products', function(){
+        return view('back.products.index');
     });
 
 

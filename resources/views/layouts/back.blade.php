@@ -9,17 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>HAZY - Admin</title>
 
-    <!-- Bootstrap Core CSS -->
+    <!-- Backend CSS -->
     <link href="{{ asset('css/back.min.css') }}" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -36,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+            <a class="navbar-brand" href="{{ route('admin') }}">HAZY</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -241,7 +234,18 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="login.html"></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="fa fa-sign-out fa-fw"></i> Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -360,20 +364,18 @@
 
     <div id="page-wrapper">
 
-        <!--LAYOUT ENDS HERE -->
-
         @yield('content')
 
-        <!-- LAYOUT ENDS HERE /#page-wrapper -->
     </div>
+    <!--/#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-
+<!-- Backend JS -->
 <script src="{{ asset('js/back.min.js') }}"></script>
 
+    @yield('scripts')
 </body>
 
 </html>
