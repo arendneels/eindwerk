@@ -25,6 +25,10 @@ Route::get('/producttest', function(){
     return view('producttest', compact('products'));
 });
 
+Route::get('backtest', function(){
+    return view('layouts.back');
+});
+
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {
         return view('back.admin');
