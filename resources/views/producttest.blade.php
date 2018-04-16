@@ -16,6 +16,10 @@
             @foreach($product->photos as $photo)
                 <p>{{ $photo->path() }}</p>
             @endforeach
+            @foreach($product->stocks as $stock)
+                <p>{{ $stock->size->name }}</p>
+                <p>{{ $stock->amount }}</p>
+            @endforeach
         @endforeach
     </div>
 @endsection

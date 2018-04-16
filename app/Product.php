@@ -21,4 +21,8 @@ class Product extends Model
     public function photos(){
         return $this->hasMany('\App\Photo');
     }
+
+    public function stocks(){
+        return $this->hasMany('App\Stock');
+    }
 }
