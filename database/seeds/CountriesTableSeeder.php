@@ -11,70 +11,25 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->insert([
-            'name' => 'Belgium',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
+        $countries = [
+            'Belgium',
+            'Netherlands',
+            'France',
+            'Germany',
+            'Spain',
+            'Italy',
+            'Portugal',
+            'Sweden',
+            'Denmark',
+            'Poland'
+        ];
 
-        DB::table('countries')->insert([
-            'name' => 'Germany',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'USA',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Poland',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Netherlands',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'France',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Sweden',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Denmark',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Spain',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Italy',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('countries')->insert([
-            'name' => 'Portugal',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
+        foreach($countries as $country){
+            DB::table('countries')->insert([
+                'name' => $country,
+                'created_at' => date_create(),
+                'updated_at' => date_create(),
+            ]);
+        }
     }
 }

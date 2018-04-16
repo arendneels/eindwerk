@@ -11,58 +11,26 @@ class ColorsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('colors')->insert([
-            'name' => 'Black',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
+        $colors = [
+            'Black',
+            'White',
+            'Gray',
+            'Red',
+            'Blue',
+            'Green',
+            'Yellow',
+            'Orange',
+            'Pink',
+            'Purple',
+            'Brown'
+        ];
 
-        DB::table('colors')->insert([
-            'name' => 'Blue',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'Red',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'Green',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'Yellow',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'Pink',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'Orange',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'Purple',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
-
-        DB::table('colors')->insert([
-            'name' => 'White',
-            'created_at' => date_create(),
-            'updated_at' => date_create(),
-        ]);
+        foreach($colors as $color){
+            DB::table('colors')->insert([
+                'name' => $color,
+                'created_at' => date_create(),
+                'updated_at' => date_create(),
+            ]);
+        }
     }
 }

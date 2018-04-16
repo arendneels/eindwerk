@@ -16,7 +16,7 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('tag');
+            $table->string('tag')->nullable();
             $table->integer('product_id')->index();
             $table->timestamps();
         });
