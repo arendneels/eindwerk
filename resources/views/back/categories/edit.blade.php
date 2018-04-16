@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            <!--Form-->
+                            <!-- Form -->
                             {!! Form::model($category, ['method' => 'PUT', 'action' => ['back\CategoryController@update', $category->id]]) !!}
                             <div class="form-group">
                                 {!! Form::label('name', 'Category Name') !!}
@@ -28,6 +28,17 @@
                                 {!! Form::submit('Edit Category', ['class' => 'btn btn-primary']) !!}
                             </div>
                             {!! Form::close() !!}
+                            <!-- /Form -->
+
+                            <!-- Errors -->
+                                @if($errors->all())
+                                    <ul class="alert alert-danger">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                            @endif
+                            <!-- /Errors -->
 
                         </div>
                     </div>

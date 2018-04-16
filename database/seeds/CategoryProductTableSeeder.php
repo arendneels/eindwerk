@@ -38,5 +38,19 @@ class CategoryProductTableSeeder extends Seeder
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
+
+        DB::table('category_product')->insert([
+            'category_id' => 1,
+            'product_id' => 3,
+            'created_at' => date_create(),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('category_product')->insert([
+            'category_id' => 4,
+            'product_id' => 3,
+            'created_at' => date_create(),
+            'updated_at' => date_create(),
+        ]);
     }
 }

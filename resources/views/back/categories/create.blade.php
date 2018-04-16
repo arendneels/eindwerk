@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            <!--Form-->
+                            <!-- Form -->
                             {!! Form::open(['method' => 'POST', 'action' => ['back\CategoryController@store']]) !!}
                             <div class="form-group">
                                 {!! Form::label('name', 'Category Name') !!}
@@ -28,7 +28,17 @@
                                 {!! Form::submit('Create Category', ['class' => 'btn btn-success']) !!}
                             </div>
                             {!! Form::close() !!}
+                            <!-- /Form -->
 
+                            <!-- Errors -->
+                            @if($errors->all())
+                                <ul class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                            <!-- /Errors -->
 
                         </div>
                     </div>

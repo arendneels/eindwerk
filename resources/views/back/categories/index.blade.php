@@ -13,7 +13,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    DataTables Advanced Tables
+                    &nbsp;
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -22,6 +22,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
+                            <th># Products</th>
                             <th id="controls">Controls</th>
                         </tr>
                         </thead>
@@ -30,33 +31,19 @@
                             <tr>
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="{{ route('categories.edit', $category->id) }}"><i class="fa fa-pencil"></i> Edit</a>
-                                    <a href="#"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <!--Form-->
-                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\CategoryController@destroy', $category->id]]) !!}
-                                    <div class="form-group">
-                                        {!! Form::submit('', ['class' => 'hidden']) !!}
-                                    </div>
+                                <td>{{ $category->products->count() }}</td>
+                                <td class="row">
+                                    <a class="btn btn-primary col-sm-6" href="{{ route('categories.edit', $category->id) }}">Edit</a>
+                                    <!-- Form -->
+                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\CategoryController@destroy', $category->id], 'class' => 'col-sm-6']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
                                     {!! Form::close() !!}
-
-
+                                    <!-- /Form -->
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    <!-- /.table-responsive -->
-                    <div class="well">
-                        <h4>DataTables Usage Information</h4>
-                        <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                        <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
-                    </div>
                 </div>
                 <!-- /.panel-body -->
             </div>
