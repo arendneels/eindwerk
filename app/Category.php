@@ -18,4 +18,13 @@ class Category extends Model
     public function products() {
         return $this->belongsToMany('\App\Product');
     }
+
+    public static function categoriesSelect(){
+        $categories = Category::all();
+        $result = [];
+        foreach($categories as $category){
+            $result[$category->id] = $category->name;
+        }
+        return $result;
+    }
 }

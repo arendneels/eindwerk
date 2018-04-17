@@ -28,20 +28,32 @@
                                 {!! Form::label('article_no', 'Article No.') !!}
                                 {!! Form::text('article_no', null, ['class' => 'form-control']) !!}
                             </div>
-                            <div class="form-group">
+                            <div id="divCategory">
+                                {!! Form::number('categories_amt', 1,['id' => 'categories_amt', 'class' => 'hidden']) !!}
+                                <div class="form-group">
+                                    {!! Form::label('category_id1', 'Category/Categories') !!}
+                                    {!! Form::select('category_id1', $categoriesSelect, null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <a href="#" onclick="event.preventDefault(); addCategory('divCategory')">Add Category</a>
+                            &nbsp;
+                            <a href="#" onclick="event.preventDefault(); removeCategory()">Remove Category</a>
+                            <div class="form-group pt-4">
                                 {!! Form::label('price', 'Price') !!}
                                 {!! Form::number('price', null,['class' => 'form-control','step'=>'0.01']) !!}
                             </div>
 
-                            <div id="divName">
+                            <div id="divColor">
                                 {!! Form::number('colors_amt', 1,['id' => 'colors_amt', 'class' => 'hidden']) !!}
                                 <div class="form-group">
                                     {!! Form::label('color_id1', 'Color(s)') !!}
                                     {!! Form::select('color_id1', $colorsSelect, null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
+                            <a href="#" onclick="event.preventDefault(); addColor('divColor')">Add Color</a>
+                            &nbsp;
+                            <a href="#" onclick="event.preventDefault(); removeColor()">Remove Color</a>
 
-                            <a href="#" onclick="event.preventDefault(); addInput('divName')">Add Test</a>
 
 
                             <div class="form-group">
@@ -75,24 +87,70 @@
 
 @section('scripts')
     <script>
-        var counter = 1;
-        var limit = 3;
-        function addInput(divName){
-            if (counter == limit)  {
-                alert("You have reached the limit of adding " + counter + " inputs");
+        var colorCounter = 1;
+        var colorLimit = 3;
+        var categoryCounter = 1;
+        var categoryLimit = 3;
+
+        function addColor(divName){
+            if (colorCounter == colorLimit)  {
+                alert("You have reached the limit of adding " + colorCounter + " colors");
             }
             else {
                 var newdiv = document.createElement('div');
                 newdiv.classList.add("form-group");
-                result = "<select name='color_id" + (counter+1) + "' class='form-control'>";
+                result = "<select id='color_id" + (colorCounter+1) + "' name='color_id" + (colorCounter+1) + "' class='form-control'>";
                 @foreach($colorsSelect as $key=>$value)
                     result = result.concat("<option value='{{$key}}'>{{$value}}</option>");
                 @endforeach
-                    result = result.concat("</select>")
-                    newdiv.innerHTML = result;
+                    result = result.concat("</select>");
+                newdiv.innerHTML = result;
                 document.getElementById(divName).appendChild(newdiv);
-                counter++;
-                $('#colors_amt').attr('value', counter);
+                colorCounter++;
+                $('#colors_amt').attr('value', colorCounter);
+            }
+        }
+        function removeColor(){
+            if(colorCounter == 1){
+                alert("You have to pick at least 1 color");
+            }else{
+                id = '#color_id' + colorCounter;
+                amt = '#colors_amt';
+
+                $(id).remove();
+                colorCounter--;
+                $(amt).attr('value', colorCounter);
+            }
+        }
+
+        function addCategory(divName){
+            if (categoryCounter == categoryLimit)  {
+                alert("You have reached the limit of adding " + categoryCounter + " categories");
+            }
+            else {
+                var newdiv = document.createElement('div');
+                newdiv.classList.add("form-group");
+                result = "<select id='category_id" + (categoryCounter+1) + "' name='category_id" + (categoryCounter+1) + "' class='form-control'>";
+                @foreach($categoriesSelect as $key=>$value)
+                    result = result.concat("<option value='{{$key}}'>{{$value}}</option>");
+                @endforeach
+                    result = result.concat("</select>");
+                newdiv.innerHTML = result;
+                document.getElementById(divName).appendChild(newdiv);
+                categoryCounter++;
+                $('#categories_amt').attr('value', categoryCounter);
+            }
+        }
+        function removeCategory(){
+            if(categoryCounter == 1){
+                alert("You have to pick at least 1 category");
+            }else{
+                id = '#category_id' + categoryCounter;
+                amt = '#categorys_amt';
+
+                $(id).remove();
+                categoryCounter--;
+                $(amt).attr('value', categoryCounter);
             }
         }
     </script>

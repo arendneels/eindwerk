@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\back;
 
+use App\Category;
 use App\Color;
 use App\Product;
 use Illuminate\Http\Request;
@@ -28,7 +29,8 @@ class ProductController extends Controller
     public function create()
     {
         $colorsSelect = Color::colorsSelect();
-        return view('back.products.create', compact('colorsSelect'));
+        $categoriesSelect = Category::categoriesSelect();
+        return view('back.products.create', compact('colorsSelect', 'categoriesSelect'));
     }
 
     /**
@@ -42,6 +44,13 @@ class ProductController extends Controller
         //Create new product
         $input = $request->all();
         $product = Product::create($input);
+
+        //Sync many to many relationship with Categories
+        $categoryArray = [];
+        for($i = 1; $i<=$input['categories_amt']; $i++){
+            $categoryArray[$i] = $input['category_id' . $i];
+        }
+        $product->categories()->sync($categoryArray);
 
         //Sync many to many relationship with Colors
         $colorArray = [];
