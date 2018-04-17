@@ -34,18 +34,8 @@ Route::middleware(['back'])->group(function () {
         return view('back.admin');
     })->name('admin');
 
+    Route::resource('/admin/products', 'back\ProductController');
     Route::resource('/admin/categories', 'back\CategoryController');
-
-    Route::get('/admin/products/create', function () {
-        return view('back.products.create');
-    });
-
-    Route::get('/admin/products', function(){
-        return view('back.products.index');
-    });
-
-
-
 });
 
 Auth::routes();
