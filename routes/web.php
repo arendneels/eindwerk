@@ -11,9 +11,12 @@
 |
 */
 
+use App\Photo;
 use App\Product;
 use App\Role;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
     $users = User::all();
@@ -36,6 +39,23 @@ Route::middleware(['back'])->group(function () {
 
     Route::resource('/admin/products', 'back\ProductController');
     Route::resource('/admin/categories', 'back\CategoryController');
+
+    Route::post('/dropzoneHandler', function(){
+        $file = Input::file('file');
+        $destinationPath = 'images';
+        $filenameFull = Carbon::now() . $file->getClientOriginalName();
+        $filename = str_replace([' ', ':', '/', '-'],'' , $filenameFull);
+        $upload_success = Input::file('file')->move($destinationPath, $filename);
+
+        if( $upload_success ) {
+            return response()->json([
+                'photo_name' => $filename,
+                'status' => 200,
+            ]);
+        } else {
+            return Response::json('error', 400);
+        }
+    })->name('dropzoneHandler');
 });
 
 Auth::routes();

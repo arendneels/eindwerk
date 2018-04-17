@@ -13,6 +13,7 @@
 
     <!-- Backend CSS -->
     <link href="{{ asset('css/back.min.css') }}" rel="stylesheet">
+    @yield('styles')
 
 </head>
 

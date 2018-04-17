@@ -20,8 +20,8 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                         <tr>
-                            <th>Name</th>
                             <th>Article No.</th>
+                            <th>Name</th>
                             <th>Price</th>
                             <th id="controls">Controls</th>
                         </tr>
@@ -29,8 +29,8 @@
                         <tbody>
                         @foreach($products as $product)
                             <tr>
-                                <td>{{ $product->name }}</td>
                                 <td>{{ $product->article_no }}</td>
+                                <td>{{ $product->name }}</td>
                                 <td>{{ '€ ' . $product->price }}</td>
                                 <td class="row">
                                     <a class="btn btn-primary col-sm-6" href="{{ route('products.edit', $product->id) }}">Edit</a>
