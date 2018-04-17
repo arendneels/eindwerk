@@ -22,6 +22,15 @@ class Product extends Model
         return $this->hasMany('\App\Photo');
     }
 
+    public function thumbnail_path(){
+        $thumbnail = $this->photos()->where('thumbnail', '=' , true)->first();
+        if($thumbnail){
+            return 'images/' . $thumbnail->name;
+        }else{
+            return '_blank';
+        }
+    }
+
     public function stocks(){
         return $this->hasMany('App\Stock');
     }

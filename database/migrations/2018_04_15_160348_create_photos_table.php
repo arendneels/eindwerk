@@ -17,6 +17,7 @@ class CreatePhotosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('product_id')->index();
+            $table->boolean('thumbnail')->default(false);
             $table->timestamps();
         });
     }

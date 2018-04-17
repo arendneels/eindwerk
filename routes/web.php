@@ -32,6 +32,11 @@ Route::get('backtest', function(){
     return view('layouts.back');
 });
 
+Route::get('/test', function(){
+    $product = Product::findOrFail(1);
+    dd($product->thumbnail_path());
+});
+
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {
         return view('back.admin');

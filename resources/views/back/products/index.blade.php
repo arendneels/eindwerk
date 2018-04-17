@@ -21,6 +21,7 @@
                         <thead>
                         <tr>
                             <th>Article No.</th>
+                            <th>Thumbnail</th>
                             <th>Name</th>
                             <th>Price</th>
                             <th id="controls">Controls</th>
@@ -30,6 +31,7 @@
                         @foreach($products as $product)
                             <tr>
                                 <td>{{ $product->article_no }}</td>
+                                <td class="text-center"><img src="{{ asset($product->thumbnail_path()) }}" alt="" style="height:50px;"></td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ '€ ' . $product->price }}</td>
                                 <td class="row">

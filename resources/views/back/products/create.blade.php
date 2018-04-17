@@ -79,15 +79,15 @@
                                 </ul>
                         @endif
                         <!-- /Errors -->
-
-                        </div>
                     </div>
                     <!-- /.row (nested) -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <form id="myDrop" class="dropzone">
-                            {{ csrf_field() }}
-                        </form>
+                    <div class="row" style="margin-bottom:1rem;">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <p><strong>Images</strong> (max: 4)</p>
+                            <form id="myDrop" class="dropzone">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <!-- /.panel-body -->
@@ -115,9 +115,9 @@
         Dropzone.options.myDrop = {
             paramName: "file", // The name that will be used to transfer the file
             maxFilesize: 2, // MB
+            maxFiles: 4,
             parallelUploads: 2, //limits number of files processed to reduce stress on server
             accept: function(file, done) {
-                // TODO: Image upload validation
                 done();
             },
             sending: function(file, xhr, formData) {

@@ -59,10 +59,15 @@ class ProductController extends Controller
         }
         $product->colors()->sync($colorArray);
 
-        //Create Uploaded images in database and link with current product
+        //Create Uploaded images in photos database and link with current product
         $imageArray = [];
         for($i = 1; $i<=$input['images_amt']; $i++){
-            $imageArray[$i] = ['name' => $input['photo_name'. $i]];
+            //Make first uploaded image thumbnail by default
+            if($i == 1){
+                $imageArray[$i] = ['name' => $input['photo_name'. $i], 'thumbnail' => true];
+            }else{
+                $imageArray[$i] = ['name' => $input['photo_name'. $i]];
+            }
         }
         $product->photos()->createMany($imageArray);
 

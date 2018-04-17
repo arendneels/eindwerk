@@ -14,6 +14,7 @@ class PhotosTableSeeder extends Seeder
         DB::table('photos')->insert([
             'name' => 'image1.png',
             'product_id' => 1,
+            'thumbnail' => true,
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
@@ -28,6 +29,7 @@ class PhotosTableSeeder extends Seeder
         DB::table('photos')->insert([
             'name' => 'image3.png',
             'product_id' => 2,
+            'thumbnail' => true,
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
