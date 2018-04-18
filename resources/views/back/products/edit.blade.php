@@ -76,7 +76,7 @@
                                 <div class="col-sm-10 col-sm-offset-1">
                                     <p><strong>Current Image(s)</strong></p>
                                     <div class="row">
-                                        @foreach($product->photos as $photo)
+                                        @foreach($product->photos()->orderBy('id', 'asc')->get() as $photo)
                                             <div class="col-sm-2 text-center">
                                                 <img src="{{ $photo->path() }}" alt="" style="max-width:100%; height:70px;">
                                                 <br>

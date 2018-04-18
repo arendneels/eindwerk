@@ -134,20 +134,27 @@ class ProductController extends Controller
         //Create Uploaded images in photos database and link with current product
         $imageArray = [];
         for($i = 1; $i<=$input['images_amt']; $i++){
-            $imageArray[$i] = ['name' => $input['photo_name'. $i]];
+            //Make first uploaded image thumbnail by default
+            if($product->photos->count() == 0 && $i == 1){
+                $imageArray[$i] = ['name' => $input['photo_name'. $i], 'thumbnail' => true];
+            }else{
+                $imageArray[$i] = ['name' => $input['photo_name'. $i]];
+            }
         }
         $product->photos()->createMany($imageArray);
 
         //Remove old thumbnail and add new if selected thumbnail is different
         $currentThumbnail = $product->thumbnail();
-        if($currentThumbnail->id <> $input['thumbnail']){
+        if($currentThumbnail && isset($input['thumbnail'])) {
+            if ($currentThumbnail->id <> $input['thumbnail']) {
 
-            $currentThumbnail->thumbnail = false;
-            $currentThumbnail->update();
+                $currentThumbnail->thumbnail = false;
+                $currentThumbnail->update();
 
-            $newThumbnail = Photo::findOrFail($input['thumbnail']);
-            $newThumbnail->thumbnail = true;
-            $newThumbnail->update();
+                $newThumbnail = Photo::findOrFail($input['thumbnail']);
+                $newThumbnail->thumbnail = true;
+                $newThumbnail->update();
+            }
         }
 
         //Delete checked images form images file and database

@@ -23,14 +23,23 @@ class Product extends Model
     }
 
     public function thumbnail(){
-        return $thumbnail = $this->photos()->where('thumbnail', '=' , true)->first();
+        if($this->photos->count() > 0) {
+            $thumbnail = $this->photos()->where('thumbnail', '=', true)->first();
+            if(isset($thumbnail)){
+                return $thumbnail;
+            }else{
+                return $this->photos()->first();
+            }
+        }else{
+            return false;
+        }
     }
 
     public function thumbnail_path(){
-        $thumbnail = $this->photos()->where('thumbnail', '=' , true)->first();
-        if($thumbnail){
+        $thumbnail = $this->thumbnail();
+        if ($thumbnail) {
             return asset('images/' . $thumbnail->name);
-        }else{
+        } else {
             return false;
         }
     }
