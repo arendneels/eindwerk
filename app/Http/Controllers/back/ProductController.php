@@ -95,7 +95,8 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $colorsSelect = Color::colorsSelect();
-        return view('back.products.edit', compact('product', 'colorsSelect'));
+        $categoriesSelect = Category::categoriesSelect();
+        return view('back.products.edit', compact('product', 'colorsSelect', 'categoriesSelect'));
     }
 
     /**

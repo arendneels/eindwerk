@@ -25,9 +25,9 @@ class Product extends Model
     public function thumbnail_path(){
         $thumbnail = $this->photos()->where('thumbnail', '=' , true)->first();
         if($thumbnail){
-            return 'images/' . $thumbnail->name;
+            return asset('images/' . $thumbnail->name);
         }else{
-            return '_blank';
+            return false;
         }
     }
 

@@ -17,35 +17,37 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                        <thead>
-                        <tr>
-                            <th>Article No.</th>
-                            <th>Thumbnail</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th id="controls">Controls</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($products as $product)
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
                             <tr>
-                                <td>{{ $product->article_no }}</td>
-                                <td class="text-center"><img src="{{ asset($product->thumbnail_path()) }}" alt="" style="height:50px;"></td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ '€ ' . $product->price }}</td>
-                                <td class="row">
-                                    <a class="btn btn-primary col-sm-6" href="{{ route('products.edit', $product->id) }}">Edit</a>
-                                    <!-- Form -->
-                                {!! Form::open(['method' => 'DELETE', 'action' => ['back\ProductController@destroy', $product->id], 'class' => 'col-sm-6']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
-                                {!! Form::close() !!}
-                                <!-- /Form -->
-                                </td>
+                                <th>Article No.</th>
+                                <th>Thumbnail</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th id="controls" style="width:150px;">Controls</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($products as $product)
+                                <tr>
+                                    <td>{{ $product->article_no }}</td>
+                                    <td class="text-center"><img src="{{ $product->thumbnail_path() }}" alt="" style="height:50px;"></td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ '€ ' . $product->price }}</td>
+                                    <td class="row">
+                                        <div class="col-sm-6">
+                                            <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit</a>
+                                        </div>
+                                        <!-- Form -->
+                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\ProductController@destroy', $product->id], 'class' => 'col-sm-6']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
+                                    {!! Form::close() !!}
+                                    <!-- /Form -->
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                 </div>
                 <!-- /.panel-body -->
             </div>
@@ -66,15 +68,16 @@
 
         //Make controls column smaller
         $('#dataTables-example').on( 'column-sizing.dt', function ( e, settings ) {
-            $('#controls').css('width',80);
+            $('#controls').css('width',150);
         } );
 
         //Prevent controls column to have sorting options
+        /*
         $('#dataTables-example').on( 'order.dt', function () {
             // This will show: "Ordering on column 1 (asc)", for example
             $('#controls').removeClass('sorting');
-            console.log('OK');
-        } );
+        });
+        */
 
         //Delete button alert
         $('.delete').click(function(){

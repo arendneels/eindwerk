@@ -15,6 +15,6 @@ class Photo extends Model
     }
 
     public function path(){
-        return 'images/' . $this->name;
+        return asset('images/' . $this->name);
     }
 }

@@ -83,7 +83,7 @@
                     <!-- /.row (nested) -->
                     <div class="row" style="margin-bottom:1rem;">
                         <div class="col-sm-10 col-sm-offset-1">
-                            <p><strong>Images</strong> (max: 4)</p>
+                            <p><strong>Upload Images</strong> (max: 4)</p>
                             <form id="myDrop" class="dropzone">
                                 {{ csrf_field() }}
                             </form>
