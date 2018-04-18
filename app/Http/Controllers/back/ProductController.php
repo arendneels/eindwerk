@@ -4,9 +4,12 @@ namespace App\Http\Controllers\back;
 
 use App\Category;
 use App\Color;
+use App\Photo;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -108,7 +111,55 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        //Update product
+        $input = $request->all();
+        $product = Product::findOrFail($id);
+        $product->update($input);
+
+        //Sync many to many relationship with Categories
+        $categoryArray = [];
+        for($i = 1; $i<=$input['categories_amt']; $i++){
+            $categoryArray[$i] = $input['category_id' . $i];
+        }
+        $product->categories()->sync($categoryArray);
+
+        //Sync many to many relationship with Colors
+        $colorArray = [];
+        for($i = 1; $i<=$input['colors_amt']; $i++){
+            $colorArray[$i] = $input['color_id' . $i];
+        }
+        $product->colors()->sync($colorArray);
+
+        //Create Uploaded images in photos database and link with current product
+        $imageArray = [];
+        for($i = 1; $i<=$input['images_amt']; $i++){
+            $imageArray[$i] = ['name' => $input['photo_name'. $i]];
+        }
+        $product->photos()->createMany($imageArray);
+
+        //Remove old thumbnail and add new if selected thumbnail is different
+        $currentThumbnail = $product->thumbnail();
+        if($currentThumbnail->id <> $input['thumbnail']){
+
+            $currentThumbnail->thumbnail = false;
+            $currentThumbnail->update();
+
+            $newThumbnail = Photo::findOrFail($input['thumbnail']);
+            $newThumbnail->thumbnail = true;
+            $newThumbnail->update();
+        }
+
+        //Delete checked images form images file and database
+        if(isset($input['delete'])){
+            foreach($input['delete'] as $photo_id){
+                $photo = Photo::findOrFail($photo_id);
+                File::delete(public_path(). '\\images\\'.$photo->name);
+                $photo->delete();
+            }
+        }
+
+        return redirect('/admin/products');
     }
 
     /**

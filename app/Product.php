@@ -22,6 +22,10 @@ class Product extends Model
         return $this->hasMany('\App\Photo');
     }
 
+    public function thumbnail(){
+        return $thumbnail = $this->photos()->where('thumbnail', '=' , true)->first();
+    }
+
     public function thumbnail_path(){
         $thumbnail = $this->photos()->where('thumbnail', '=' , true)->first();
         if($thumbnail){

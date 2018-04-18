@@ -143,7 +143,7 @@
 
         // Create dropzone
         var myDropzone = new Dropzone("#myDrop", {
-            url: '{{ route('dropzoneHandler') }}'
+            url: '{{ route('dropzone') }}'
         });
 
         var colorCounter = 1;

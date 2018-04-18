@@ -88,7 +88,7 @@
                                                 <div style="margin-top:8px;">
                                                     <label for="deleteImg{{ $loop->iteration }}">Delete</label>
                                                     <br>
-                                                    <input id="deleteImg{{ $loop->iteration }}" type="checkbox" name="delete" value="{{ $photo->id }}">
+                                                    <input id="deleteImg{{ $loop->iteration }}" type="checkbox" name="delete[]" value="{{ $photo->id }}">
                                                 </div>
                                             </div>
                                         @endforeach
@@ -175,7 +175,7 @@
 
         // Create dropzone
         var myDropzone = new Dropzone("#myDrop", {
-            url: '{{ route('dropzoneHandler') }}'
+            url: '{{ route('dropzone') }}'
         });
 
         //Add/remove select options for many to many relationships

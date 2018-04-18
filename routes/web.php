@@ -45,7 +45,7 @@ Route::middleware(['back'])->group(function () {
     Route::resource('/admin/products', 'back\ProductController');
     Route::resource('/admin/categories', 'back\CategoryController');
 
-    Route::post('/dropzoneHandler', function(){
+    Route::post('/dropzone', function(){
         $file = Input::file('file');
         $destinationPath = 'images';
         $filenameFull = Carbon::now() . $file->getClientOriginalName();
@@ -60,7 +60,7 @@ Route::middleware(['back'])->group(function () {
         } else {
             return Response::json('error', 400);
         }
-    })->name('dropzoneHandler');
+    })->name('dropzone');
 });
 
 Auth::routes();
