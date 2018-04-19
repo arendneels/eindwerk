@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('article_no');
             $table->decimal('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

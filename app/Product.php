@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'name', 'article_no', 'price'
     ];
@@ -40,7 +44,7 @@ class Product extends Model
         if ($thumbnail) {
             return asset('images/' . $thumbnail->name);
         } else {
-            return false;
+            return asset('images/no-image.jpg');
         }
     }
 
