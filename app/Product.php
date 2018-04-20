@@ -51,4 +51,32 @@ class Product extends Model
     public function stocks(){
         return $this->hasMany('App\Stock');
     }
+
+    public function hasShoesCategory(){
+        foreach($this->categories as $category){
+            if($category->id == 4){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function hasKidsCategory(){
+        foreach($this->categories as $category){
+            if($category->id == 3){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function sizeUnits(){
+        if($this->hasShoesCategory()){
+            return '(EU Shoe Size)';
+        }elseif($this->hasKidsCategory()){
+            return '(Age)';
+        }else{
+            return '';
+        }
+    }
 }

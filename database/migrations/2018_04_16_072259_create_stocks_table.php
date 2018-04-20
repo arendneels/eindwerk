@@ -17,7 +17,7 @@ class CreateStocksTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->index();
             $table->integer('size_id')->index();
-            $table->integer('amount');
+            $table->integer('amount')->default(0);
             $table->timestamps();
         });
     }

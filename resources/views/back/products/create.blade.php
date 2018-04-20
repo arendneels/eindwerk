@@ -39,7 +39,7 @@
                                 <p><strong>Available Sizes&nbsp;</strong><span id="sizeUnit"></span></p>
                                 <div id="sizes" class="col-lg-8" style="margin-bottom:16px;border:1px solid #ccc; border-radius:5px; padding-top:5px;">
                                     @foreach($regularSizes as $regularSize)
-                                        <span style="margin-right:12px;">
+                                        <span style="margin-right:10px;">
                                             <input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $regularSize->id }}"><label>{{ $regularSize->name }}</label>
                                         </span>
                                     @endforeach
@@ -286,12 +286,6 @@
                 $('#sizeUnit').html('');
                 return $('#sizes').html(regularSizes);
             }
-        }
-
-        if($('#category_id1').val()){
-            console.log('true');
-        }else{
-            console.log('false');
         }
     </script>
 @endsection

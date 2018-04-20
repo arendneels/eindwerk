@@ -7,6 +7,7 @@ use App\Color;
 use App\Photo;
 use App\Product;
 use App\Size;
+use App\Stock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -78,6 +79,12 @@ class ProductController extends Controller
         }
         $product->photos()->createMany($imageArray);
 
+        //Create size relationships via stock (default stock amount = 0)
+        foreach($input['sizes'] as $size_id){
+            $stock = ['product_id' => $product->id, 'size_id' => $size_id];
+            Stock::create($stock);
+        }
+
         return redirect('/admin/products');
     }
 
@@ -103,7 +110,22 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $colorsSelect = Color::colorsSelect();
         $categoriesSelect = Category::categoriesSelect();
-        return view('back.products.edit', compact('product', 'colorsSelect', 'categoriesSelect'));
+        $regularSizes = Size::regularSizes();
+        $shoeSizes = Size::shoeSizes();
+        $kidSizes = Size::kidSizes();
+        if($product->hasShoesCategory()){
+            $currentSizes = $shoeSizes;
+        }elseif($product->hasKidsCategory()){
+            $currentSizes = $kidSizes;
+        }else {
+            $currentSizes = $regularSizes;
+        }
+        $stocks = Stock::where('product_id', $product->id)->get();
+        $sizes = [];
+        foreach($stocks as $stock){
+            array_push($sizes, $stock->size_id);
+        }
+        return view('back.products.edit', compact('product', 'colorsSelect', 'categoriesSelect', 'regularSizes', 'shoeSizes', 'kidSizes' ,'currentSizes', 'sizes'));
     }
 
     /**
