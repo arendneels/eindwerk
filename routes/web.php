@@ -37,6 +37,8 @@ Route::get('/test', function(){
     dd(Size::kidSizes());
 });
 
+Route::post('/test/stocks', 'back\StockController@test')->name('testStock');
+
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {
         return view('back.admin');
@@ -45,6 +47,7 @@ Route::middleware(['back'])->group(function () {
     Route::resource('/admin/products', 'back\ProductController');
     Route::resource('/admin/categories', 'back\CategoryController');
     Route::resource('/admin/users', 'back\UserController');
+    Route::resource('/admin/stocks', 'back\StockController');
 
     Route::post('/dropzone', function(){
         $file = Input::file('file');
