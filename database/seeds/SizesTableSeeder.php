@@ -13,7 +13,7 @@ class SizesTableSeeder extends Seeder
     {
         //Regular sizes
         $regularSizes = [
-            'S', 'M', 'L', 'XL', 'XXL', 'One Size'
+            'One Size', 'S', 'M', 'L', 'XL', 'XXL'
         ];
 
         foreach($regularSizes as $size){
@@ -25,9 +25,9 @@ class SizesTableSeeder extends Seeder
             ]);
         }
 
-        //Shoe sizes
+        //Shoe sizes (units in EU Shoes size)
         $shoeSizes = [
-            '26', '27', '28', '29', '30', '31', '32' ,'33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48'
+            '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32' ,'33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48'
         ];
 
         foreach($shoeSizes as $size){
@@ -41,7 +41,7 @@ class SizesTableSeeder extends Seeder
 
         //Sizes for kids (units in age)
         $kidSizes = [
-            '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', 'One Size'
+            'One Size', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13'
         ];
 
         foreach($kidSizes as $size){

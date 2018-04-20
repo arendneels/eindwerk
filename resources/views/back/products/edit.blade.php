@@ -206,8 +206,8 @@
             if(colorCounter == 1){
                 alert("You have to pick at least 1 color");
             }else{
-                id = '#color_id' + colorCounter;
-                amt = '#colors_amt';
+                var id = '#color_id' + colorCounter;
+                var amt = '#colors_amt';
 
                 $(id).remove();
                 colorCounter--;
@@ -237,8 +237,8 @@
             if(categoryCounter == 1){
                 alert("You have to pick at least 1 category");
             }else{
-                id = '#category_id' + categoryCounter;
-                amt = '#categorys_amt';
+                var id = '#category_id' + categoryCounter;
+                var amt = '#categorys_amt';
 
                 $(id).remove();
                 categoryCounter--;

@@ -35,13 +35,23 @@
                                 {!! Form::label('price', 'Price') !!}
                                 {!! Form::number('price', null,['class' => 'form-control','step'=>'0.01']) !!}
                             </div>
+                            <div class="form-group">
+                                <p><strong>Available Sizes&nbsp;</strong><span id="sizeUnit"></span></p>
+                                <div id="sizes" class="col-lg-8" style="margin-bottom:16px;border:1px solid #ccc; border-radius:5px; padding-top:5px;">
+                                    @foreach($regularSizes as $regularSize)
+                                        <span style="margin-right:12px;">
+                                            <input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $regularSize->id }}"><label>{{ $regularSize->name }}</label>
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6">
                             <div id="divCategory">
                                 {!! Form::number('categories_amt', 1,['id' => 'categories_amt', 'class' => 'hidden']) !!}
                                 <div class="form-group">
                                     {!! Form::label('category_id1', 'Category/Categories') !!}
-                                    {!! Form::select('category_id1', $categoriesSelect, null, ['class' => 'form-control']) !!}
+                                    {!! Form::select('category_id1', $categoriesSelect, null, ['class' => 'form-control categoryChoice', 'onchange' => 'setSizes()']) !!}
                                 </div>
                             </div>
                             <a href="#" onclick="event.preventDefault(); addCategory('divCategory')">Add Category</a>
@@ -173,8 +183,8 @@
             if(colorCounter == 1){
                 alert("You have to pick at least 1 color");
             }else{
-                id = '#color_id' + colorCounter;
-                amt = '#colors_amt';
+                var id = '#color_id' + colorCounter;
+                var amt = '#colors_amt';
 
                 $(id).remove();
                 colorCounter--;
@@ -189,7 +199,7 @@
             else {
                 var newdiv = document.createElement('div');
                 newdiv.classList.add("form-group");
-                result = "<select id='category_id" + (categoryCounter+1) + "' name='category_id" + (categoryCounter+1) + "' class='form-control'>";
+                result = "<select id='category_id" + (categoryCounter+1) + "' name='category_id" + (categoryCounter+1) + "' class='form-control categoryChoice' onchange='setSizes()'>";
                 @foreach($categoriesSelect as $key=>$value)
                     result = result.concat("<option value='{{$key}}'>{{$value}}</option>");
                 @endforeach
@@ -204,13 +214,84 @@
             if(categoryCounter == 1){
                 alert("You have to pick at least 1 category");
             }else{
-                id = '#category_id' + categoryCounter;
-                amt = '#categorys_amt';
+                var id = '#category_id' + categoryCounter;
+                var amt = '#categorys_amt';
 
                 $(id).remove();
                 categoryCounter--;
                 $(amt).attr('value', categoryCounter);
+                setSizes();
             }
+        }
+
+        //Sizes
+        var regularSizes = '';
+        var shoeSizes = '';
+        var kidSizes = '';
+        var currentSizes = 'regular';
+
+        @foreach($regularSizes as $regularSize)
+            regularSizes = regularSizes.concat('<span style="margin-right:12px;"><input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $regularSize->id }}">' +
+            '<label>{{ $regularSize->name }}</label></span>');
+        @endforeach;
+        @foreach($shoeSizes as $shoeSize)
+            shoeSizes = shoeSizes.concat('<span style="margin-right:12px;"><input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $shoeSize->id }}">' +
+            '<label>{{ $shoeSize->name }}</label></span>');
+        @endforeach;
+        @foreach($kidSizes as $kidSize)
+            kidSizes = kidSizes.concat('<span style="margin-right:12px;"><input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $kidSize->id }}">' +
+            '<label>{{ $kidSize->name }}</label></span>');
+        @endforeach;
+
+        $('form').submit(function(){
+            if($( '.sizesInput:checked' ).length == 0) {
+                return confirm("This product will not show up in stock because no sizes are selected, are you sure you want to proceed? (Sizes can be added later via the Edit Product page.)")
+            }
+        });
+
+        function categoriesHasShoes(){
+            var cat_amt = $('#categories_amt').val();
+            for(i = 1; i <= cat_amt; i++){
+                if($('#category_id' + i).val() == 4){
+                    return true;
+                }
+            }
+            return false
+        }
+
+        function categoriesHasKids(){
+            var cat_amt = $('#categories_amt').val();
+            for(i = 1; i <= cat_amt; i++){
+                if($('#category_id' + i).val() == 3){
+                    return true;
+                }
+            }
+            return false
+        }
+
+        //Function for sizes
+        function setSizes(){
+            if(categoriesHasShoes() && currentSizes != 'shoes'){
+                currentSizes = 'shoes';
+                $('#sizeUnit').html('(EU Shoe Size)');
+                return $('#sizes').html(shoeSizes);
+            }
+            if(categoriesHasKids() && !categoriesHasShoes() && currentSizes != 'kids'){
+                currentSizes = 'kids';
+                $('#sizeUnit').html('(Age)');
+                return $('#sizes').html(kidSizes);
+            }
+            if(!categoriesHasShoes() && !categoriesHasKids() && currentSizes != 'regular'){
+                currentSizes = 'regular';
+                $('#sizeUnit').html('');
+                return $('#sizes').html(regularSizes);
+            }
+        }
+
+        if($('#category_id1').val()){
+            console.log('true');
+        }else{
+            console.log('false');
         }
     </script>
 @endsection

@@ -6,6 +6,7 @@ use App\Category;
 use App\Color;
 use App\Photo;
 use App\Product;
+use App\Size;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -33,7 +34,10 @@ class ProductController extends Controller
     {
         $colorsSelect = Color::colorsSelect();
         $categoriesSelect = Category::categoriesSelect();
-        return view('back.products.create', compact('colorsSelect', 'categoriesSelect'));
+        $regularSizes = Size::regularSizes();
+        $shoeSizes = Size::shoeSizes();
+        $kidSizes = Size::kidSizes();
+        return view('back.products.create', compact('colorsSelect', 'categoriesSelect', 'regularSizes', 'shoeSizes', 'kidSizes'));
     }
 
     /**

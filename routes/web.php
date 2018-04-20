@@ -14,6 +14,7 @@
 use App\Photo;
 use App\Product;
 use App\Role;
+use App\Size;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
@@ -33,8 +34,7 @@ Route::get('backtest', function(){
 });
 
 Route::get('/test', function(){
-    $product = Product::findOrFail(1);
-    dd($product->thumbnail_path());
+    dd(Size::kidSizes());
 });
 
 Route::middleware(['back'])->group(function () {
@@ -44,6 +44,7 @@ Route::middleware(['back'])->group(function () {
 
     Route::resource('/admin/products', 'back\ProductController');
     Route::resource('/admin/categories', 'back\CategoryController');
+    Route::resource('/admin/users', 'back\UserController');
 
     Route::post('/dropzone', function(){
         $file = Input::file('file');
