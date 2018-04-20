@@ -19,6 +19,7 @@ class CreateStocksTable extends Migration
             $table->integer('size_id')->index();
             $table->integer('amount')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

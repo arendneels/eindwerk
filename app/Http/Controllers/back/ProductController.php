@@ -192,6 +192,47 @@ class ProductController extends Controller
             }
         }
 
+        //Sizes
+        $stocks = Stock::where('product_id', $product->id)->get();
+        $deletedStocks = Stock::onlyTrashed()->where('product_id', $product->id)->get();
+        $sizes = [];
+        $deletedSizes = [];
+        foreach($stocks as $stock){
+            array_push($sizes, $stock->size_id);
+        }
+        foreach($deletedStocks as $deletedStock){
+            array_push($deletedSizes, $deletedStock->size_id);
+        }
+
+        //Create size relationships via stock
+        if(isset($input['sizes'])) {
+            foreach ($input['sizes'] as $size_id) {
+                if (in_array($size_id, $deletedSizes)) {
+                    Stock::onlyTrashed()->where([
+                        ['product_id', '=', $product->id],
+                        ['size_id', '=', $size_id]
+                    ])->restore();
+                    array_push($sizes, $size_id);
+                }
+                if (!in_array($size_id, $sizes)) {
+                    $stock = ['product_id' => $product->id, 'size_id' => $size_id];
+                    Stock::create($stock);
+                }
+            }
+        }
+
+        //Soft delete unchecked relationships for stocks(sizes)
+        if(isset($input['sizes'])){
+            $inputSizes = $input['sizes'];
+        }else{
+            $inputSizes = [];
+        }
+        foreach($stocks as $stock){
+            if(!in_array($stock->size_id, $inputSizes)){
+                Stock::findOrFail($stock->id)->delete();
+            }
+        }
+
         return redirect('/admin/products');
     }
 
