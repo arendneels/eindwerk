@@ -193,7 +193,7 @@ class ProductController extends Controller
         }
 
         //Sizes
-        $stocks = Stock::where('product_id', $product->id)->get();
+        $stocks = $product->stocks;
         $deletedStocks = Stock::onlyTrashed()->where('product_id', $product->id)->get();
         $sizes = [];
         $deletedSizes = [];
@@ -244,7 +244,21 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);
+        //Delete Colors relationship
+        $product->colors()->detach();
+        //Delete Categories relationship
+        $product->categories()->detach();
+        //Delete Images from images file
+        foreach($product->photos as $photo){
+            File::delete(public_path(). '\\images\\'.$photo->name);
+        }
+        //Delete images from database
+        $product->photos()->delete();
+        //Soft delete stocks
+        $product->stocks()->delete();
+        //Soft delete product
+        $product->delete();
         return redirect()->back();
     }
 }
