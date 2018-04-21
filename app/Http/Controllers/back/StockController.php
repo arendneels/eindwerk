@@ -72,6 +72,9 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'add' => 'required',
+        ]);
         $stock = Stock::findOrFail($id);
         $input = $request->all();
         $stock->amount = $stock->amount + $input['add'];

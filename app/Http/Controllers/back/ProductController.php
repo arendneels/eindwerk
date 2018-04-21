@@ -4,6 +4,7 @@ namespace App\Http\Controllers\back;
 
 use App\Category;
 use App\Color;
+use App\Http\Requests\ProductRequest;
 use App\Photo;
 use App\Product;
 use App\Size;
@@ -47,7 +48,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         //Create new product
         $input = $request->all();
@@ -135,7 +136,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
 
         //Update product

@@ -20,6 +20,19 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Errors -->
+                            @if($errors->all())
+                                <ul class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        <!-- /Errors -->
+                        </div>
+                    </div>
+                    <div class="row">
                         <!-- Form -->
                         {!! Form::model($product, ['method' => 'PATCH', 'action' => ['back\ProductController@update', $product->id]]) !!}
                         <div class="col-lg-6">
@@ -111,16 +124,6 @@
                         </div>
                         {!! Form::close() !!}
                     <!-- /Form -->
-
-                        <!-- Errors -->
-                        @if($errors->all())
-                            <ul class="alert alert-danger">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                    @endif
-                    <!-- /Errors -->
                     </div>
                     <!-- /.row (nested) -->
                     <div class="row" style="margin-bottom:1rem;">

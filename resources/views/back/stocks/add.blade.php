@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Stock</h1>
+            <h1 class="page-header">Add Stock</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -25,7 +25,7 @@
                             <th>Size</th>
                             <th>Price</th>
                             <th>Amount</th>
-                            <th>Add</th>
+                            <th id="controls" style="width:150px;">Controls</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,11 +37,11 @@
                                 <td>{{ '€ ' . $stock->product->price }}</td>
                                 <td id="amount_{{ $stock->id }}">{{ $stock->amount }}</td>
                                 <td>
-                                    <form class="addForm" method="post" action="{{ route('testStock') }}">
+                                    <form class="addForm" method="post" action="#">
                                         {{ csrf_field() }}
                                         <input type="number" class="hidden addId" value="{{ $stock->id }}">
-                                        <input class="addInput" type="number" name="add">
-                                        <input type="submit">
+                                        <input class="addInput form-control" type="number" name="add" style="width:80px; margin-right:8px;">
+                                        <input type="submit" class="btn btn-success" value="Add">
                                     </form>
                                 </td>
                             </tr>
@@ -68,7 +68,7 @@
 
         //Make controls column smaller
         $('#dataTables-example').on( 'column-sizing.dt', function ( e, settings ) {
-            $('#controls').css('width',150);
+            $('#controls').css('width',120);
         } );
 
         //Prevent controls column to have sorting options
@@ -92,9 +92,6 @@
                 type:'patch',
                 data:$(this).serialize(),
                 success:function(response){
-                    console.log(response);
-                    console.log(response['add']);
-                    console.log(response['stock_id']);
                     $('#amount_' + response['id']).html(response['amount']);
                     $('.addInput').val(null).blur();
                 }

@@ -274,10 +274,10 @@
                         <a href="#"><i class="fa fa-archive fa-fw"></i> Stock<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ route('stocks.index') }}">All</a>
+                                <a href="{{ route('stocks.index') }}">View</a>
                             </li>
                             <li>
-                                <a href="{{ route('stocks.create') }}">Create New</a>
+                                <a href="{{ route('stocks.create') }}">Add</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
