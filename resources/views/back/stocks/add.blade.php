@@ -32,7 +32,7 @@
                         @foreach($stocks as $stock)
                             <tr>
                                 <td>{{ $stock->product->article_no }}</td>
-                                <td>{{ $stock->product->name }}</td>
+                                <td><a href="{{ route('stocks.show', $stock->id) }}">{{ $stock->product->name }}</a></td>
                                 <td>{{ $stock->size->name }}</td>
                                 <td>{{ '€ ' . $stock->product->price }}</td>
                                 <td id="amount_{{ $stock->id }}">{{ $stock->amount }}</td>
@@ -87,13 +87,14 @@
         //Add buttons
         $('.addForm').submit(function(e){
             e.preventDefault();
+            var form = $(this);
             $.ajax({
-                url:'/admin/stocks/' + $(this).children('.addId').val(),
+                url:'/admin/stocks/' + form.children('.addId').val(),
                 type:'patch',
-                data:$(this).serialize(),
+                data:form.serialize(),
                 success:function(response){
                     $('#amount_' + response['id']).html(response['amount']);
-                    $('.addInput').val(null).blur();
+                    form.children('.addInput').val(null).blur();
                 }
             });
         });

@@ -13,7 +13,12 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    &nbsp;
+                    @if(isset($category))
+                        Showing all products of category:
+                        {{ $category->name }}
+                        @else
+                        All products
+                    @endif
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

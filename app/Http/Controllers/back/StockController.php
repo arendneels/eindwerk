@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\back;
 
 use App\Stock;
+use App\Stocklog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -47,9 +49,13 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //Display Stocklog for individual stock (limit to last 50 entries)
     public function show($id)
     {
-        //
+        $stock = Stock::findOrFail($id);
+        $stocklogs = $stock->stocklogs()->limit(50)->get();
+        return view('back.stocks.show', compact('stock', 'stocklogs'));
     }
 
     /**
@@ -72,6 +78,7 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //Update stock
         $this->validate($request, [
             'add' => 'required',
         ]);
@@ -79,6 +86,13 @@ class StockController extends Controller
         $input = $request->all();
         $stock->amount = $stock->amount + $input['add'];
         $stock->update();
+        //Make Stocklog entry with new amount
+        $stocklog['add'] = $input['add'];
+        $stocklog['user_id'] = Auth::user()->id;
+        $stocklog['stock_id'] = $stock->id;
+        $stocklog['amount'] = $stock->amount;
+        Stocklog::create($stocklog);
+        //Return response
         return response()->json($stock);
     }
 

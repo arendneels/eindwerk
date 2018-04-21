@@ -50,7 +50,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $products = $category->products;
+        return view('back.products.index', compact('category','products'));
     }
 
     /**

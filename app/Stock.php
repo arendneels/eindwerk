@@ -22,4 +22,7 @@ class Stock extends Model
     public function size() {
         return $this->belongsTo('\App\Size');
     }
+    public function stocklogs() {
+        return $this->hasMany('\App\Stocklog')->orderBy('id', 'desc');
+    }
 }
