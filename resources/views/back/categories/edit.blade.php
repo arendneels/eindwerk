@@ -22,7 +22,7 @@
                             {!! Form::model($category, ['method' => 'PUT', 'action' => ['back\CategoryController@update', $category->id]]) !!}
                             <div class="form-group">
                                 {!! Form::label('name', 'Category Name') !!}
-                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::submit('Edit Category', ['class' => 'btn btn-primary']) !!}

@@ -23,6 +23,7 @@
                             <th>Id</th>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>E-mail</th>
                             <th>Country</th>
                             <th id="controls" style="width:150px;">Controls</th>
                         </tr>
@@ -33,6 +34,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->first_name }}</td>
                                 <td>{{ $user->last_name }}</td>
+                                <td>{{ $user->email }}</td>
                                 <td>{{ $user->country->name }}</td>
                                 <td class="row">
                                     <div class="col-sm-6">

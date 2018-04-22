@@ -22,7 +22,7 @@
                             {!! Form::open(['method' => 'POST', 'action' => ['back\CategoryController@store']]) !!}
                             <div class="form-group">
                                 {!! Form::label('name', 'Category Name') !!}
-                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::submit('Create Category', ['class' => 'btn btn-success']) !!}

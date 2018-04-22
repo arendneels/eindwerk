@@ -23,5 +23,11 @@ class RolesTableSeeder extends Seeder
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
+
+        DB::table('roles')->insert([
+            'name' => 'Stock Manager',
+            'created_at' => date_create(),
+            'updated_at' => date_create(),
+        ]);
     }
 }

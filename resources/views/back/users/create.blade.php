@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Edit User</h1>
+            <h1 class="page-header">Create User</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="row">
                         <!-- Form -->
-                        {!! Form::model($user, ['method' => 'PATCH', 'action' => ['back\UserController@update', $user->id]]) !!}
+                        {!! Form::open(['method' => 'POST', 'action' => ['back\UserController@store']]) !!}
                         <div class="col-lg-6">
                             <div class="form-group">
                                 {!! Form::label('first_name', 'First Name') !!}
@@ -50,7 +50,7 @@
                             </div>
                             <div class="form-group">
                                 {!! Form::label('password', 'Password') !!}
-                                {!! Form::password('password', ['class' => 'form-control']) !!}
+                                {!! Form::password('password', ['class' => 'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('phone', 'Phone Number') !!}
@@ -61,7 +61,7 @@
                                 <div id="sizes" class="col-lg-8" style="margin-bottom:16px;border:1px solid #ccc; border-radius:5px; padding-top:5px;">
                                     @foreach($allRoles as $role)
                                         <span style="margin-right:10px;">
-                                            <input class="rolesInput" name="roles[]" type="checkbox" value="{{ $role->id }}" {{ in_array($role->id, $roles)? "checked" : "" }}><label>{{ $role->name }}</label>
+                                            <input class="rolesInput" name="roles[]" type="checkbox" value="{{ $role->id }}" {{ $role->id == 1 ? "checked" : "" }}><label>{{ $role->name }}</label>
                                         </span>
                                     @endforeach
                                 </div>
@@ -70,7 +70,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 {!! Form::label('country', 'Country') !!}
-                                {!! Form::select('country_id', $countriesSelect, $user->country->id, ['class' => 'form-control']) !!}
+                                {!! Form::select('country_id', $countriesSelect, null, ['class' => 'form-control']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('postal_code', 'Postal Code') !!}
@@ -86,20 +86,20 @@
                                 {!! Form::text('address2', null,['class' => 'form-control' ,'style' => 'margin-top:8px;']) !!}
                             </div>
                             <div class="form-group text-right">
-                                {!! Form::submit('Edit User', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('Create User', ['class' => 'btn btn-success']) !!}
                             </div>
-                    {!! Form::close() !!}
-                    <!-- /Form -->
+                        {!! Form::close() !!}
+                        <!-- /Form -->
+                        </div>
+                        <!-- /.row (nested) -->
                     </div>
-                    <!-- /.row (nested) -->
+                    <!-- /.panel-body -->
                 </div>
-                <!-- /.panel-body -->
+                <!-- /.panel -->
             </div>
-            <!-- /.panel -->
+            <!-- /.col-lg-12 -->
         </div>
-        <!-- /.col-lg-12 -->
-    </div>
-    <!-- /.row -->
+        <!-- /.row -->
 @endsection
 
 @section('scripts')

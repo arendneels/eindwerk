@@ -38,15 +38,15 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 {!! Form::label('article_no', 'Article No.') !!}
-                                {!! Form::text('article_no', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('article_no', null, ['class' => 'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('name', 'Product Name') !!}
-                                {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('price', 'Price') !!}
-                                {!! Form::number('price', null,['class' => 'form-control','step'=>'0.01']) !!}
+                                {!! Form::number('price', null,['class' => 'form-control', 'step'=>'0.01', 'required']) !!}
                             </div>
                             <div class="form-group">
                                 <p><strong>Available Sizes&nbsp;</strong><span id="sizeUnit">{{$product->sizeUnits()}}</span></p>

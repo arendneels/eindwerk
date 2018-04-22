@@ -40,7 +40,7 @@
                                     <form class="addForm" method="post" action="#">
                                         {{ csrf_field() }}
                                         <input type="number" class="hidden addId" value="{{ $stock->id }}">
-                                        <input class="addInput form-control" type="number" name="add" style="width:80px; margin-right:8px;">
+                                        <input class="addInput form-control" type="number" name="add" style="width:80px; margin-right:8px;" required>
                                         <input type="submit" class="btn btn-success" value="Add">
                                     </form>
                                 </td>
