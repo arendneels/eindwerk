@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\back;
 
+use App\Country;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -59,7 +61,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $allRoles = Role::all();
+        $countriesSelect = Country::countriesSelect();
+        return view('back.users.edit', compact('user', 'allRoles', 'countriesSelect'));
     }
 
     /**

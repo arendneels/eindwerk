@@ -32,10 +32,10 @@
                         @foreach($stocks as $stock)
                             <tr>
                                 <td>{{ $stock->product->article_no }}</td>
-                                <td><a href="{{ route('stocks.show', $stock->id) }}">{{ $stock->product->name }}</a></td>
+                                <td>{{ $stock->product->name }}</td>
                                 <td>{{ $stock->size->name }}</td>
                                 <td>{{ '€ ' . $stock->product->price }}</td>
-                                <td id="amount_{{ $stock->id }}">{{ $stock->amount }}</td>
+                                <td id="amount_{{ $stock->id }}"><a href="{{ route('stocks.show', $stock->id) }}">{{ $stock->amount }}</a><span class="text-success" style="opacity:0"> Stock successfully added</span></td>
                                 <td>
                                     <form class="addForm" method="post" action="#">
                                         {{ csrf_field() }}
@@ -93,8 +93,13 @@
                 type:'patch',
                 data:form.serialize(),
                 success:function(response){
-                    $('#amount_' + response['id']).html(response['amount']);
+                    $('#amount_' + response['id']).children('a').html(response['amount']);
                     form.children('.addInput').val(null).blur();
+                    var successMsg = $('#amount_' + response['id']).children('span');
+                    successMsg.css('opacity', 1);
+                    setTimeout(function(){
+                        successMsg.animate({opacity: "0"}, 500)
+                    }, 1000);
                 }
             });
         });
