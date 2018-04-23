@@ -11,7 +11,7 @@ class Product extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'article_no', 'price'
+        'name', 'article_no', 'price', 'description'
     ];
 
     public function colors() {
@@ -22,8 +22,10 @@ class Product extends Model
         return $this->belongsToMany('\App\Category');
     }
 
+
     public function photos(){
-        return $this->hasMany('\App\Photo');
+        //Always return the thumbnail as first photo in the array
+        return $this->hasMany('\App\Photo')->orderBy('thumbnail', 'desc');
     }
 
     public function thumbnail(){
@@ -76,7 +78,7 @@ class Product extends Model
         }elseif($this->hasKidsCategory()){
             return '(Age)';
         }else{
-            return '';
+            return false;
         }
     }
 }

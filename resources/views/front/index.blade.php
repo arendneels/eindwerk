@@ -1,0 +1,43 @@
+@extends('layouts.front')
+
+@section('content')
+        <h1 class="text-center font-size-header animated fadeIn mt-7">HAZY SHADE OF SPRING</h1>
+        <p class="text-center font-size-subheader pb-5 text-grey2 animated fadeIn"><em>Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo.</em></p>
+        <div class="text-center p-3 p-md-4 animated fadeIn"><a href="#" class="border p-4">CHECK NEW ARRIVALS</a></div>
+        <!--IMAGEBOARD!-->
+        <div class="row no-gutters py-6 py-md-7">
+            <div class="col-md-3 bg-test d-flex flex-column">
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightlg w-100" alt=""></a>
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+            </div>
+            <div class="col-md-3 bg-test d-flex flex-column">
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+            </div>
+            <div class="col-md-3 bg-test d-flex flex-column">
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+            </div>
+            <div class="col-md-3 bg-test d-flex flex-column">
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
+                <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightlg w-100" alt=""></a>
+            </div>
+        </div>
+        <!--EMAIL SIGN UP!-->
+        <form action="#" method="post" class="text-center py-5">
+            <h2>SIGN UP TO RECEIVE OUR UPDATES</h2>
+            <em class="text-grey2">Nulla ipsum dolor lacus, suscipit adipiscing. Cum sociis natoque penatibus et ultrices volutpat.</em>
+            <div class="row justify-content-center py-4">
+                <div class="col-12 col-md-9 col-lg-6">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your e-mail" aria-label="Your e-mail">
+                        <div class="input-group-append">
+                            <button class="btn btn-orange text-white" type="submit">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+@endsection

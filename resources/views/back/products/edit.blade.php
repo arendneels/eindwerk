@@ -49,14 +49,8 @@
                                 {!! Form::number('price', null,['class' => 'form-control', 'step'=>'0.01', 'required']) !!}
                             </div>
                             <div class="form-group">
-                                <p><strong>Available Sizes&nbsp;</strong><span id="sizeUnit">{{$product->sizeUnits()}}</span></p>
-                                <div id="sizes" class="col-lg-8" style="margin-bottom:16px;border:1px solid #ccc; border-radius:5px; padding-top:5px;">
-                                    @foreach($currentSizes as $currentSize)
-                                        <span style="margin-right:10px;">
-                                            <input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $currentSize->id }}"{{ in_array($currentSize->id, $sizes) ? " checked" : ""}}><label>{{ $currentSize->name }}</label>
-                                        </span>
-                                    @endforeach
-                                </div>
+                                {!! Form::label('description', 'Description') !!}
+                                {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '5']) !!}
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -89,6 +83,17 @@
                             <a href="#" onclick="event.preventDefault(); addColor('divColor')">Add Color</a>
                             &nbsp;
                             <a href="#" onclick="event.preventDefault(); removeColor()">Remove Color</a>
+
+                            <div class="form-group pt-4">
+                                <p><strong>Available Sizes&nbsp;</strong><span id="sizeUnit">{{$product->sizeUnits()? $product->sizeUnits() : ""}}</span></p>
+                                <div id="sizes" style="margin-bottom: 16px; border:1px solid #ccc; border-radius:5px; padding-top:5px; padding-left:10px; max-width:300px;">
+                                    @foreach($currentSizes as $currentSize)
+                                        <span style="margin-right:10px;">
+                                            <input class="sizesInput" name="sizes[]" type="checkbox" value="{{ $currentSize->id }}"{{ in_array($currentSize->id, $sizes) ? " checked" : ""}}><label>{{ $currentSize->name }}</label>
+                                        </span>
+                                    @endforeach
+                                </div>
+                            </div>
 
                             <div id="image_info">
                                 <input id="imageCounter" name="images_amt" type="number" class="hidden" value="0">

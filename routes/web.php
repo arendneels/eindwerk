@@ -19,10 +19,9 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 
-Route::get('/', function () {
-    $users = User::all();
-    return view('welcome', compact('users'));
-});
+Route::get('/', 'FrontController@index')->name('index');
+Route::get('/product/{id}', 'FrontController@productdetail')->name('productdetail');
+Route::get('/about', 'FrontController@about')->name('about');
 
 Route::get('/producttest', function(){
     $products = Product::all();
