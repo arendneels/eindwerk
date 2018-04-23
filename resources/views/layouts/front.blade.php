@@ -38,11 +38,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('about') }}">About</a>
                     </li>
+                    @if(Auth::user() && Auth::user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin') }}">Admin</a>
+                        </li>
+                    @endif
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="{{ route('login') }}" class="nav-link"><span class="fas fa-user"></span>&nbsp;Log In</a>
-                    </li>
+                    @if(Auth::user())
+                        <li class="nav-item">
+                            <span class="navbar-text">
+                                <span class="fas fa-user"></span>
+                                &nbsp;Hi,&nbsp;{{ Auth::user()->first_name }}&nbsp;(
+                                <a class="text-orange" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>)
+                            </span>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a href="{{ route('login') }}" class="nav-link"><span class="fas fa-user"></span>&nbsp;Log In</a>
+                        </li>
+                    @endif
                     <li id="basket" class="nav-item position-relative ml-lg-2 border border-white border-bottom-0">
                         <a href="shoppingcart.html" class="nav-link"><span class="fas fa-shopping-basket"></span>&nbsp;Basket (2)</a>
                         <!--BASKET HOVER MENU!-->
@@ -98,78 +116,39 @@
                     <div class="carousel-item active">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
+                                @foreach(session('lookbook1') as $product)
+                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0 text-center">
+                                    <a href="{{ route('productdetail', $product->id) }}" class="">
+                                        <img class="w-auto" src="{{$product->thumbnail() ? $product->thumbnail()->path() : ''}}" alt="" style="height:100px; max-width:100%;">
                                     </a>
                                 </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-sm-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-sm-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
+                                @foreach(session('lookbook2') as $product)
+                                    <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0 text-center">
+                                        <a href="{{ route('productdetail', $product->id) }}" class="">
+                                            <img class="w-auto" src="{{$product->thumbnail() ? $product->thumbnail()->path() : ''}}" alt="" style="height:100px; max-width:100%;">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12 mb-1 mb-sm-0">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-12">
-                                    <a href="detail.html" class="">
-                                        <img class="w-100 h-100" src="http://via.placeholder.com/350x150" alt="">
-                                    </a>
-                                </div>
+                                @foreach(session('lookbook3') as $product)
+                                    <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0 text-center">
+                                        <a href="{{ route('productdetail', $product->id) }}" class="">
+                                            <img src="{{$product->thumbnail() ? $product->thumbnail()->path() : ''}}" alt="" style="height:100px; max-width:100%;">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -210,10 +189,10 @@
             <div class="col-sm-3 border-right">
                 <p class="font-size-footer mb-1"><strong>SHOP</strong></p>
                 <ul>
-                    <li><a href="about.html">About us</a></li>
+                    <li><a href="{{ route('about') }}">About us</a></li>
                     <li><a href="#">Shipping Methods</a></li>
                     <li><a href="#">Career</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="{{ route('contact') }}">Contact</a></li>
                 </ul>
             </div>
             <div class="col-sm-3">

@@ -18,10 +18,17 @@ use App\Size;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
-
-Route::get('/', 'FrontController@index')->name('index');
-Route::get('/product/{id}', 'FrontController@productdetail')->name('productdetail');
-Route::get('/about', 'FrontController@about')->name('about');
+Route::group([],function(){
+    $lookbook = Product::lookbook();
+    $lookbook1 = array_slice($lookbook, 0, 4);
+    $lookbook2 = array_slice($lookbook, 4,4);
+    $lookbook3 = array_slice($lookbook, 8, 4);
+    session(compact('lookbook1', 'lookbook2', 'lookbook3'));
+    Route::get('/', 'FrontController@index')->name('index');
+    Route::get('/product/{id}', 'FrontController@productdetail')->where('id', '[0-9]+')->name('productdetail');
+    Route::get('/about', 'FrontController@about')->name('about');
+    Route::get('/contact', 'FrontController@contact')->name('contact');
+});
 
 Route::get('/producttest', function(){
     $products = Product::all();

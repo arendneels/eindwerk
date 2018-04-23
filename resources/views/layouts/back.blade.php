@@ -30,7 +30,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('admin') }}">HAZY</a>
+            <a class="navbar-brand" href="{{ route('index') }}">HAZY</a>
         </div>
         <!-- /.navbar-header -->
 
