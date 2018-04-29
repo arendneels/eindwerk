@@ -83,9 +83,9 @@
         })
 
         $('.sizeBtn').click(function(){
-            $('.sizeBtn').removeClass('bg-success');
+            $('.sizeBtn').removeClass('bg-orange').addClass('text-grey2');
             $('#errorMsg').addClass('d-none');
-            $(this).addClass('bg-success');
+            $(this).addClass('bg-orange text-white').removeClass('text-grey2');
             var stock_id = $(this).val();
             $('#addForm').attr('action', '/cartadd/'+stock_id);
         });

@@ -92,6 +92,8 @@ class CartController extends Controller
         $row = Cart::add($id, $stock->product->name, 1, $stock->product->price)->associate('App\Stock');
         if($row->qty > $stock->amount){
             Cart::update($row->rowId, $row->qty - 1);
+            $errorMsg = "Insufficient stock of " . $row->name . ", please order more later";
+            return view('front.cart', compact('errorMsg'));
         }
         return redirect('/cart');
     }

@@ -3,6 +3,13 @@
 @section('content')
     <h1 class="text-center">YOUR SHOPPING BAG</h1>
     <p class="text-center pb-2 text-grey2"><i>Items reserved for limited time only</i></p>
+    @if(isset($errorMsg))
+    <div class="row justify-content-center">
+        <span class="col-auto alert alert-danger">
+            {{ $errorMsg }}
+        </span>
+    </div>
+    @endif
     <!--SHOPPING CART TABLE!-->
     <table class="w-100 font-size1 table table-striped table-responsive-sm">
         <thead>
@@ -61,10 +68,10 @@
     </table>
     @if(Cart::content()->count() == 0)
         <p class="text-center">There are currently no items in your shopping cart</p>
-    @endif
-    <div class="divider"></div>
-
-    @if(!Auth::user())
+        <div class="divider"></div>
+        @else
+        <div class="divider"></div>
+        @if(!Auth::user())
     <!--USER INFO FORM -->
     <form action="#" class="text-grey2">
         <h2 class="text-center pt-5 text-black">SHIPPING ADDRESS</h2>
@@ -127,7 +134,7 @@
         <div class="divider my-5"></div>
         <img class="d-block mx-auto" src="{{ asset('images/shape1.png') }}" alt="">
         <div class="divider my-5"></div>
-        @endif
+            @endif
 
         <!--Payment options-->
         <h2 class="text-center pt-5 text-black">PAYMENT OPTIONS</h2>
@@ -148,6 +155,7 @@
             <a href="#" class="btn btn-orange text-white px-5 py-2">ORDER NOW</a>
         </div>
     </form>
+    @endif
     <div class="divider my-5"></div>
     <p class="text-center font-size-subheader pb-4 mb-0 text-gray2"><em>Check our lookbook</em></p>
 @endsection
