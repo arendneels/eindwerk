@@ -89,17 +89,16 @@ class CartController extends Controller
 
     public function add($id){
         $stock = Stock::findOrFail($id);
-        Cart::add($id, $stock->product->name, 1, $stock->product->price)->associate('App\Stock');
+        $row = Cart::add($id, $stock->product->name, 1, $stock->product->price)->associate('App\Stock');
+        if($row->qty > $stock->amount){
+            Cart::update($row->rowId, $row->qty - 1);
+        }
         return redirect('/cart');
     }
 
     public function remove($rowId){
         $currentQty = Cart::get($rowId)->qty;
-        if($currentQty >1){
-            Cart::update($rowId, $currentQty-1);
-        }else{
-            Cart::remove($rowId);
-        }
+        Cart::update($rowId, $currentQty - 1);
         return redirect('/cart');
     }
 }

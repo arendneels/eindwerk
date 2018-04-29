@@ -71,8 +71,16 @@
                                     <tbody class="">
                                     @foreach(Cart::content() as $row)
                                     <tr class="border-bottom">
-                                        <td class="py-3 text-center"><img src="{{ $row->model->product->thumbnail_path() }}" class="img-history" alt=""></td>
-                                        <td class="py-2"><strong>{{ $row->name }}</strong></td>
+                                        <td class="py-3 text-center">
+                                            <a href="{{ route('productdetail', $row->model->product->id) }}">
+                                                <img src="{{ $row->model->product->thumbnail_path() }}" class="img-history" alt="">
+                                            </a>
+                                        </td>
+                                        <td class="py-2">
+                                            <a href="{{ route('productdetail', $row->model->product->id) }}">
+                                                <strong>{{ $row->name }}</strong>
+                                            </a>
+                                        </td>
                                         <td>&euro;&nbsp;{{ $row->price }}</td>
                                         <td>
                                             @if($row->qty > 1)

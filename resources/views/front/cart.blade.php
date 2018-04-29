@@ -20,11 +20,15 @@
         @foreach(Cart::content() as $row)
             <tr>
                 <td class="text-center align-middle">
-                    <img src="{{ $row->model->product->thumbnail_path() }}" alt="" class="img-cart">
+                    <a href="{{ route('productdetail', $row->model->product->id) }}">
+                        <img src="{{ $row->model->product->thumbnail_path() }}" alt="" class="img-cart">
+                    </a>
                 </td>
                 <td class="align-middle">
+                    <a href="{{ route('productdetail', $row->model->product->id) }}">
                     <p class="mb-0"><strong>{{ $row->name }}</strong>
                         <br><i class="text-grey2">Ref.&nbsp;{{ $row->model->product->article_no }}</i></p>
+                    </a>
                 </td>
                 <td class="align-middle">
                     @foreach($row->model->product->colors as $key=>$color)
@@ -34,7 +38,7 @@
                         {{ $color->name }}
                     @endforeach
                 </td>
-                <td class="align-middle">{{ $row->model->size->name }}</td>
+                <td class="align-middle">{{ $row->model->size->name }}{{ "&nbsp;" . $row->model->product->sizeUnits() }}</td>
                 <td class="align-middle">
                     <span class="pr-1">{{ $row->qty }}</span>
                         <a href="{{ route('cartadd', $row->id) }}"><span class="fa fa-plus"></span></a>

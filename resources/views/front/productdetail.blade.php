@@ -31,7 +31,7 @@
     </div>
     <!--DETAIL DATA!-->
     <h1 class="text-center py-3 py-lg-5 fs-21">{{ $product->name }}</h1>
-    <p class="text-center pb-2 fs-7"><em>Article number: {{ $product->article_no }}</em></p>
+    <p class="text-center pb-2 fs-7"><em>Ref:&nbsp;{{ $product->article_no }}</em></p>
     <p class="text-center pb-2 fs-11"><em>&euro;&nbsp;{{ $product->price }}</em></p>
     <div class="row justify-content-center">
         <div class="text-center col-12 col-lg-7">
