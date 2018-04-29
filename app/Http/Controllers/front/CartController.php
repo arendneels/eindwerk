@@ -92,4 +92,14 @@ class CartController extends Controller
         Cart::add($id, $stock->product->name, 1, $stock->product->price)->associate('App\Stock');
         return redirect('/cart');
     }
+
+    public function remove($rowId){
+        $currentQty = Cart::get($rowId)->qty;
+        if($currentQty >1){
+            Cart::update($rowId, $currentQty-1);
+        }else{
+            Cart::remove($rowId);
+        }
+        return redirect('/cart');
+    }
 }

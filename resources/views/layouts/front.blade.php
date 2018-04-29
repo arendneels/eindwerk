@@ -62,30 +62,44 @@
                         </li>
                     @endif
                     <li id="basket" class="nav-item position-relative ml-lg-2 border border-white border-bottom-0">
-                        <a href="shoppingcart.html" class="nav-link"><span class="fas fa-shopping-basket"></span>&nbsp;Basket (2)</a>
+                        <a href="{{ route('cart') }}" class="nav-link"><span class="fas fa-shopping-basket"></span>&nbsp;Basket ({{ Cart::content()->count() }})</a>
                         <!--BASKET HOVER MENU!-->
                         <div id="hover-cart" class="position-absolute bg-white border" style="display:none; right:-1px;">
                             <div class="mx-3">
+                                @if(Cart::content()->count() > 0)
                                 <table class="table-width-hover">
                                     <tbody class="">
+                                    @foreach(Cart::content() as $row)
                                     <tr class="border-bottom">
-                                        <td class="py-3"><img src="http://via.placeholder.com/350x150" class="img-history" alt=""></td>
-                                        <td class="py-2"><strong>FLORAL PLIMSSOLL</strong></td>
-                                        <td>&euro;99.95</td>
-                                        <td><a href="#"><span class="fas fa-times"></span></a></td>
+                                        <td class="py-3 text-center"><img src="{{ $row->model->product->thumbnail_path() }}" class="img-history" alt=""></td>
+                                        <td class="py-2"><strong>{{ $row->name }}</strong></td>
+                                        <td>&euro;&nbsp;{{ $row->price }}</td>
+                                        <td>
+                                            @if($row->qty > 1)
+                                            Qty:&nbsp;{{ $row->qty }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="#" onclick="event.preventDefault();document.getElementById('deleteForm{{$row->id}}').submit();">
+                                                <span class="fas fa-times"></span>
+                                            </a>
+                                            <!-- Form -->
+                                            {!! Form::open(['method' => 'DELETE', 'action' => ['front\CartController@destroy', $row->rowId], 'class' => 'col-sm-6', 'id' => 'deleteForm'.$row->id]) !!}
+                                            {!! Form::submit('Delete', ['class' => 'd-none']) !!}
+                                            {!! Form::close() !!}
+                                            <!-- /Form -->
+                                        </td>
                                     </tr>
-                                    <tr class="border-bottom">
-                                        <td class="py-3"><img src="http://via.placeholder.com/350x150" class="img-history" alt=""></td>
-                                        <td class="py-2"><strong>FLORAL PLIMSSOLL</strong></td>
-                                        <td>&euro;99.95</td>
-                                        <td><a href="#"><span class="fas fa-times"></span></a></td>
-                                    </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                                 <div class="py-3 d-flex justify-content-between">
-                                    <p class="mb-0"><strong>Subtotal: </strong><span class="text-orange">&euro;567.95</span></p>
-                                    <a href="shoppingcart.html" class="btn btn-orange text-white fs-7">CHECKOUT</a>
+                                    <p class="mb-0"><strong>Subtotal: </strong><span class="text-orange">&euro;&nbsp;{{ Cart::subtotal() }}</span></p>
+                                    <a href="{{ route('cart') }}" class="btn btn-orange text-white fs-7">CHECKOUT</a>
                                 </div>
+                                @else
+                                    <p class="m-3 text-grey2" style="width:250px;">There are currently no items in your shopping cart</p>
+                                @endif
                             </div>
                         </div>
                     </li>

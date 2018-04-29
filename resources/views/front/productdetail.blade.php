@@ -49,17 +49,24 @@
     <div class="row justify-content-center py-3">
         @foreach($product->stocks as $stock)
             @if($stock->amount <= 0)
-                <button class="btn btn-size mx-1 text-grey2" value="{{ $stock->id }}" disabled>{{ $stock->size->name }}*</button>
+                <button class="btn btn-size mx-1 text-grey2 sizeBtn" value="{{ $stock->id }}" disabled>{{ $stock->size->name }}*</button>
             @else
-                <button class="btn btn-size mx-1 text-grey2" value="{{ $stock->id }}">{{ $stock->size->name }}</button>
+                <button class="btn btn-size mx-1 text-grey2 sizeBtn" value="{{ $stock->id }}">{{ $stock->size->name }}</button>
             @endif
         @endforeach
     </div>
     @if($hasSizesOutOfStock)
         <p class="text-center fs-7 text-grey2">*&nbsp;Currently out of stock</p>
     @endif
+    <div id="errorMsg" class="row justify-content-center d-none">
+        <div class="col-auto alert alert-danger text-center">
+            Please choose a size
+        </div>
+    </div>
     <div class="row justify-content-center">
-        <a href="#" class="btn btn-orange text-white px-5 py-2">ADD TO CART</a>
+        <form id="addForm" action="">
+            <button id="addButton" type="submit" class="btn btn-orange text-white px-5 py-2">ADD TO CART</button>
+        </form>
     </div>
     <div class="divider my-5"></div>
     <p class="text-center font-size-subheader pb-4 mb-0">Check our lookbook</p>
@@ -67,4 +74,20 @@
 
 @section('scripts')
     <script src="{{ asset('js/lightbox.min.js') }}"></script>
+    <script>
+        $('#addButton').click(function(e){
+            if($('#addForm').attr('action') == "") {
+                e.preventDefault();
+                $('#errorMsg').removeClass('d-none');
+            }
+        })
+
+        $('.sizeBtn').click(function(){
+            $('.sizeBtn').removeClass('bg-success');
+            $('#errorMsg').addClass('d-none');
+            $(this).addClass('bg-success');
+            var stock_id = $(this).val();
+            $('#addForm').attr('action', '/cartadd/'+stock_id);
+        });
+    </script>
 @endsection

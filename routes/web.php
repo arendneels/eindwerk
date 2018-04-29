@@ -28,9 +28,10 @@ Route::group([],function(){
     Route::get('/product/{id}', 'FrontController@productdetail')->where('id', '[0-9]+')->name('productdetail');
     Route::get('/about', 'FrontController@about')->name('about');
     Route::get('/contact', 'FrontController@contact')->name('contact');
-    Route::get('/cart', 'front\CartController@index');
+    Route::get('/cart', 'front\CartController@index')->name('cart');
     Route::delete('/cart/{rowId}', 'front\CartController@destroy');
-    Route::get('/cartadd/{id}', 'front\CartController@add');
+    Route::get('/cartadd/{id}', 'front\CartController@add')->name('cartadd');
+    Route::get('/cartremove/{id}', 'front\CartController@remove')->name('cartremove');
 });
 
 Route::get('/producttest', function(){

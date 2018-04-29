@@ -19,14 +19,14 @@
         <tbody>
         @foreach(Cart::content() as $row)
             <tr>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <img src="{{ $row->model->product->thumbnail_path() }}" alt="" class="img-cart">
                 </td>
-                <td>
+                <td class="align-middle">
                     <p class="mb-0"><strong>{{ $row->name }}</strong>
                         <br><i class="text-grey2">Ref.&nbsp;{{ $row->model->product->article_no }}</i></p>
                 </td>
-                <td>
+                <td class="align-middle">
                     @foreach($row->model->product->colors as $key=>$color)
                         @if($key >= 1)
                             {{ "/" }}
@@ -34,10 +34,14 @@
                         {{ $color->name }}
                     @endforeach
                 </td>
-                <td>{{ $row->model->size->name }}</td>
-                <td>{{ $row->qty }}</td>
-                <td>&euro;&nbsp;{{ $row->price }}</td>
-                <td class="text-center">
+                <td class="align-middle">{{ $row->model->size->name }}</td>
+                <td class="align-middle">
+                    <span class="pr-1">{{ $row->qty }}</span>
+                        <a href="{{ route('cartadd', $row->id) }}"><span class="fa fa-plus"></span></a>
+                        <a href="{{ route('cartremove', $row->rowId) }}"><span class="fa fa-minus"></span></a>
+                </td>
+                <td class="align-middle">&euro;&nbsp;{{ $row->price }}</td>
+                <td class="text-center align-middle">
                     <a href="#" onclick="event.preventDefault();document.getElementById('deleteForm{{$row->id}}').submit();">
                         <span class="fas fa-times"></span>
                     </a>
@@ -124,9 +128,9 @@
         <!--Payment options-->
         <h2 class="text-center pt-5 text-black">PAYMENT OPTIONS</h2>
         <p class="text-center pb-3"><i>All fields are required</i></p>
-        <p class="text-center">Subtotal:&nbsp;&nbsp;<i>&euro;{{ Cart::total() }}</i></p>
-        <p class="text-center">Subtotal:&nbsp;&nbsp;<i>&euro;15.00</i></p>
-        <p class="text-center text-orange pb-4">Subtotal:&nbsp;&nbsp;<i>&euro;{{ Cart::total() + 15.00 }}</i></p>
+        <p class="text-center">Subtotal:&nbsp;&nbsp;<i>&euro;{{ Cart::subtotal() }}</i></p>
+        <p class="text-center">Shipping:&nbsp;&nbsp;<i>&euro;15.00</i></p>
+        <p class="text-center text-orange pb-4">Total:&nbsp;&nbsp;<i>&euro;{{ Cart::subtotal() }}</i></p>
         <div class="row justify-content-center pb-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
                 <label for="payment-method">SELECT PAYMENT METHOD</label>
