@@ -64,7 +64,7 @@
                     <li id="basket" class="nav-item position-relative ml-lg-2 border border-white border-bottom-0">
                         <a href="shoppingcart.html" class="nav-link"><span class="fas fa-shopping-basket"></span>&nbsp;Basket (2)</a>
                         <!--BASKET HOVER MENU!-->
-                        <div id="hover-cart" class="position-absolute bg-white right-0 border" style="display:none;">
+                        <div id="hover-cart" class="position-absolute bg-white border" style="display:none; right:-1px;">
                             <div class="mx-3">
                                 <table class="table-width-hover">
                                     <tbody class="">

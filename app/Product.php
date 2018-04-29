@@ -82,6 +82,15 @@ class Product extends Model
         }
     }
 
+    public function hasSizesOutOfStock(){
+        $amt_array = $this->stocks()->pluck('amount')->all();
+        if(in_array(0, $amt_array)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     //Function returns an array of 12 products for the lookbook (12 newest items added)
     public static function lookbook(){
         return self::orderBy('created_at', 'desc')->limit(12)->get()->all();

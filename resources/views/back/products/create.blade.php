@@ -170,37 +170,7 @@
         var categoryCounter = 1;
         var categoryLimit = 3;
 
-        function addColor(divName){
-            if (colorCounter == colorLimit)  {
-                alert("You have reached the limit of adding " + colorCounter + " colors");
-            }
-            else {
-                var newdiv = document.createElement('div');
-                newdiv.classList.add("form-group");
-                result = "<select id='color_id" + (colorCounter+1) + "' name='color_id" + (colorCounter+1) + "' class='form-control'>";
-                @foreach($colorsSelect as $key=>$value)
-                    result = result.concat("<option value='{{$key}}'>{{$value}}</option>");
-                @endforeach
-                    result = result.concat("</select>");
-                newdiv.innerHTML = result;
-                document.getElementById(divName).appendChild(newdiv);
-                colorCounter++;
-                $('#colors_amt').attr('value', colorCounter);
-            }
-        }
-        function removeColor(){
-            if(colorCounter == 1){
-                alert("You have to pick at least 1 color");
-            }else{
-                var id = '#color_id' + colorCounter;
-                var amt = '#colors_amt';
-
-                $(id).remove();
-                colorCounter--;
-                $(amt).attr('value', colorCounter);
-            }
-        }
-
+        //Categories
         function addCategory(divName){
             if (categoryCounter == categoryLimit)  {
                 alert("You have reached the limit of adding " + categoryCounter + " categories");
@@ -230,6 +200,38 @@
                 categoryCounter--;
                 $(amt).attr('value', categoryCounter);
                 setSizes();
+            }
+        }
+
+        //Colors
+        function addColor(divName){
+            if (colorCounter == colorLimit)  {
+                alert("You have reached the limit of adding " + colorCounter + " colors");
+            }
+            else {
+                var newdiv = document.createElement('div');
+                newdiv.classList.add("form-group");
+                result = "<select id='color_id" + (colorCounter+1) + "' name='color_id" + (colorCounter+1) + "' class='form-control'>";
+                @foreach($colorsSelect as $key=>$value)
+                    result = result.concat("<option value='{{$key}}'>{{$value}}</option>");
+                @endforeach
+                    result = result.concat("</select>");
+                newdiv.innerHTML = result;
+                document.getElementById(divName).appendChild(newdiv);
+                colorCounter++;
+                $('#colors_amt').attr('value', colorCounter);
+            }
+        }
+        function removeColor(){
+            if(colorCounter == 1){
+                alert("You have to pick at least 1 color");
+            }else{
+                var id = '#color_id' + colorCounter;
+                var amt = '#colors_amt';
+
+                $(id).remove();
+                colorCounter--;
+                $(amt).attr('value', colorCounter);
             }
         }
 

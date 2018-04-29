@@ -48,9 +48,16 @@
     </p>
     <div class="row justify-content-center py-3">
         @foreach($product->stocks as $stock)
-        <button class="btn btn-size mx-1 text-grey2">{{ $stock->size->name }}</button>
+            @if($stock->amount <= 0)
+                <button class="btn btn-size mx-1 text-grey2" value="{{ $stock->id }}" disabled>{{ $stock->size->name }}*</button>
+            @else
+                <button class="btn btn-size mx-1 text-grey2" value="{{ $stock->id }}">{{ $stock->size->name }}</button>
+            @endif
         @endforeach
     </div>
+    @if($hasSizesOutOfStock)
+        <p class="text-center fs-7 text-grey2">*&nbsp;Currently out of stock</p>
+    @endif
     <div class="row justify-content-center">
         <a href="#" class="btn btn-orange text-white px-5 py-2">ADD TO CART</a>
     </div>

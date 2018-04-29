@@ -13,7 +13,8 @@ class FrontController extends Controller
 
     public function productdetail($id){
         $product = Product::findOrFail($id);
-        return view('front.productdetail', compact('product'));
+        $hasSizesOutOfStock = $product->hasSizesOutOfStock();
+        return view('front.productdetail', compact('product', 'hasSizesOutOfStock'));
     }
 
     public function about(){
