@@ -6,9 +6,8 @@
     <section class="mb-5 mb-lg-5">
         <h2 class="text-center">
             {{ $category1->name }}
-            {{ isset($category2) ? "/ " . $category2->name : "" }}
         </h2>
-        <p class="text-center pb-2 text-grey2"><i>All products</i></p>
+        <p class="text-center pb-2 text-grey2"><i>{{ isset($category2) ? $category2->name : "All products" }}</i></p>
         <!--SEARCH FILTER!-->
         <div class="row justify-content-center pb-4 pb-lg-5">
             <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">

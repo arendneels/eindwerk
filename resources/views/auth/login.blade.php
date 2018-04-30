@@ -49,7 +49,7 @@
             <div class="row justify-content-center">
                 <input type="submit" class="btn btn-orange text-white font-size2 px-5" value="LOG IN">
             </div>
-            <p class="font-size1 text-center py-2"><a href="#" class="text-orange">I don't have an account</a></p>
+            <p class="font-size1 text-center py-2"><a href="{{ route('register') }}" class="text-orange">I don't have an account</a></p>
         </form>
     </div>
 </main>

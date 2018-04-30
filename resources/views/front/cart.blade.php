@@ -25,27 +25,32 @@
         </thead>
         <tbody>
         @foreach(Cart::content() as $row)
+            <?php
+                //Place queries in variables to reduct amount of queries
+                $model = $row->model;
+                $product = $model->product;
+            ?>
             <tr>
                 <td class="text-center align-middle">
-                    <a href="{{ route('productdetail', $row->model->product->id) }}">
-                        <img src="{{ $row->model->product->thumbnail_path() }}" alt="" class="img-cart">
+                    <a href="{{ route('productdetail', $product->id) }}">
+                        <img src="{{ $product->thumbnail_path() }}" alt="" class="img-cart">
                     </a>
                 </td>
                 <td class="align-middle">
-                    <a href="{{ route('productdetail', $row->model->product->id) }}">
+                    <a href="{{ route('productdetail', $product->id) }}">
                     <p class="mb-0"><strong>{{ $row->name }}</strong>
-                        <br><i class="text-grey2">Ref.&nbsp;{{ $row->model->product->article_no }}</i></p>
+                        <br><i class="text-grey2">Ref.&nbsp;{{ $product->article_no }}</i></p>
                     </a>
                 </td>
                 <td class="align-middle">
-                    @foreach($row->model->product->colors as $key=>$color)
+                    @foreach($product->colors as $key=>$color)
                         @if($key >= 1)
                             {{ "/" }}
                         @endif
                         {{ $color->name }}
                     @endforeach
                 </td>
-                <td class="align-middle">{{ $row->model->size->name }}{{ "&nbsp;" . $row->model->product->sizeUnits() }}</td>
+                <td class="align-middle">{{ $model->size->name }}{{ "&nbsp;" . $product->sizeUnits() }}</td>
                 <td class="align-middle">
                     <span class="pr-1">{{ $row->qty }}</span>
                         <a href="{{ route('cartadd', $row->id) }}"><span class="fa fa-plus"></span></a>

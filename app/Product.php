@@ -29,13 +29,10 @@ class Product extends Model
     }
 
     public function thumbnail(){
-        if($this->photos->count() > 0) {
-            $thumbnail = $this->photos()->where('thumbnail', '=', true)->first();
-            if(isset($thumbnail)){
-                return $thumbnail;
-            }else{
-                return $this->photos()->first();
-            }
+        $photos = $this->photos;
+        if($photos->count() > 0) {
+            //Return first photo (query places thumbnail first, otherwise first picture will be taken as thumbnail)
+            return $photos->first();
         }else{
             return false;
         }

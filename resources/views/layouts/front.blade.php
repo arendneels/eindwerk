@@ -56,7 +56,12 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a href="{{ route('login') }}" class="nav-link"><span class="fas fa-user"></span>&nbsp;Log In</a>
+                            <a href="{{ route('login') }}" class="nav-link">
+                                <span class="fas fa-user"></span>&nbsp;Log In
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">&nbsp;Register</a>
                         </li>
                     @endif
                     <li id="basket" class="nav-item position-relative ml-lg-2 border border-white border-bottom-0">
@@ -68,14 +73,18 @@
                                 <table class="table-width-hover">
                                     <tbody class="">
                                     @foreach(Cart::content() as $row)
+                                    <?php
+                                        //Place queries in variables to reduct amount of queries
+                                        $product = $row->model->product;
+                                    ?>
                                     <tr class="border-bottom">
                                         <td class="py-3 text-center">
-                                            <a href="{{ route('productdetail', $row->model->product->id) }}">
-                                                <img src="{{ $row->model->product->thumbnail_path() }}" class="img-history" alt="">
+                                            <a href="{{ route('productdetail', $product->id) }}">
+                                                <img src="{{ $product->thumbnail_path() }}" class="img-history" alt="">
                                             </a>
                                         </td>
                                         <td class="py-2">
-                                            <a href="{{ route('productdetail', $row->model->product->id) }}">
+                                            <a href="{{ route('productdetail', $product->id) }}">
                                                 <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
@@ -139,7 +148,7 @@
                                 @foreach(session('lookbook1') as $product)
                                 <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0 text-center">
                                     <a href="{{ route('productdetail', $product->id) }}" class="">
-                                        <img class="w-auto" src="{{$product->thumbnail() ? $product->thumbnail()->path() : ''}}" alt="" style="height:100px; max-width:100%;">
+                                        <img class="w-auto" src="{{ $product->thumbnail_path() }}" alt="" style="height:100px; max-width:100%;">
                                     </a>
                                 </div>
                                 @endforeach
@@ -152,7 +161,7 @@
                                 @foreach(session('lookbook2') as $product)
                                     <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0 text-center">
                                         <a href="{{ route('productdetail', $product->id) }}" class="">
-                                            <img class="w-auto" src="{{$product->thumbnail() ? $product->thumbnail()->path() : ''}}" alt="" style="height:100px; max-width:100%;">
+                                            <img class="w-auto" src="{{ $product->thumbnail_path() }}" alt="" style="height:100px; max-width:100%;">
                                         </a>
                                     </div>
                                 @endforeach
@@ -165,7 +174,7 @@
                                 @foreach(session('lookbook3') as $product)
                                     <div class="col-md-3 col-sm-6 col-12 mb-1 mb-md-0 text-center">
                                         <a href="{{ route('productdetail', $product->id) }}" class="">
-                                            <img src="{{$product->thumbnail() ? $product->thumbnail()->path() : ''}}" alt="" style="height:100px; max-width:100%;">
+                                            <img class="w-auto" src="{{ $product->thumbnail_path() }}" alt="" style="height:100px; max-width:100%;">
                                         </a>
                                     </div>
                                 @endforeach
