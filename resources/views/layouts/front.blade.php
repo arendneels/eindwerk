@@ -190,9 +190,9 @@
             <div class="col-sm-3 border-right">
                 <p class="font-size-footer mb-1"><strong>COLLECTION</strong></p>
                 <ul>
-                    <li><a href="#">Women (1725)</a></li>
-                    <li><a href="men.html">Men (635)</a></li>
-                    <li><a href="#">Kids (2514)</a></li>
+                    <li><a href="{{ route('categories', 2) }}">Women ({{ DB::table('category_product')->where('category_id', 2)->count() }})</a></li>
+                    <li><a href="{{ route('categories', 1) }}">Men ({{ DB::table('category_product')->where('category_id', 1)->count() }})</a></li>
+                    <li><a href="{{ route('categories', 3) }}">Kids ({{ DB::table('category_product')->where('category_id', 3)->count() }})</a></li>
                     <li><a href="#">Coming Soon (76)</a></li>
                 </ul>
             </div>

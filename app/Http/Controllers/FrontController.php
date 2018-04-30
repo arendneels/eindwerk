@@ -27,7 +27,19 @@ class FrontController extends Controller
             ->whereNotIn('category_id', [$mainCategory->id])
             ->pluck('category_id');
         $categories = Category::whereIn('categories.id', $categoryIds)->paginate(4);
-        return view('front.allcat', compact('mainCategory', 'categories', 'productIds'));
+        return view('front.allcat', compact('mainCategory', 'categories', 'productIds', 'allProducts'));
+    }
+
+    public function products($category_id1, $category_id2 = null){
+        $category1 = Category::findOrFail($category_id1);
+        $productIds = $category1->products()->pluck('products.id')->all();
+        if($category_id2){
+            $category2 = Category::findOrFail($category_id2);
+            $allProducts = $category2->products()->whereIn('products.id', $productIds)->paginate(20);
+            return view('front.allprod', compact('category1','category2', 'allProducts'));
+        }
+        $allProducts = $category1->products()->paginate(20);
+        return view('front.allprod', compact('category1', 'allProducts'));
     }
 
     public function about(){
