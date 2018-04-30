@@ -49,11 +49,8 @@
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
-                <label for="delivery-method">COUNTRY</label>
-                <select name="country_id" id="delivery-method" class="form-control form-control-sm" name="delivery-method">
-                    <option value="1">Poland</option>
-                    <option value="2">Belgium</option>
-                </select>
+                {!! Form::label('country_id', 'COUNTRY') !!}
+                {!! Form::select('country_id', $countriesSelect, null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">

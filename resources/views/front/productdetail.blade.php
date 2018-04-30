@@ -5,7 +5,21 @@
 @endsection
 
 @section('content')
-    <div class="text-grey2"><a href="index.html" class="text-grey2">HOME</a> / <a href="men.html" class="text-grey2">MEN</a> / <a href="#" class="text-grey2">SHOES</a> / <a href="detail.html" class="text-grey2">FLORAL PLIMSOLL</a></div>
+    <div class="text-grey2 text-uppercase">
+        <a href="{{ route('index') }}" class="text-grey2">Home</a>
+        <?php
+            $category_id_array = [];
+        ?>
+        @foreach($product->categories()->limit(2)->get() as $key => $category)
+            <?php
+                $category_id_array[$key] = $category->id;
+            ?>
+        <span>/</span>
+        <a href="{{ $key==0 ? route('categories', $category->id) : route('products', $category_id_array) }}" class="text-grey2">{{ $category->name }}</a>
+        @endforeach
+        <span>/</span>
+        <a href="#" class="text-grey2">{{ $product->name }}</a>
+    </div>
     <div class="row position-relative no-gutters pt-2 pt-md-3">
         <!--DETAIL IMAGE!-->
         <div id="img-holder" class="col-12">
@@ -30,7 +44,7 @@
             @endif
     </div>
     <!--DETAIL DATA!-->
-    <h1 class="text-center py-3 py-lg-5 fs-21">{{ $product->name }}</h1>
+    <h1 class="text-center py-3 py-lg-5 fs-21 text-uppercase">{{ $product->name }}</h1>
     <p class="text-center pb-2 fs-7"><em>Ref:&nbsp;{{ $product->article_no }}</em></p>
     <p class="text-center pb-2 fs-11"><em>&euro;&nbsp;{{ $product->price }}</em></p>
     <div class="row justify-content-center">

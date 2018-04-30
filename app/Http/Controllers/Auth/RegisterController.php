@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Country;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -69,5 +70,10 @@ class RegisterController extends Controller
     {
         $data['password'] = bcrypt($data['password']);
         return User::create($data);
+    }
+
+    protected function showRegistrationForm(){
+        $countriesSelect = Country::countriesSelect();
+        return view('auth.register', compact('countriesSelect'));
     }
 }

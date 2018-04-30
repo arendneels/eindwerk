@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                {!! Form::label('country', 'Country') !!}
+                                {!! Form::label('country_id', 'Country') !!}
                                 {!! Form::select('country_id', $countriesSelect, null, ['class' => 'form-control']) !!}
                             </div>
                             <div class="form-group">

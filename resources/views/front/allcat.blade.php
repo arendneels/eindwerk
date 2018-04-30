@@ -2,10 +2,14 @@
 
 @section('content')
     <h1 class='d-none'>Categories</h1>
-    <div class="text-grey2"><a href="{{ route('index') }}" class="text-grey2">HOME</a> / <a href="{{ route('products', $mainCategory->id) }}" class="text-grey2">{{ $mainCategory->name }}</a></div>
+    <div class="text-grey2 text-uppercase">
+        <a href="{{ route('index') }}" class="text-grey2">Home</a>
+        <span>/</span>
+        <a href="#" class="text-grey2">{{ $mainCategory->name }}</a>
+    </div>
     @foreach($categories as $category)
     <section class="mb-5 mb-lg-7">
-        <h2 class="text-center">{{ $category->name }}</h2>
+        <h2 class="text-center text-uppercase">{{ $category->name }}</h2>
         <div class="text-center pb-4"><a href="{{ route('products', [$mainCategory->id, $category->id]) }}" class="text-grey2"><em class="underline">show more</em>&nbsp;<span class="fas fa-caret-right"></span></a></div>
         <div class="row">
             @foreach($category->products()->whereIn('products.id', $productIds)->limit(4)->get() as $product)
@@ -14,7 +18,7 @@
                     <a href="{{ route('productdetail', $product->id) }}" class="">
                         <img class="catImg img-fluid" src="{{ $product->thumbnail_path() }}" alt="">
                         <div class="font-size-footer">
-                            <p><strong>{{ $product->name }}</strong></p>
+                            <p class="text-uppercase"><strong>{{ $product->name }}</strong></p>
                             <p>&euro;{{ $product->price }}</p>
                         </div>
                     </a>

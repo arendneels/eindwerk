@@ -2,12 +2,18 @@
 
 @section('content')
     <h1 class='d-none'>CATEGORIES</h1>
-    <div class="text-grey2"><a href="#" class="text-grey2">HOME</a> / <a href="#" class="text-grey2">MEN</a></div>
+    <div class="text-grey2 text-uppercase">
+        <a href="{{ route('index') }}" class="text-grey2">Home</a>
+        <span>/</span>
+        <a href="{{ route('categories', $category1->id) }}" class="text-grey2">{{ $category1->name }}</a>
+        <span>/</span>
+        <a href="#" class="text-grey2">{{ $category2->name or "All" }}</a>
+    </div>
     <section class="mb-5 mb-lg-5">
-        <h2 class="text-center">
+        <h2 class="text-center text-uppercase">
             {{ $category1->name }}
         </h2>
-        <p class="text-center pb-2 text-grey2"><i>{{ isset($category2) ? $category2->name : "All products" }}</i></p>
+        <p class="text-center pb-2 text-grey2"><i>{{ $category2->name or "All products" }}</i></p>
         <!--SEARCH FILTER!-->
         <div class="row justify-content-center pb-4 pb-lg-5">
             <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">
@@ -43,7 +49,7 @@
                     <a href="{{ route('productdetail', $product->id) }}" class="">
                         <img class="catImg img-fluid" src="{{ $product->thumbnail_path() }}" alt="">
                         <div class="font-size-footer">
-                            <p><strong>{{ $product->name }}</strong></p>
+                            <p class="text-uppercase"><strong>{{ $product->name }}</strong></p>
                             <p>&euro;{{ $product->price }}</p>
                         </div>
                     </a>
