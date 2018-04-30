@@ -19,13 +19,19 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 Route::group([],function(){
-    $lookbook = Product::lookbook();
-    $lookbook1 = array_slice($lookbook, 0, 4);
-    $lookbook2 = array_slice($lookbook, 4,4);
-    $lookbook3 = array_slice($lookbook, 8, 4);
-    session(compact('lookbook1', 'lookbook2', 'lookbook3'));
+    //Place lookbook items into sessionvariable
+    if(session('lookbook1') == null) {
+        $lookbook = Product::lookbook();
+        $lookbook1 = array_slice($lookbook, 0, 4);
+        $lookbook2 = array_slice($lookbook, 4, 4);
+        $lookbook3 = array_slice($lookbook, 8, 4);
+        session(compact('lookbook1', 'lookbook2', 'lookbook3'));
+    }
+
+    //Routes
     Route::get('/', 'FrontController@index')->name('index');
     Route::get('/product/{id}', 'FrontController@productdetail')->where('id', '[0-9]+')->name('productdetail');
+    Route::get('/categories/{id}', 'FrontController@categories')->name('categories');
     Route::get('/about', 'FrontController@about')->name('about');
     Route::get('/contact', 'FrontController@contact')->name('contact');
     Route::get('/cart', 'front\CartController@index')->name('cart');
@@ -33,21 +39,6 @@ Route::group([],function(){
     Route::get('/cartadd/{id}', 'front\CartController@add')->name('cartadd');
     Route::get('/cartremove/{id}', 'front\CartController@remove')->name('cartremove');
 });
-
-Route::get('/producttest', function(){
-    $products = Product::all();
-    return view('producttest', compact('products'));
-});
-
-Route::get('backtest', function(){
-    return view('layouts.back');
-});
-
-Route::get('/test', function(){
-    dd(Size::kidSizes());
-});
-
-Route::post('/test/stocks', 'back\StockController@test')->name('testStock');
 
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {

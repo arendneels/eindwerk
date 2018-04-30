@@ -23,17 +23,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Women<span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('categories', 2) }}">Women</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="men.html">Men</a>
+                        <a class="nav-link" href="{{ route('categories', 1) }}">Men</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Kids</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Coming Soon</a>
+                        <a class="nav-link" href="{{ route('categories', 3) }}">Kids</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('about') }}">About</a>
@@ -49,11 +46,12 @@
                         <li class="nav-item">
                             <span class="navbar-text">
                                 <span class="fas fa-user"></span>
-                                &nbsp;Hi,&nbsp;{{ Auth::user()->first_name }}&nbsp;(
+                                <span>Hi,&nbsp;{{ Auth::user()->first_name }}&nbsp;(</span>
                                 <a class="text-orange" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
-                                </form>)
+                                </form>
+                                <span>)</span>
                             </span>
                         </li>
                     @else
