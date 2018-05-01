@@ -46,7 +46,7 @@
                         <li class="nav-item">
                             <span class="navbar-text">
                                 <span class="fas fa-user"></span>
-                                <span>Hi,&nbsp;{{ Auth::user()->first_name }}&nbsp;(</span>
+                                <span>Hi,&nbsp;<a class="text-grey2" href="{{ route('history') }}">{{ Auth::user()->first_name }}</a>&nbsp;(</span>
                                 <a class="text-orange" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}

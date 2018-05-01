@@ -30,17 +30,22 @@ Route::group([],function(){
 
     //Routes
     Route::get('/', 'FrontController@index')->name('index');
+    Route::post('/addsubscriber', 'FrontController@addsubscriber')->name('addsubscriber');
     Route::get('/product/{id}', 'FrontController@productdetail')->where('id', '[0-9]+')->name('productdetail');
     Route::get('/categories/{id}', 'FrontController@categories')->name('categories');
     Route::get('/products/{category_id1}/{category_id2?}', 'FrontController@products')->name('products');
     Route::get('/about', 'FrontController@about')->name('about');
     Route::get('/contact', 'FrontController@contact')->name('contact');
-    Route::post('/search', 'FrontController@search')->name('search');
+    Route::get('/search', 'FrontController@search')->name('search');
+
+    Route::get('/history', 'FrontController@history')->middleware('auth')->name('history');
+    Route::get('/editaccount', 'FrontController@editaccount')->middleware('auth')->name('editaccount');
+    Route::post('/editaccount', 'FrontController@updateaccount')->middleware('auth')->name('editaccount');
+
     Route::get('/cart', 'front\CartController@index')->name('cart');
     Route::delete('/cart/{rowId}', 'front\CartController@destroy');
     Route::get('/cartadd/{id}', 'front\CartController@add')->name('cartadd');
     Route::get('/cartremove/{id}', 'front\CartController@remove')->name('cartremove');
-    Route::get('/search', 'FrontController@search')->name('search');
 
 });
 

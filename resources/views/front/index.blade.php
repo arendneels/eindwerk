@@ -26,17 +26,23 @@
         </div>
     </div>
     <!--EMAIL SIGN UP!-->
-    <form action="#" method="post" class="text-center py-5">
+    <form action="{{ route('addsubscriber') }}" method="post" class="text-center py-5">
+        {{ csrf_field() }}
         <h2>SIGN UP TO RECEIVE OUR UPDATES</h2>
         <em class="text-grey2">Nulla ipsum dolor lacus, suscipit adipiscing. Cum sociis natoque penatibus et ultrices volutpat.</em>
         <div class="row justify-content-center py-4">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Your e-mail" aria-label="Your e-mail">
+                    <input name="email" type="email" class="form-control" placeholder="Your e-mail" aria-label="Your e-mail" required>
                     <div class="input-group-append">
                         <button class="btn btn-orange text-white" type="submit">Add</button>
                     </div>
                 </div>
+                @if($errors->has('email'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
             </div>
         </div>
     </form>

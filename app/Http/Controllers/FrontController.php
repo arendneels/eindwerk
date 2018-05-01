@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Country;
+use App\Http\Requests\AddSubRequest;
+use App\Http\Requests\front\UserEditRequest;
 use App\Product;
+use App\Subscriber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
     public function index(){
         return view('front.index');
+    }
+
+    public function addsubscriber(AddSubRequest $request){
+        //Add email to the subscriber list in database
+        Subscriber::create($request->all());
+        return redirect()->back();
     }
 
     public function productdetail($id){
@@ -58,5 +69,27 @@ class FrontController extends Controller
         //Get paginated results
         $products = $productsQuery->paginate(20)->withPath('?term=' . $searchterm);
         return view('front.search', compact('products', 'count'));
+    }
+
+    public function history(){
+        return view('front.history');
+    }
+
+    public function editaccount(){
+        $user = Auth::user();
+        $countriesSelect = Country::countriesSelect();
+        return view('front.editaccount', compact('user', 'countriesSelect'));
+    }
+
+    public function updateaccount(UserEditRequest $request){
+        $user = Auth::user();
+        $input = $request->all();
+        if($input['password'] == null){
+            $input = array_except($input, ['password']);
+        }else{
+            $input['password'] = bcrypt($input['password']);
+        }
+        $user->update($input);
+        return redirect()->back();
     }
 }
