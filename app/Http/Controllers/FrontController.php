@@ -49,4 +49,14 @@ class FrontController extends Controller
     public function contact(){
         return view('front.contact');
     }
+
+    public function search(Request $request){
+        $searchterm = $request->all()['term'];
+        $productsQuery = Product::where('name', 'like', $searchterm . "%");
+        //Get total count for counter on search page
+        $count = $productsQuery->count();
+        //Get paginated results
+        $products = $productsQuery->paginate(20)->withPath('?term=' . $searchterm);
+        return view('front.search', compact('products', 'count'));
+    }
 }

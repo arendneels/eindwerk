@@ -35,10 +35,13 @@ Route::group([],function(){
     Route::get('/products/{category_id1}/{category_id2?}', 'FrontController@products')->name('products');
     Route::get('/about', 'FrontController@about')->name('about');
     Route::get('/contact', 'FrontController@contact')->name('contact');
+    Route::post('/search', 'FrontController@search')->name('search');
     Route::get('/cart', 'front\CartController@index')->name('cart');
     Route::delete('/cart/{rowId}', 'front\CartController@destroy');
     Route::get('/cartadd/{id}', 'front\CartController@add')->name('cartadd');
     Route::get('/cartremove/{id}', 'front\CartController@remove')->name('cartremove');
+    Route::get('/search', 'FrontController@search')->name('search');
+
 });
 
 Route::middleware(['back'])->group(function () {

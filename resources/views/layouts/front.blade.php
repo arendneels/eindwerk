@@ -120,11 +120,11 @@
                     </li>
                     <!--SEARCHBAR!-->
                     <li class="nav-item border ml-lg-2">
-                        <form action="searchresults.html" method="post" id="searchbtn" class="d-flex bg-transparent position-relative">
-                            <input id="searchbar" type="text" name="search" placeholder="Search" class="">
+                        <form action="/search" method="get" id="searchbtn" class="d-flex bg-transparent position-relative">
+                            <input id="searchbar" type="text" name="term" placeholder="Search" class="" required>
                             <div class="searchicon"></div>
                             <div class="fas fa-search searchicon d-block p-2 text-grey2 top-right"></div>
-                            <input id="searchicon" class="nav-link bg-white bg top-right hide searchicon" type="submit" name="submit">
+                            <input id="searchicon" class="nav-link bg-white bg top-right hide searchicon" type="submit">
                         </form>
                     </li>
                 </ul>
