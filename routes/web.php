@@ -18,6 +18,24 @@ use App\Size;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
+use Stripe\Stripe;
+
+Route::get('/test', function(){
+
+    $token = \Stripe\Token::create(array(
+        "card" => array(
+            "number" => "4242424242424242",
+            "exp_month" => 5,
+            "exp_year" => 2019,
+            "cvc" => "314"
+        )
+    ));
+
+    $user = User::find(1);
+
+    $user->newSubscription('main', 'premium')->create($token);
+});
+
 Route::group([],function(){
     //Place lookbook items into sessionvariable
     if(session('lookbook1') == null) {

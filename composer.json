@@ -9,6 +9,7 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "fzaninotto/faker": "^1.7",
         "gloudemans/shoppingcart": "^2.5",
+        "laravel/cashier": "~7.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",

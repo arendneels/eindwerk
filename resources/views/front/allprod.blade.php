@@ -1,5 +1,9 @@
 @extends('layouts.front')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-slider.min.css') }}">
+@endsection
+
 @section('content')
     <h1 class='d-none'>CATEGORIES</h1>
     <div class="text-grey2 text-uppercase">
@@ -15,32 +19,30 @@
         </h2>
         <p class="text-center pb-2 text-grey2"><i>{{ $category2->name or "All products" }}</i></p>
         <!--SEARCH FILTER!-->
-        <div class="row justify-content-center pb-4 pb-lg-5">
-            <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">
-                <select name="price" id="price" class="form-control">
-                    <option value="1">&euro; 20-30</option>
-                    <option value="1">&euro; 30-50</option>
-                    <option value="1">&euro; 50-100</option>
-                    <option value="1">&euro; 100 and more</option>
-                </select>
+        <form action="#" method="get">
+            <div class="row justify-content-center pb-4 pb-lg-5">
+                <div class=" col-md-3 col-sm-4 col-12 my-2 my-sm-0">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            &euro;<span id="price_min"></span>
+                        </div>
+                        <div>
+                            &euro;<span id="price_max"></span>
+                        </div>
+                    </div>
+                    <input name="price" type="text" class="slider" class="span2" value="" data-slider-min="0" data-slider-max="500" data-slider-step="5" data-slider-value="{{ $price_range or '[0,500]' }}" style="width:100%"/>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">
+                        {!! Form::select('color_id', ['' => 'All Colors'] + $colorsSelect, null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">
+                    {!! Form::select('size_id', ['' => 'All Sizes'] + $sizesSelect, null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="col-lg-2 col-12 my-2 my-lg-0 text-lg-left text-center">
+                    <button class="btn btn-orange text-white">FILTER</button>
+                </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">
-                <select name="color" id="color" class="form-control">
-                    <option value="1">Black</option>
-                    <option value="1">White</option>
-                    <option value="1">Blue</option>
-                    <option value="1">Red</option>
-                </select>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-4 col-12 my-2 my-sm-0">
-                <select name="size" id="size" class="form-control">
-                    <option value="1">Small</option>
-                    <option value="1">Medium</option>
-                    <option value="1">Large</option>
-                    <option value="1">Extra large</option>
-                </select>
-            </div>
-        </div>
+        </form>
         <!--ALL MEN RESULTS SPECIFIED BY FILTER!-->
         <div class="row">
             @foreach($allProducts as $product)
@@ -61,4 +63,23 @@
     </section>
     <div class="divider my-5"></div>
     <p class="text-center font-size-subheader pb-4 mb-0 text-gray2"><em>Check our lookbook</em></p>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/bootstrap-slider.min.js') }}"></script>
+    <script>
+        $(function() {
+            var mySlider = $("input.slider").slider();
+
+            var value = mySlider.val().split(',');
+            $('#price_min').html(value[0]);
+            $('#price_max').html(value[1]);
+
+            mySlider.change(function() {
+                var value = mySlider.val().split(',');
+                $('#price_min').html(value[0]);
+                $('#price_max').html(value[1]);
+            });
+        });
+    </script>
 @endsection

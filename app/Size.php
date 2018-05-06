@@ -21,4 +21,12 @@ class Size extends Model
     public static function kidSizes(){
         return Size::where('category_id', '=', 3)->get();
     }
+
+    public static function sizesSelect($sizes){
+        $result = [];
+        foreach($sizes as $size){
+            $result[$size->id] = $size->name;
+        }
+        return $result;
+    }
 }

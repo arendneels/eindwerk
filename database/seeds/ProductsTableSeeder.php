@@ -17,6 +17,7 @@ class ProductsTableSeeder extends Seeder
             'name' => 'Floral Bloom',
             'article_no' => '540534.120146',
             'price' => 59.99,
+            'description' => $faker->paragraph(),
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
@@ -25,6 +26,7 @@ class ProductsTableSeeder extends Seeder
             'name' => $faker->word(),
             'article_no' => $faker->text(15),
             'price' => $faker->randomFloat(2,0,400),
+            'description' => $faker->paragraph(),
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
@@ -33,6 +35,7 @@ class ProductsTableSeeder extends Seeder
             'name' => $faker->word(),
             'article_no' => $faker->text(15),
             'price' => $faker->randomFloat(2,0,400),
+            'description' => $faker->paragraph(),
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
@@ -41,6 +44,7 @@ class ProductsTableSeeder extends Seeder
             'name' => $faker->word(),
             'article_no' => $faker->text(15),
             'price' => $faker->randomFloat(2,0,400),
+            'description' => $faker->paragraph(),
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
