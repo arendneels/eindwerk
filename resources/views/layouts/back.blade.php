@@ -295,7 +295,13 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="{{ route('reviews') }}"><i class="fa fa-dashboard fa-fw"></i> Reviews</a>
+                        <a href="{{ route('reviews') }}">
+                            <i class="fa fa-dashboard fa-fw"></i>
+                            Reviews
+                            @if(!\App\Review::where('validated', false)->count() == 0)
+                            &nbsp;<i class="fa fa-exclamation-circle"></i>
+                            @endif
+                        </a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-tags fa-fw"></i> Categories<span class="fa arrow"></span></a>

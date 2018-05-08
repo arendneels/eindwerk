@@ -86,8 +86,8 @@
     <div class="divider my-5"></div>
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
-            <h2 class="h4 text-center">REVIEWS ({{ $product->reviews->count() }})</h2>
-            @foreach($product->reviews as $review)
+            <h2 class="h4 text-center">REVIEWS ({{ $product->reviews()->count() }})</h2>
+            @foreach($reviews as $review)
             <article class="border p-3 fs-8 my-4" style="min-height:200px;">
                 <div class="row">
                     <div class="col-lg-3 col-12">
@@ -108,6 +108,7 @@
                 </div>
             </article>
             @endforeach
+            {{ $reviews->links('layouts.pagination') }}
             @if(Auth::user())
             <h3 class="h5 text-center pt-4">WRITE YOUR OWN REVIEW</h3>
             @if ($errors->any())

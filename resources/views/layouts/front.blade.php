@@ -95,7 +95,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="#" onclick="event.preventDefault();document.getElementById('deleteForm{{$row->id}}').submit();">
+                                            <a href="#" onclick="event.preventDefault();
+                                            if(confirm('Are you sure you want to delete this item from your basket?')){
+                                                document.getElementById('deleteForm{{$row->id}}').submit();
+                                            }">
                                                 <span class="fas fa-times"></span>
                                             </a>
                                             <!-- Form -->

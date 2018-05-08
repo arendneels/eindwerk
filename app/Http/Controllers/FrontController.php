@@ -32,7 +32,9 @@ class FrontController extends Controller
     public function productdetail($id){
         $product = Product::findOrFail($id);
         $hasSizesOutOfStock = $product->hasSizesOutOfStock();
-        return view('front.productdetail', compact('product', 'hasSizesOutOfStock'));
+        //Limit reviews to 5 reviews per page
+        $reviews = $product->reviews()->paginate(5);
+        return view('front.productdetail', compact('product', 'hasSizesOutOfStock', 'reviews'));
     }
 
     public function addReview($id, AddReviewRequest $request){

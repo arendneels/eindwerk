@@ -16,7 +16,7 @@
                         Showing all products of category:
                         {{ $category->name }}
                     @else
-                        All products
+                        All reviews
                     @endif
                 </div>
                 <!-- /.panel-heading -->
@@ -25,10 +25,11 @@
                         <thead>
                         <tr>
                             <th>User</th>
+                            <th>Product</th>
                             <th>Rating</th>
                             <th>Title</th>
                             <th>Body</th>
-                            <th>Validated</th>
+                            <th id="sort">Validated</th>
                             <th id="controls" style="width:150px;">Controls</th>
                         </tr>
                         </thead>
@@ -36,6 +37,7 @@
                         @foreach($reviews as $review)
                             <tr>
                                 <td>{{ $review->user->first_name . " " . $review->user->last_name}}</td>
+                                <td><a href="{{ route('productdetail', $review->product_id) }}">{{ $review->product->name }}</a></td>
                                 <td>{{ $review->rating }}</td>
                                 <td>{{ $review->title }}</td>
                                 <td>{{ $review->body }}</td>
@@ -68,28 +70,24 @@
 @section('scripts')
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-        $(document).ready(function() {
+        $(function(){
+            //Make datatable resposive
             $('#dataTables-example').DataTable({
                 responsive: true
             });
-        });
 
-        //Make controls column smaller
-        $('#dataTables-example').on( 'column-sizing.dt', function ( e, settings ) {
-            $('#controls').css('width',150);
-        } );
+            //Make controls column smaller
+            $('#dataTables-example').on( 'column-sizing.dt', function ( e, settings ) {
+                $('#controls').css('width',150);
+            });
 
-        //Prevent controls column to have sorting options
-        /*
-        $('#dataTables-example').on( 'order.dt', function () {
-            // This will show: "Ordering on column 1 (asc)", for example
-            $('#controls').removeClass('sorting');
-        });
-        */
+            //Delete button alert
+            $('.delete').click(function(){
+                return confirm("Are you sure you want to delete this?")
+            });
 
-        //Delete button alert
-        $('.delete').click(function(){
-            return confirm("Are you sure you want to delete this?")
+            //Sort by id="sort" default
+            $('#sort').click();
         });
     </script>
 @endsection
