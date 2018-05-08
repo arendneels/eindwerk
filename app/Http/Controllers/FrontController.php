@@ -15,6 +15,7 @@ use App\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class FrontController extends Controller
 {
@@ -39,6 +40,7 @@ class FrontController extends Controller
         $input['user_id'] = Auth::user()->id;
         $input['product_id'] = $id;
         Review::create($input);
+        Session::flash('message', "Thank you for your feedback, once the message has been validated it will be shown on this page.");
         return redirect()->back();
     }
 

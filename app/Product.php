@@ -24,7 +24,12 @@ class Product extends Model
 
     public function reviews(){
         //Always return the thumbnail as first photo in the array
-        return $this->hasMany('\App\Review');
+        return $this->hasMany('\App\Review')->where('validated', true)->orderBy('created_at', 'desc');
+    }
+
+    public function allreviews(){
+        //Always return the thumbnail as first photo in the array
+        return $this->hasMany('\App\Review')->orderBy('created_at', 'desc');
     }
 
     public function photos(){

@@ -295,6 +295,9 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
+                        <a href="{{ route('reviews') }}"><i class="fa fa-dashboard fa-fw"></i> Reviews</a>
+                    </li>
+                    <li>
                         <a href="#"><i class="fa fa-tags fa-fw"></i> Categories<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>

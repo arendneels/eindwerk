@@ -20,7 +20,9 @@ class CreateReviewsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->tinyInteger('rating');
+            $table->boolean('validated')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

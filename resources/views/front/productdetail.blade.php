@@ -189,6 +189,11 @@
                     $('#star'+i).addClass('colored text-orange');
                 }
             });
+
+            @if(session('message'))
+            //Show alert after review
+            alert('{{ session('message') }}');
+            @endif
         });
     </script>
 @endsection
