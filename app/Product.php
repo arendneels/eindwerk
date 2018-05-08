@@ -22,6 +22,10 @@ class Product extends Model
         return $this->belongsToMany('\App\Category');
     }
 
+    public function reviews(){
+        //Always return the thumbnail as first photo in the array
+        return $this->hasMany('\App\Review');
+    }
 
     public function photos(){
         //Always return the thumbnail as first photo in the array

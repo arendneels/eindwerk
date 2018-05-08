@@ -50,6 +50,7 @@ Route::group([],function(){
     Route::get('/', 'FrontController@index')->name('index');
     Route::post('/addsubscriber', 'FrontController@addsubscriber')->name('addsubscriber');
     Route::get('/product/{id}', 'FrontController@productdetail')->where('id', '[0-9]+')->name('productdetail');
+    Route::post('/addreview/{id}', 'FrontController@addReview')->name('addreview');
     Route::get('/categories/{id}', 'FrontController@categories')->name('categories');
     Route::get('/products/{category_id1}/{category_id2?}', 'FrontController@products')->name('products');
     Route::get('/about', 'FrontController@about')->name('about');

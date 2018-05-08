@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Color;
 use App\Country;
+use App\Http\Requests\AddReviewRequest;
 use App\Http\Requests\AddSubRequest;
 use App\Http\Requests\front\UserEditRequest;
 use App\Product;
+use App\Review;
 use App\Size;
 use App\Subscriber;
 use Illuminate\Http\Request;
@@ -30,6 +32,14 @@ class FrontController extends Controller
         $product = Product::findOrFail($id);
         $hasSizesOutOfStock = $product->hasSizesOutOfStock();
         return view('front.productdetail', compact('product', 'hasSizesOutOfStock'));
+    }
+
+    public function addReview($id, AddReviewRequest $request){
+        $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
+        $input['product_id'] = $id;
+        Review::create($input);
+        return redirect()->back();
     }
 
     public function categories($id){
