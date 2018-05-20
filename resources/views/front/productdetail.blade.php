@@ -61,7 +61,7 @@
         @endif
     </p>
     <div class="row justify-content-center py-3">
-        @foreach($product->stocks as $stock)
+        @foreach($product->stocks()->with('size')->get() as $stock)
             @if($stock->amount <= 0)
                 <button class="btn btn-size mx-1 text-grey2 sizeBtn" value="{{ $stock->id }}" disabled>{{ $stock->size->name }}*</button>
             @else
@@ -143,6 +143,8 @@
                     <button type="submit" class="btn btn-orange text-white">SEND REVIEW</button>
                 </div>
             </form>
+                @else
+                <p class="text-center"><a class="text-orange" href="{{ route('login') }}">Log in</a> or <a class="text-orange" href="{{ route('register') }}">Register</a> to write a review</p>
             @endif
         </div>
     </div>

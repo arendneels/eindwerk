@@ -12,7 +12,7 @@
         <h2 class="text-center text-uppercase">{{ $category->name }}</h2>
         <div class="text-center pb-4"><a href="{{ route('products', [$mainCategory->id, $category->id]) }}" class="text-grey2"><em class="underline">show more</em>&nbsp;<span class="fas fa-caret-right"></span></a></div>
         <div class="row">
-            @foreach($category->products()->whereIn('products.id', $productIds)->limit(4)->get() as $product)
+            @foreach($category->products()->with('photos')->whereIn('products.id', $productIds)->limit(4)->get() as $product)
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="itemcard mx-auto text-center">
                     <a href="{{ route('productdetail', $product->id) }}" class="">

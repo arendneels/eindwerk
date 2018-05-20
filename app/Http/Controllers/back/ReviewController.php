@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class ReviewController extends Controller
 {
     public function index(){
-        $reviews = Review::all();
+        $reviews = Review::with('user', 'product')->get();
         return view('back.reviews.index', compact('reviews'));
     }
 

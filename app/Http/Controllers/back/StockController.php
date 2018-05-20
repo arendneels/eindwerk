@@ -17,7 +17,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::with('product', 'size')->get();
         return view('back.stocks.index', compact('stocks'));
     }
 
@@ -28,7 +28,7 @@ class StockController extends Controller
      */
     public function create()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::with('product', 'size')->get();
         return view('back.stocks.add', compact('stocks'));
     }
 

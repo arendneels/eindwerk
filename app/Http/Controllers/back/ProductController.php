@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('photos')->get();
         return view('back.products.index', compact('products'));
     }
 

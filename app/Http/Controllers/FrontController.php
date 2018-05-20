@@ -32,8 +32,8 @@ class FrontController extends Controller
     public function productdetail($id){
         $product = Product::findOrFail($id);
         $hasSizesOutOfStock = $product->hasSizesOutOfStock();
-        //Limit reviews to 5 reviews per page
-        $reviews = $product->reviews()->paginate(5);
+        //Eager load users + Limit reviews to 5 reviews per page
+        $reviews = $product->reviews()->with('user')->paginate(5);
         return view('front.productdetail', compact('product', 'hasSizesOutOfStock', 'reviews'));
     }
 
@@ -54,7 +54,7 @@ class FrontController extends Controller
             ->whereNotIn('category_id', [$mainCategory->id])
             ->pluck('category_id');
         $categories = Category::whereIn('categories.id', $categoryIds)->paginate(4);
-        return view('front.allcat', compact('mainCategory', 'categories', 'productIds', 'allProducts'));
+        return view('front.allcat', compact('mainCategory', 'categories', 'productIds'));
     }
 
     public function products($category_id1, $category_id2 = null, Request $request){
@@ -124,10 +124,10 @@ class FrontController extends Controller
                     return $value > 34;
                 });
             }
-            $allProducts = $category2->products()->whereIn('products.id', $productIds)->paginate(20);
+            $allProducts = $category2->products()->with('photos')->whereIn('products.id', $productIds)->paginate(20);
             return view('front.allprod', compact('category1','category2', 'allProducts', 'colorsSelect', 'sizesSelect', 'price_range'));
         }
-        $allProducts = $category1->products()->paginate(20);
+        $allProducts = $category1->products()->with('photos')->paginate(20);
         return view('front.allprod', compact('category1', 'allProducts', 'colorsSelect', 'sizesSelect', 'price_range'));
     }
 
@@ -145,7 +145,7 @@ class FrontController extends Controller
         //Get total count for counter on search page
         $count = $productsQuery->count();
         //Get paginated results
-        $products = $productsQuery->paginate(20)->withPath('?term=' . $searchterm);
+        $products = $productsQuery->with('photos')->paginate(20)->withPath('?term=' . $searchterm);
         return view('front.search', compact('products', 'count'));
     }
 
