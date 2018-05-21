@@ -61,9 +61,7 @@ Route::group([],function(){
 
 //Back routes
 Route::middleware(['back'])->group(function () {
-    Route::get('/admin', function () {
-        return view('back.admin');
-    })->name('admin');
+    Route::get('/admin', 'back\AdminController@index')->name('admin');
 
     Route::resource('/admin/products', 'back\ProductController');
     Route::resource('/admin/categories', 'back\CategoryController');
