@@ -89,7 +89,8 @@ class CartController extends Controller
 
     public function add($id){
         $stock = Stock::findOrFail($id);
-        $row = Cart::add($id, $stock->product->name, 1, $stock->product->price)->associate('App\Stock');
+        $product = $stock->product;
+        $row = Cart::add($id, $product->name, 1, $product->price, ['size' => $stock->size->name, 'product_id' => $product->id, 'thumbnail_path' => $product->thumbnail_path(), 'article_no' => $product->article_no])->associate('App\Stock');
         if($row->qty > $stock->amount){
             Cart::update($row->rowId, $row->qty - 1);
             $errorMsg = "Insufficient stock of " . $row->name . ", please order more later";

@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content')
-    <div class="text-grey2"><a href="index.html" class="text-grey2">HOME</a> / <a href="about.html" class="text-grey2">ABOUT</a></div>
+    <div class="text-grey2"><a href="{{ route('index') }}" class="text-grey2">HOME</a> / <a href="#" class="text-grey2">ABOUT</a></div>
     <h1 class="text-center">ABOUT</h1>
     <p class="text-center pb-2 text-grey2"><i> Lorem ipsum dolor sit amet, consectetur adipisicing elit.</i></p>
     <img id="img-about" src="http://via.placeholder.com/350x150" alt="">

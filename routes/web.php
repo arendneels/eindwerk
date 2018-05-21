@@ -36,17 +36,8 @@ Route::get('/test', function(){
     $user->newSubscription('main', 'premium')->create($token);
 });
 
+//Front Routes
 Route::group([],function(){
-    //Place lookbook items into sessionvariable
-    if(session('lookbook1') == null) {
-        $lookbook = Product::lookbook();
-        $lookbook1 = array_slice($lookbook, 0, 4);
-        $lookbook2 = array_slice($lookbook, 4, 4);
-        $lookbook3 = array_slice($lookbook, 8, 4);
-        session(compact('lookbook1', 'lookbook2', 'lookbook3'));
-    }
-
-    //Routes
     Route::get('/', 'FrontController@index')->name('index');
     Route::post('/addsubscriber', 'FrontController@addsubscriber')->name('addsubscriber');
     Route::get('/product/{id}', 'FrontController@productdetail')->where('id', '[0-9]+')->name('productdetail');
@@ -68,6 +59,7 @@ Route::group([],function(){
 
 });
 
+//Back routes
 Route::middleware(['back'])->group(function () {
     Route::get('/admin', function () {
         return view('back.admin');

@@ -99,6 +99,6 @@ class Product extends Model
 
     //Function returns an array of 12 products for the lookbook (12 newest items added)
     public static function lookbook(){
-        return self::orderBy('created_at', 'desc')->limit(12)->get()->all();
+        return self::orderBy('created_at', 'desc')->limit(12)->with('photos')->get()->all();
     }
 }

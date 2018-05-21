@@ -73,18 +73,14 @@
                                 <table class="table-width-hover">
                                     <tbody class="">
                                     @foreach(Cart::content() as $row)
-                                    <?php
-                                        //Place queries in variables to reduct amount of queries
-                                        $product = $row->model->product;
-                                    ?>
                                     <tr class="border-bottom">
                                         <td class="py-3 text-center">
-                                            <a href="{{ route('productdetail', $product->id) }}">
-                                                <img src="{{ $product->thumbnail_path() }}" class="img-history" alt="">
+                                            <a href="{{ route('productdetail', $row->options->product_id) }}">
+                                                <img src="{{ $row->options->thumbnail_path }}" class="img-history" alt="">
                                             </a>
                                         </td>
                                         <td class="py-2">
-                                            <a href="{{ route('productdetail', $product->id) }}">
+                                            <a href="{{ route('productdetail', $row->options->product_id) }}">
                                                 <strong>{{ $row->name }}</strong>
                                             </a>
                                         </td>
@@ -202,9 +198,9 @@
             <div class="col-sm-3 border-right">
                 <p class="font-size-footer mb-1"><strong>COLLECTION</strong></p>
                 <ul>
-                    <li><a href="{{ route('categories', 2) }}">Women ({{ DB::table('category_product')->where('category_id', 2)->count() }})</a></li>
-                    <li><a href="{{ route('categories', 1) }}">Men ({{ DB::table('category_product')->where('category_id', 1)->count() }})</a></li>
-                    <li><a href="{{ route('categories', 3) }}">Kids ({{ DB::table('category_product')->where('category_id', 3)->count() }})</a></li>
+                    <li><a href="{{ route('categories', 2) }}">Women ({{ session('categoryCountWomen') }})</a></li>
+                    <li><a href="{{ route('categories', 1) }}">Men ({{ session('categoryCountMen') }})</a></li>
+                    <li><a href="{{ route('categories', 3) }}">Kids ({{ session('categoryCountKids') }})</a></li>
                     <li><a href="#">Coming Soon (76)</a></li>
                 </ul>
             </div>
