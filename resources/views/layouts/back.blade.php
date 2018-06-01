@@ -271,6 +271,18 @@
                         <a href="{{ route('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
+                        <a href="#"><i class="fa fa-money fa-fw"></i> Orders<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ route('orders.index') }}">View</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('stocks.create') }}">Add</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
                         <a href="#"><i class="fa fa-archive fa-fw"></i> Stock<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>

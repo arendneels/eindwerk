@@ -228,9 +228,9 @@
                 <p>Shoper is made with love in Warsaw,
                     <br> 2014 &copy; All rights reserved. El Passion</p>
                 <div class="py-2">
-                    <a href="#"><span class="border p-2 mr-lg-2 mr-1"><span class="fab fa-twitter"></span></span></a>
-                    <a href="#"><span class="border p-2 mr-lg-2 mr-1"><span class="fab fa-facebook"></span></span></a>
-                    <a href="#"><span class="border p-2"><span class="fab fa-instagram"></span></span></a>
+                    <a href="https://www.twitter.com" target="_blank"><span class="border p-2 mr-lg-2 mr-1"><span class="fab fa-twitter"></span></span></a>
+                    <a href="https://www.facebook.com" target="_blank"><span class="border p-2 mr-lg-2 mr-1"><span class="fab fa-facebook"></span></span></a>
+                    <a href="https://www.instagram.com" target="_blank"><span class="border p-2"><span class="fab fa-instagram"></span></span></a>
                 </div>
             </div>
         </div>
