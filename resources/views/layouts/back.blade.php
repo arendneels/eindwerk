@@ -271,7 +271,13 @@
                         <a href="{{ route('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-money fa-fw"></i> Orders<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-money fa-fw"></i>
+                            Orders
+                            @if(!\App\Order::newOrders()->count() == 0)
+                                &nbsp;<i class="fa fa-exclamation-circle"></i>
+                            @endif
+                            <span class="fa arrow"></span>
+                        </a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('orders.index') }}">View</a>
@@ -308,7 +314,7 @@
                     </li>
                     <li>
                         <a href="{{ route('reviews') }}">
-                            <i class="fa fa-dashboard fa-fw"></i>
+                            <i class="fa fa-comments fa-fw"></i>
                             Reviews
                             @if(!\App\Review::where('validated', false)->count() == 0)
                             &nbsp;<i class="fa fa-exclamation-circle"></i>

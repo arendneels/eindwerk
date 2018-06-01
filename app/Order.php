@@ -22,5 +22,9 @@ class Order extends Model
         return $this->belongsToMany('App\Stock')->withPivot('price', 'amt');
     }
 
+    public static function newOrders(){
+        return self::where('status','PAID');
+    }
+
 
 }

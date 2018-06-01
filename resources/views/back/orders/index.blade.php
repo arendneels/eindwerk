@@ -20,33 +20,28 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                         <tr>
+                            <th id="sort">Order date</th>
                             <th>User</th>
                             <th>Payment Method</th>
                             <th>Payment ID</th>
                             <th>Country</th>
                             <th>Total Price</th>
-                            <th id="sort">Status</th>
-                            <th id="controls" style="width:150px;">Controls</th>
+                            <th>Status</th>
+                            <th>Controls</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($orders as $order)
                             <tr>
-                                <td><a href="{{ route('orders.show', $order->id) }}">{{ $order->user->first_name . ' ' . $order->user->last_name }}</a></td>
+                                <td>{{ $order->created_at }}</td>
+                                <td>{{ $order->user->first_name . ' ' . $order->user->last_name }}</td>
                                 <td>{{ $order->payment_method }}</td>
                                 <td>{{ $order->payment_id }}</td>
                                 <td>{{ $order->country->name }}</td>
                                 <td>{{ '€ ' . $order->total }}</td>
                                 <td>{{ $order->status }}</td>
-                                <td class="row">
-                                    <div class="col-sm-6">
-                                        <a class="btn btn-primary" href="{{ route('orders.edit', $order->id) }}">Edit</a>
-                                    </div>
-                                    <!-- Form -->
-                                {!! Form::open(['method' => 'DELETE', 'action' => ['back\OrderController@destroy', $order->id], 'class' => 'col-sm-6']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
-                                {!! Form::close() !!}
-                                <!-- /Form -->
+                                <td>
+                                        <a class="btn btn-primary" href="{{ route('orders.show', $order->id) }}">Details</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -72,25 +67,5 @@
             //Sort by id="sort" default
             $('#sort').click();
         });
-
-        //Make controls column smaller
-        $('#dataTables-example').on( 'column-sizing.dt', function ( e, settings ) {
-            $('#controls').css('width',150);
-        } );
-
-        //Prevent controls column to have sorting options
-        /*
-        $('#dataTables-example').on( 'order.dt', function () {
-            // This will show: "Ordering on column 1 (asc)", for example
-            $('#controls').removeClass('sorting');
-        });
-        */
-
-        //Delete button alert
-        $('.delete').click(function(){
-            return confirm("Are you sure you want to delete this?")
-        });
-
-
     </script>
 @endsection
