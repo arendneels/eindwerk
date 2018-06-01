@@ -23,11 +23,9 @@ class AdminController extends Controller
 
         for($i=$timespan; $i>=0; $i--){
             array_push($lastMonths, date("M", strtotime("-" . $i ." month")));
-            array_push($totalEarned, 0);
         }
 
         //Get data per month
-        $totalEarned = [];
         $oldestDate = date("Y-m", strtotime("-" . $timespan ." month"));
 
         //Build Custom Query
