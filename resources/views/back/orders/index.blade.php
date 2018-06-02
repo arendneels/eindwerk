@@ -41,7 +41,14 @@
                                 <td>{{ '€ ' . $order->total }}</td>
                                 <td>{{ $order->status }}</td>
                                 <td>
-                                        <a class="btn btn-primary" href="{{ route('orders.show', $order->id) }}">Details</a>
+                                    <a class="btn btn-primary" href="{{ route('orders.show', $order->id) }}">Details</a>
+                                    @if($order->status == 'PAID')
+                                    <form action="{{ route('orders.ready', $order->id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="_method" value="put" />
+                                        <button type="submit" class="btn btn-success">Ready</button>
+                                    </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

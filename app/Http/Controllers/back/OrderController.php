@@ -86,4 +86,11 @@ class OrderController extends Controller
     {
         //
     }
+
+
+    public function orderReady($id)
+    {
+        Order::orderReady($id);
+        return redirect()->back();
+    }
 }

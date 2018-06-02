@@ -50,7 +50,7 @@ class AdminController extends Controller
         //Chart
         $chartjs = app()->chartjs
             ->name('lineChartTest')
-            ->type('line')
+            ->type('bar')
             ->size(['width' => 400, 'height' => 220])
             ->labels($lastMonths)
             ->datasets([

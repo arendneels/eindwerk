@@ -26,5 +26,12 @@ class Order extends Model
         return self::where('status','PAID');
     }
 
+    public static function orderReady($id) {
+       $order = self::findOrFail($id);
+       $order['status'] = 'READY FOR DELIVERY';
+       $order->update();
+       return redirect()->back();
+    }
+
 
 }
