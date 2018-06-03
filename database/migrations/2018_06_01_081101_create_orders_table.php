@@ -15,7 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->index();
+            $table->integer('user_id')->index()->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
             $table->decimal('subtotal');
             $table->string('payment_method');
             $table->string('payment_id');
@@ -27,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('total');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

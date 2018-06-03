@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user', 'country')->get();
+        $orders = Order::with('country')->get();
         return view('back.orders.index', compact('orders'));
     }
 
@@ -49,7 +49,6 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::findOrFail($id);
-        $client = $order->user;
         return view('back.orders.show', compact('order', 'client'));
     }
 
@@ -85,6 +84,11 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function newOrders(){
+        $orders = Order::where('status', 'PAID')->with('country')->get();
+        return view('back.orders.index', compact('orders'));
     }
 
 

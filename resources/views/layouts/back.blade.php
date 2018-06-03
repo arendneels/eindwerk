@@ -81,17 +81,19 @@
                     <li>
                         <a href="#"><i class="fa fa-money fa-fw"></i>
                             Orders
-                            @if(!\App\Order::newOrders()->count() == 0)
+                            @if(!$newOrdersCount == 0)
                                 &nbsp;<i class="fa fa-exclamation-circle"></i>
                             @endif
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
+                            @if(!$newOrdersCount == 0)
+                                <li>
+                                    <a href="{{ route('orders.new') }}">New Orders</a>
+                                </li>
+                            @endif
                             <li>
-                                <a href="{{ route('orders.index') }}">View</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('stocks.create') }}">Add</a>
+                                <a href="{{ route('orders.index') }}">All</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

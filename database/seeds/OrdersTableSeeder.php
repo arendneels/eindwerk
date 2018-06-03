@@ -13,6 +13,9 @@ class OrdersTableSeeder extends Seeder
     {
         DB::table('orders')->insert([
             'user_id' => 1,
+            'first_name' => 'Arend',
+            'last_name' => 'Neels',
+            'email' => 'arendneels@hotmail.com',
             'subtotal' => 340.25,
             'payment_method' => 'PayPal',
             'payment_id' => 'Jljdkfmsha5466fd5q52',
@@ -28,6 +31,9 @@ class OrdersTableSeeder extends Seeder
 
         DB::table('orders')->insert([
             'user_id' => 1,
+            'first_name' => 'Arend',
+            'last_name' => 'Neels',
+            'email' => 'arendneels@hotmail.com',
             'subtotal' => 230.99,
             'payment_method' => 'PayPal',
             'payment_id' => 'JLjkjqgfa5466fd5q52',

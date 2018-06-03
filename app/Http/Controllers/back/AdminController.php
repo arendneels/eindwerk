@@ -14,7 +14,6 @@ class AdminController extends Controller
     public function index(){
         $newReviewCount = Review::where('validated',false)->count();
         $totalProductCount = Product::count();
-        $newOrderCount = Order::newOrders()->count();
 
         //Data will be shown for last 7 months
         $timespan = 7;

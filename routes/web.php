@@ -69,6 +69,7 @@ Route::middleware(['back'])->group(function () {
     Route::resource('/admin/stocks', 'back\StockController');
     Route::resource('/admin/orders', 'back\OrderController');
     Route::put('/admin/order/ready/{id}', 'back\OrderController@orderReady')->name('orders.ready');
+    Route::get('/admin/neworders', 'back\OrderController@newOrders')->name('orders.new');
     Route::get('/admin/reviews', 'back\ReviewController@index')->name('reviews');
     Route::get('/admin/validatereview/{id}', 'back\ReviewController@validateReview')->name('review.validate');
     Route::delete('/admin/delete/{id}', 'back\ReviewController@destroy')->name('review.destory');

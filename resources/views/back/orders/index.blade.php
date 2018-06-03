@@ -34,7 +34,7 @@
                         @foreach($orders as $order)
                             <tr>
                                 <td>{{ $order->created_at }}</td>
-                                <td>{{ $order->user->first_name . ' ' . $order->user->last_name }}</td>
+                                <td>{{ $order->first_name . ' ' . $order->last_name }}</td>
                                 <td>{{ $order->payment_method }}</td>
                                 <td>{{ $order->payment_id }}</td>
                                 <td>{{ $order->country->name }}</td>
@@ -42,13 +42,6 @@
                                 <td>{{ $order->status }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{ route('orders.show', $order->id) }}">Details</a>
-                                    @if($order->status == 'PAID')
-                                    <form action="{{ route('orders.ready', $order->id) }}" method="post">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="_method" value="put" />
-                                        <button type="submit" class="btn btn-success">Ready</button>
-                                    </form>
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach

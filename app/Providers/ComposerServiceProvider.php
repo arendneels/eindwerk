@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Order;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -33,6 +34,11 @@ class ComposerServiceProvider extends ServiceProvider
                 $categoryCountKids = DB::table('category_product')->where('category_id', 3)->count();
                 session(compact('categoryCountWomen', 'categoryCountMen', 'categoryCountKids'));
             }
+        });
+
+        View::composer(['back.admin', 'layouts.back'], function ($view) {
+            $newOrdersCount = Order::newOrders()->count();
+            $view->with('newOrdersCount', $newOrdersCount);
         });
     }
 

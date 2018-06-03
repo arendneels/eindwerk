@@ -21,8 +21,8 @@
                         <div class="col-lg-6">
                             <strong>Client Info</strong>
                             <ul class="list-unstyled">
-                                <li><em>Name: </em>{{ $client->first_name . ' ' . $client->last_name }}</li>
-                                <li><em>Email: </em>{{ $client->email }}</li>
+                                <li><em>Name: </em>{{ $order->first_name . ' ' . $order->last_name }}</li>
+                                <li><em>Email: </em>{{ $order->email }}</li>
                                 <li><em>Shipping Address:</em>
                                     <ul style="list-style:none;">
                                         <li>{{ $order->address }}</li>
@@ -69,6 +69,13 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @if($order->status == 'PAID')
+                        <form action="{{ route('orders.ready', $order->id) }}" method="post" style="float:right">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="put" />
+                            <button type="submit" class="btn btn-success">Ready for delivery&nbsp;<i class="fa fa-check"></i></button>
+                        </form>
+                    @endif
                 </div>
                 <!-- /.panel-body -->
             </div>

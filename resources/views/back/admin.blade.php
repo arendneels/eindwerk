@@ -17,18 +17,21 @@
                             <i class="fa fa-money fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ $newOrderCount }}</div>
+                            <div class="huge">{{ $newOrdersCount }}</div>
                             <div>New Orders!</div>
                         </div>
                     </div>
                 </div>
-                <a href="{{ route('orders.index') }}">
+                @if(!$newOrdersCount == 0)
+                <a href="{{ route('orders.new') }}">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
+                @endif
+
             </div>
         </div>
         <div class="col-lg-4 col-md-6">
