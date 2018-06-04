@@ -40,11 +40,14 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ '€ ' . $product->price }}</td>
                                     <td class="row">
-                                        <div class="col-sm-6">
+                                        <div>
                                             <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit</a>
                                         </div>
+                                        <div>
+                                            <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Stats</a>
+                                        </div>
                                         <!-- Form -->
-                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\ProductController@destroy', $product->id], 'class' => 'col-sm-6']) !!}
+                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\ProductController@destroy', $product->id]]) !!}
                                     {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
                                     {!! Form::close() !!}
                                     <!-- /Form -->

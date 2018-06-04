@@ -86,7 +86,8 @@ class OrderController extends Controller
         //
     }
 
-    public function newOrders(){
+    public function newOrders()
+    {
         $orders = Order::where('status', 'PAID')->with('country')->get();
         return view('back.orders.index', compact('orders'));
     }

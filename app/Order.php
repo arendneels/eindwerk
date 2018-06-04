@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'city', 'country_id', 'address', 'address2'
+        'first_name', 'last_name', 'email', 'city', 'country_id', 'address', 'address2', 'shipping_date'
     ];
 
     use SoftDeletes;
@@ -18,7 +19,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'shipping_date'];
 
     public function user() {
         return $this->belongsTo('App\User');
@@ -38,8 +39,24 @@ class Order extends Model
 
     public static function orderReady($id) {
        $order = self::findOrFail($id);
+       //Set status + shipment date (assumed to be shipped the same day as it is approved)
        $order['status'] = 'READY FOR DELIVERY';
+       $order['shipping_date'] = date_create();
        $order->update();
+
+       //Remove products from stock + add stocklog
+        foreach($order->stocks as $stock) {
+            $stock['amount'] -= $stock->pivot->amt;
+            $stock->update();
+            Stocklog::create([
+                'user_id' => Auth::user()->id,
+                'add' => -$stock->pivot->amt,
+                'stock_id' => $stock->id,
+                'amount' => $stock->amount,
+                'type' => 'Sale',
+                'order_id' => $order->id
+            ]);
+        }
        return redirect()->back();
     }
 

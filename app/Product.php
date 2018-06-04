@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -101,4 +103,24 @@ class Product extends Model
     public static function lookbook(){
         return self::orderBy('created_at', 'desc')->limit(12)->with('photos')->get()->all();
     }
+
+
+    public function isReviewAllowed() {
+        //Query returns the count of the different sizes the user ordered
+        $results = DB::table('users')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->join('order_stock', 'orders.id', '=', 'order_stock.order_id')
+            ->join('stocks', 'order_stock.stock_id', '=', 'stocks.id')
+            ->where('product_id', $this->id)
+            ->where('user_id', Auth::user()->id)
+            ->count();
+
+        //If the user bought at least one size of the product, he is allowed to review the product
+        if($results != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

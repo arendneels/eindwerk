@@ -110,39 +110,44 @@
             @endforeach
             {{ $reviews->links('layouts.pagination') }}
             @if(Auth::user())
-            <h3 class="h5 text-center pt-4">WRITE YOUR OWN REVIEW</h3>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form action="{{ action('FrontController@addReview', $product->id) }}" method="post">
-                {{ csrf_field() }}
-                <label class="mb-0" for="rating">Rating</label>
-                <div class="pb-2">
-                    <span id="star1" class="rating-star" style="cursor:pointer;">&#9733;</span>
-                    <span id="star2" class="rating-star" style="cursor:pointer;">&#9733;</span>
-                    <span id="star3" class="rating-star" style="cursor:pointer;">&#9733;</span>
-                    <span id="star4" class="rating-star" style="cursor:pointer;">&#9733;</span>
-                    <span id="star5" class="rating-star" style="cursor:pointer;">&#9733;</span>
-                    <input name="rating" id="rating" type="number" class="d-none">
-                </div>
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input name="title" id="title" type="text" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label for="body">Review</label>
-                    <textarea name="body" id="body" class="form-control" rows="5"></textarea>
-                </div>
-                <div class="form-group text-right">
-                    <button type="submit" class="btn btn-orange text-white">SEND REVIEW</button>
-                </div>
-            </form>
+                @if($product->isReviewAllowed())
+                    <h3 class="h5 text-center pt-4">WRITE YOUR OWN REVIEW</h3>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form action="{{ action('FrontController@addReview', $product->id) }}" method="post">
+                        {{ csrf_field() }}
+                        <label class="mb-0" for="rating">Rating</label>
+                        <div class="pb-2">
+                            <span id="star1" class="rating-star" style="cursor:pointer;">&#9733;</span>
+                            <span id="star2" class="rating-star" style="cursor:pointer;">&#9733;</span>
+                            <span id="star3" class="rating-star" style="cursor:pointer;">&#9733;</span>
+                            <span id="star4" class="rating-star" style="cursor:pointer;">&#9733;</span>
+                            <span id="star5" class="rating-star" style="cursor:pointer;">&#9733;</span>
+                            <input name="rating" id="rating" type="number" class="d-none">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input name="title" id="title" type="text" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="body">Review</label>
+                            <textarea name="body" id="body" class="form-control" rows="5"></textarea>
+                        </div>
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-orange text-white">SEND REVIEW</button>
+                        </div>
+                    </form>
+                    @else
+                    <p class="text-center">Please order the product before writing a review</p>
+
+                @endif
                 @else
                 <p class="text-center"><a class="text-orange" href="{{ route('login') }}">Log in</a> or <a class="text-orange" href="{{ route('register') }}">Register</a> to write a review</p>
             @endif

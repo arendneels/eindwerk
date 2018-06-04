@@ -150,7 +150,10 @@ class FrontController extends Controller
     }
 
     public function history(){
-        return view('front.history');
+        $user = Auth()->user();
+        //Nested eager loading
+        $orders = $user->orders()->with(['stocks', 'stocks.product', 'stocks.size'])->paginate(5);
+        return view('front.history', compact('user', 'orders'));
     }
 
     public function editaccount(){

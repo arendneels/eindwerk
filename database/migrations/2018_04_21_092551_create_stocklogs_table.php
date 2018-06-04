@@ -19,6 +19,8 @@ class CreateStocklogsTable extends Migration
             $table->integer('user_id');
             $table->integer('add');
             $table->integer('amount');
+            $table->string('type')->nullable();
+            $table->integer('order_id')->nullable();
             $table->timestamps();
         });
     }

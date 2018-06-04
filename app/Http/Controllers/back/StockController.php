@@ -91,6 +91,7 @@ class StockController extends Controller
         $stocklog['user_id'] = Auth::user()->id;
         $stocklog['stock_id'] = $stock->id;
         $stocklog['amount'] = $stock->amount;
+        $stocklog['type'] = 'Add to stock';
         Stocklog::create($stocklog);
         //Return response
         return response()->json($stock);

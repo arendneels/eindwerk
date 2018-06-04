@@ -29,6 +29,7 @@ class CreateOrdersTable extends Migration
             $table->string('address2')->nullable();
             $table->decimal('total');
             $table->string('status');
+            $table->timestamp('shipping_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class OrdersTableSeeder extends Seeder
@@ -25,6 +26,7 @@ class OrdersTableSeeder extends Seeder
             'country_id' => 1,
             'total' => 350.25,
             'status' => 'PAID',
+            'shipping_date' => null,
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
@@ -43,6 +45,7 @@ class OrdersTableSeeder extends Seeder
             'country_id' => 1,
             'total' => 240.99,
             'status' => 'DELIVERED',
+            'shipping_date' =>  date_create(),
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);

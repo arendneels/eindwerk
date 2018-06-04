@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content')
-    <h1 class="text-center pt-4 pt-md-6 text-uppercase">HI {{ Auth::user()->first_name }},<br>THIS IS YOUR ORDER HISTORY</h1>
+    <h1 class="text-center pt-4 pt-md-6 text-uppercase">HI {{ $user->first_name }},<br>THIS IS YOUR ORDER HISTORY</h1>
     <div class="text-center pt-5 pt-md-6 pb-6 pb-md-7"><a href="{{ route('editaccount') }}" class="border p-3">EDIT YOUR ACCOUNT</a></div>
     <!--HISTORY TABLE!-->
     <table class="w-100 font-size1 table table-striped table-responsive-sm">
@@ -16,59 +16,45 @@
         </tr>
         </thead>
         <tbody>
+        @foreach($orders as $order)
         <tr>
             <td>
-                #28364
+                #{{ $order->id }}
             </td>
             <td>
-                21/05/2014
+                {{ $order->created_at->format('d/m/Y') }}
             </td>
             <td>
+                @foreach($order->stocks as $stock)
                 <div class="d-flex py-1">
                     <img src="http://via.placeholder.com/350x150" alt="" class="img-history pr-2">
-                    <p class="mb-0"><strong>FLORAL PLIMSOLL</strong>
-                        <br><i class="text-grey2">Ref. 2514/302</i></p>
+                    <p class="mb-0">
+                        <strong>
+                            {{ $stock->product->name . ' - Size ' . $stock->size->name }}
+                            @if($stock->pivot->amt > 1)
+                                {{ ' (' . $stock->pivot->amt . ' pcs)' }}
+                            @endif
+                        </strong>
+                        <br>
+                        <i class="text-grey2">Ref. {{ $stock->product->article_no }}</i>
+                    </p>
                 </div>
-                <div class="d-flex py-1">
-                    <img src="http://via.placeholder.com/350x150" alt="" class="img-history pr-2">
-                    <p class="mb-0"><strong>FLORAL PLIMSOLL</strong>
-                        <br><i class="text-grey2">Ref. 2514/302</i></p>
-                </div>
-                <div class="d-flex py-1">
-                    <img src="http://via.placeholder.com/350x150" alt="" class="img-history pr-2">
-                    <p class="mb-0"><strong>FLORAL PLIMSOLL</strong>
-                        <br><i class="text-grey2">Ref. 2514/302</i></p>
-                </div>
+                @endforeach
             </td>
-            <td>OPEN</td>
-            <td>22/05/2014</td>
-            <td class="text-right">&euro;345.00</td>
+            <td>{{ $order->status }}</td>
+            <td>
+                @if($order->shipping_date)
+                    {{  $order->shipping_date->format('d/m/Y') }}
+                    @else
+                    TBD
+                @endif
+            </td>
+            <td class="text-right">&euro;&nbsp;{{ $order->total }}</td>
         </tr>
-        <tr>
-            <td>
-                #28365
-            </td>
-            <td>
-                11/05/2014
-            </td>
-            <td>
-                <div class="d-flex py-1">
-                    <img src="http://via.placeholder.com/350x150" alt="" class="img-history pr-2">
-                    <p class="mb-0"><strong>DRESS WITH KNOT AT THE BACK</strong>
-                        <br><i class="text-grey2">Ref. 7583/890</i></p>
-                </div>
-            </td>
-            <td>PAID</td>
-            <td>13/05/2014</td>
-            <td class="text-right">&euro;105.00</td>
-        </tr>
+        @endforeach
         </tbody>
     </table>
-    <div class="row pb-5">
-        <div class="col-12">
-            <button class='btn bg-grey text-grey2 w-100 font-size2'>SHOW MORE ITEMS</button>
-        </div>
-    </div>
+    {{ $orders->links('layouts.pagination') }}
     <div class="divider my-5"></div>
     <p class="text-center font-size-subheader pb-4 mb-0 text-gray2"><em>You may also like</em></p>
 @endsection

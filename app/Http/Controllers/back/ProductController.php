@@ -11,6 +11,7 @@ use App\Size;
 use App\Stock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -97,7 +98,85 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::with(['categories', 'colors', 'stocks', 'stocks.size'])->findOrFail($id);
+
+        //Data will be shown for last 7 months
+        $timespan = 7;
+        $lastMonths = [];
+        $totalEarned = [];
+
+        for($i=$timespan; $i>=0; $i--){
+            array_push($lastMonths, date("M", strtotime("-" . $i ." month")));
+        }
+
+        //Get data per month
+        $oldestDate = date("Y-m", strtotime("-" . $timespan ." month"));
+        $i = 0;
+
+        $datasets = [];
+
+        //Build Custom Query
+        foreach($product->stocks as $stock) {
+            $dataArray = DB::table('order_stock')
+                ->select(DB::raw('sum(amt) as total_amt'), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+                ->where('created_at', '>', $oldestDate)
+                ->where('stock_id', $stock->id)
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'asc', 'month', 'asc')
+                ->get();
+
+
+            $datasets[$i] = [];
+            //Fill the complete array
+            foreach($lastMonths as $month){
+                $data = $dataArray->where('month', date('m', strtotime($month)))->first();
+                if($data){
+                    array_push($datasets[$i], $data->total_amt);
+                }else{
+                    //If month has no orders
+                    array_push($datasets[$i], 0);
+                }
+            }
+
+            $i += 1;
+        }
+
+
+
+        $options = [];
+        $options['scales']['xAxes'][]['stacked'] = true;
+        $options['scales']['yAxes'][]['stacked'] = true;
+        $colorValue = 10;
+        $colorValue2 = 200;
+        $chart_dataset = [];
+        $i = 0;
+
+        foreach($product->stocks as $stock) {
+            array_push($chart_dataset, [
+                "label" => $stock->size->name,
+                'backgroundColor' => "rgba($colorValue, $colorValue2, $colorValue, 0.50)",
+                'borderColor' => "rgba($colorValue, $colorValue2, $colorValue, 0.7)",
+                "pointBorderColor" => "rgba($colorValue, $colorValue2, $colorValue, 0.7)",
+                "pointBackgroundColor" => "rgba($colorValue, $colorValue2, $colorValue, 0.7)",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                'data' => $datasets[$i],
+            ]);
+            $colorValue += 20;
+            $colorValue2 -= $colorValue;
+            $i += 1;
+        }
+
+        //Chart
+        $chartjs = app()->chartjs
+            ->name('lineChartTest')
+            ->type('bar')
+            ->size(['width' => 400, 'height' => 220])
+            ->labels($lastMonths)
+            ->datasets($chart_dataset)
+            ->options($options);
+
+        return view('back.products.show', compact('product', 'chartjs'));
     }
 
     /**

@@ -21,9 +21,10 @@
                         <table width="100%" class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Added on</th>
-                                <th>By</th>
-                                <th>Amount Added</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Approved By</th>
+                                <th>Amount</th>
                                 <th>New Total</th>
                             </tr>
                             </thead>
@@ -31,6 +32,12 @@
                             @foreach($stocklogs as $stocklog)
                                 <tr>
                                     <td>{{ $stocklog->created_at }}</td>
+                                    <td>
+                                        <strong>{{ $stocklog->type }}</strong>
+                                        @if($stocklog->type == 'Sale')
+                                            (<a href="{{ route('orders.show', $stocklog->order_id) }}">Details</a>)
+                                        @endif
+                                    </td>
                                     <td>{{ $stocklog->user->first_name }}</td>
                                     <td>{{ $stocklog->add }}</td>
                                     <td>{{ $stocklog->amount }}</td>

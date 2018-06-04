@@ -39,6 +39,9 @@
                             <strong>Order Info</strong>
                             <ul class="list-unstyled">
                                 <li><em>Order date: </em>{{ $order->created_at }}</li>
+                                @if($order->shipping_date)
+                                    <li><em>Shipping date: </em>{{ $order->shipping_date }}</li>
+                                @endif
                                 <li><em>Payment Method: </em>{{ $order->payment_method }}</li>
                                 <li><em>Payment ID: </em>{{ $order->payment_id }}</li>
                                 <li><em>Status: </em>{{ $order->status }}</li>
