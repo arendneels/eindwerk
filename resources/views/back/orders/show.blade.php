@@ -38,6 +38,7 @@
                         <div class="col-lg-6">
                             <strong>Order Info</strong>
                             <ul class="list-unstyled">
+                                <li><em>Order ID: </em>{{ $order->id }}</li>
                                 <li><em>Order date: </em>{{ $order->created_at }}</li>
                                 @if($order->shipping_date)
                                     <li><em>Shipping date: </em>{{ $order->shipping_date }}</li>

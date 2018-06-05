@@ -40,15 +40,19 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ '€ ' . $product->price }}</td>
                                     <td class="row">
-                                        <div>
+                                        <div class="col-sm-4">
                                             <a class="btn btn-primary" href="{{ route('products.edit', $product->id) }}">Edit</a>
                                         </div>
-                                        <div>
-                                            <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">Stats</a>
+                                        <div class="col-sm-4">
+                                            <a class="btn btn-success" href="{{ route('products.show', $product->id) }}">
+                                                <i class="fa fa-bar-chart"></i>
+                                            </a>
                                         </div>
                                         <!-- Form -->
-                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\ProductController@destroy', $product->id]]) !!}
-                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger delete']) !!}
+                                    {!! Form::open(['method' => 'DELETE', 'action' => ['back\ProductController@destroy', $product->id], 'class' => 'col-sm-4 delete']) !!}
+                                        <button class="btn btn-danger" type="submit">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     {!! Form::close() !!}
                                     <!-- /Form -->
                                     </td>

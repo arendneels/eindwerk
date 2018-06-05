@@ -105,17 +105,18 @@ class Product extends Model
     }
 
 
+    //Function that checks if a product is allowed to be reviewed by the currently logged in user.
     public function isReviewAllowed() {
-        //Query returns the count of the different sizes the user ordered
+        //Query returns the count of the different sizes the user ordered (that have been delivered)
         $results = DB::table('users')
             ->join('orders', 'users.id', '=', 'orders.user_id')
             ->join('order_stock', 'orders.id', '=', 'order_stock.order_id')
             ->join('stocks', 'order_stock.stock_id', '=', 'stocks.id')
             ->where('product_id', $this->id)
             ->where('user_id', Auth::user()->id)
+            ->where('status', 'DELIVERED')
             ->count();
 
-        //If the user bought at least one size of the product, he is allowed to review the product
         if($results != 0){
             return true;
         }else{

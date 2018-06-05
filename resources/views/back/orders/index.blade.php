@@ -20,6 +20,7 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th id="sort">Order date</th>
                             <th>User</th>
                             <th>Payment Method</th>
@@ -33,6 +34,7 @@
                         <tbody>
                         @foreach($orders as $order)
                             <tr>
+                                <td>{{ $order->id }}</td>
                                 <td>{{ $order->created_at }}</td>
                                 <td>{{ $order->first_name . ' ' . $order->last_name }}</td>
                                 <td>{{ $order->payment_method }}</td>

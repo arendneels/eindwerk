@@ -57,6 +57,8 @@ Route::group([],function(){
     Route::get('/cartadd/{id}', 'front\CartController@add')->name('cartadd');
     Route::get('/cartremove/{id}', 'front\CartController@remove')->name('cartremove');
 
+    Route::post('/paymentsuccess', 'front\CartController@paymentSuccess')->name('payment.success');
+
 });
 
 //Back routes

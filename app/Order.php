@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Order extends Model
 {
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'city', 'country_id', 'address', 'address2', 'shipping_date'
+        'first_name', 'last_name', 'email', 'city', 'country_id', 'postal_code', 'address', 'address2', 'shipping_date', 'subtotal', 'total', 'payment_method', 'payment_id', 'status', 'user_id'
     ];
 
     use SoftDeletes;
@@ -53,7 +53,7 @@ class Order extends Model
                 'add' => -$stock->pivot->amt,
                 'stock_id' => $stock->id,
                 'amount' => $stock->amount,
-                'type' => 'Sale',
+                'type' => 'Order',
                 'order_id' => $order->id
             ]);
         }

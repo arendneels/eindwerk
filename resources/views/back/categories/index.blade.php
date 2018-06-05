@@ -20,7 +20,7 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>ID</th>
                             <th>Name</th>
                             <th># Products</th>
                             <th id="controls">Controls</th>

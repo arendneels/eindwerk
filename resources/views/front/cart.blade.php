@@ -76,9 +76,10 @@
         <div class="divider"></div>
         @else
         <div class="divider"></div>
-        @if(!Auth::user())
     <!--USER INFO FORM -->
-    <form action="#" class="text-grey2">
+    <form id="payment-form" method="post" action="{{ route('payment.success') }}" class="text-grey2">
+        {{ csrf_field() }}
+        @if(!Auth::user())
         <h2 class="text-center pt-5 text-black">SHIPPING ADDRESS</h2>
         <p class="text-center pb-3"><i>All fields are required</i></p>
         <div class="row justify-content-center py-1 py-md-2">
@@ -154,13 +155,29 @@
                     <option value="1">Credit Card</option>
                     <option value="2">PayPal</option>
                 </select>
+                <div class="form-group">
+                    <label for="card-element">
+                        Credit or debit card
+                    </label>
+                    <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display form errors. -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
             </div>
         </div>
         <div class="row justify-content-center">
-            <a href="#" class="btn btn-orange text-white px-5 py-2">ORDER NOW</a>
+            <button type="submit" class="btn btn-orange text-white px-5 py-2">ORDER NOW</button>
         </div>
     </form>
     @endif
     <div class="divider my-5"></div>
     <p class="text-center font-size-subheader pb-4 mb-0 text-gray2"><em>Check our lookbook</em></p>
+@endsection
+
+@section('scripts')
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="js/myStripe.js"></script>
 @endsection

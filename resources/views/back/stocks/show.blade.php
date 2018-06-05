@@ -34,7 +34,7 @@
                                     <td>{{ $stocklog->created_at }}</td>
                                     <td>
                                         <strong>{{ $stocklog->type }}</strong>
-                                        @if($stocklog->type == 'Sale')
+                                        @if($stocklog->type == 'Order')
                                             (<a href="{{ route('orders.show', $stocklog->order_id) }}">Details</a>)
                                         @endif
                                     </td>
