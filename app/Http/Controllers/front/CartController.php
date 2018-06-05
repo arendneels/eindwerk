@@ -150,8 +150,9 @@ class CartController extends Controller
 
         $order = Order::create($order);
         foreach(Cart::content() as $content){
-            $stock = Stock::findOrFail($content->id);
-            $order->stocks()->save($stock, ['price' => $content->price, 'amt' => $content->qty]);
+            //$stock = Stock::findOrFail($content->id);
+            //$order->stocks()->save($stock, ['price' => $content->price, 'amt' => $content->qty]);
+            $order->stocks()->attach($content->id, ['price' => $content->price, 'amt' => $content->qty, 'created_at' => date_create()]);
         };
     }
 }
