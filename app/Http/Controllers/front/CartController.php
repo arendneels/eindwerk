@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\front;
 
 
+use App\Country;
 use App\Order;
+use App\Shippingmethod;
 use App\Stock;
+use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,7 +24,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('front.cart');
+        $countries = Country::all();
+        $shippingmethods = Shippingmethod::all();
+        return view('front.cart', compact('countries', 'shippingmethods'));
     }
 
     /**
@@ -124,24 +129,46 @@ class CartController extends Controller
             'source' => $token,
         ]);
 
+        $input = $request->all();
+
+        $user = Auth::user();
         $order = [];
 
-        //Logged in users, sent to their address (easiest)
-        if($user = Auth::user()) {
-            $order['user_id'] = $user->id;
+        if(!$user && isset($_POST['checkbox_create'])){
+            $input['password'] = bcrypt($input['password']);
+            $user = User::create($request->all());
+            Auth::login($user);
         }
-        if($user && true) {
+
+        //If user is logged in, link the id to the order
+        if($user) {
+            $order['user_id'] = $user->id;
+            $order['email'] = $user->email;
+        }else{
+            $order['email'] = $input['email'];
+        }
+        //If user is logged in and didn't chose a different shipping address
+        if($user && !isset($_POST['checkbox_shipping'])) {
             $order['first_name'] = $user->first_name;
             $order['last_name'] = $user->last_name;
-            $order['email'] = $user->email;
             $order['country_id'] = $user->country_id;
             $order['postal_code'] = $user->postal_code;
             $order['city'] = $user->city;
             $order['address'] = $user->address;
             $order['address2'] = $user->address2;
-
+        }else{
+            $order['first_name'] = $_POST['first_name'];
+            $order['last_name'] = $_POST['last_name'];
+            $order['country_id'] = $_POST['country_id'];
+            $order['postal_code'] = $_POST['postal_code'];
+            $order['city'] = $_POST['city'];
+            $order['address'] = $_POST['address'];
+            if(isset($_POST['address2'])){
+                $order['address2'] = $_POST['address2'];
+            }
         }
 
+        $order['shippingmethod_id'] = $_POST['shippingmethod_id'];
         $order['payment_method'] = 'Credit Card';
         $order['payment_id'] = $charge->id;
         $order['subtotal'] = Cart::subtotal();
@@ -150,9 +177,13 @@ class CartController extends Controller
 
         $order = Order::create($order);
         foreach(Cart::content() as $content){
-            //$stock = Stock::findOrFail($content->id);
-            //$order->stocks()->save($stock, ['price' => $content->price, 'amt' => $content->qty]);
             $order->stocks()->attach($content->id, ['price' => $content->price, 'amt' => $content->qty, 'created_at' => date_create()]);
         };
+
+        //Destroy cart after placing order
+        Cart::destroy();
+
+        //Return successful view
+        return view('front.ordersuccess');
     }
 }

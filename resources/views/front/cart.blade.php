@@ -79,68 +79,186 @@
     <!--USER INFO FORM -->
     <form id="payment-form" method="post" action="{{ route('payment.success') }}" class="text-grey2">
         {{ csrf_field() }}
-        @if(!Auth::user())
+        @if(!$user = Auth::user())
         <h2 class="text-center pt-5 text-black">SHIPPING ADDRESS</h2>
         <p class="text-center pb-3"><i>All fields are required</i></p>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
                 <label for="delivery-method">SELECT DELIVERY METHOD</label>
-                <select id="delivery-method" class="form-control form-control-sm" name="delivery-method">
-                    <option value="1">DHL International - &euro; 15.00</option>
-                    <option value="2">DHL International 2 - &euro; 15.00</option>
+                <select id="shipping-method" class="form-control form-control-sm" name="shippingmethod_id">
+                    @foreach($shippingmethods as $shippingmethod)
+                        <option value="{{ $shippingmethod->id }}">{{ $shippingmethod->name }} - &euro; {{ $shippingmethod->price }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="first-name">FIRST NAME</label>
-                <input class="form-control" type="text" id="first-name">
+                <input name="first_name" class="form-control" type="text" id="first-name">
             </div>
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="last-name">LAST NAME</label>
-                <input class="form-control" type="text" id="last-name">
+                <input name="last_name" class="form-control" type="text" id="last-name">
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
                 <label for="address1">ADDRESS (line 1)</label>
-                <input class="form-control" type="text" id="address1">
+                <input name="address" class="form-control" type="text" id="address1">
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
                 <label for="address2">ADDRESS (line 2)</label>
-                <input class="form-control" type="text" id="address2">
+                <input name="address2" class="form-control" type="text" id="address2">
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="city">CITY</label>
-                <input class="form-control" type="text" id="city">
+                <input name="city" class="form-control" type="text" id="city">
             </div>
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="postal-code">POSTAL CODE</label>
-                <input class="form-control" type="text" id="postal-code">
+                <input name="postal_code" class="form-control" type="text" id="postal-code">
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="phone">PHONE NUMBER</label>
-                <input class="form-control" type="text" id="phone">
+                <input name="phone" class="form-control" type="text" id="phone">
             </div>
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="email">E-MAIL</label>
-                <input class="form-control" type="email" id="email">
+                <input name="email" class="form-control" type="email" id="email">
+            </div>
+        </div>
+        <div class="row justify-content-center py-1 py-md-2">
+            <div class="form-group col-12 col-md-8 col-lg-6">
+                <label for="country_id">COUNTRY</label>
+                <select id="country_id" class="form-control form-control-sm" name="country_id">
+                    @foreach($countries as $country)
+                        <option value="{{ $country->id }}">{{ $country->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="form-check text-center">
-            <input type="checkbox" class="form-check-input" id="checkbox-billing">
-            <label class="form-check-label" for="checkbox-billing">Use this address for Billing</label>
+            <input name="checkbox_create" type="checkbox" class="form-check-input" id="create-account">
+            <label class="form-check-label" for="checkbox-shipping">I wish to create an account.</label>
         </div>
+        <div class="row justify-content-center py-1 py-md-2">
+            <div id="password-field" class="form-group col-12 col-md-8 col-lg-6 d-none text-center justify-content-center">
+                <label for="password">PASSWORD</label>
+                <input name="password" class="form-control" type="password" id="password">
+                <small id="passwordHelp" class="form-text text-muted">The password should be at least 6 characters</small>
+            </div>
+        </div>
+            @else
+            <h2 class="text-center pt-5 text-black">SHIPPING ADDRESS</h2>
+            <div class="row justify-content-around">
+                <div class="col-auto">
+                    <ul class="list-unstyled">
+                        <li><em>First name: </em>{{ $user->first_name }}</li>
+                        <li><em>Last name: </em>{{ $user->last_name }}</li>
+                        <li><em>Email: </em>{{ $user->email }}</li>
+                        <li><em>Phone Number: </em>{{ $user->phone }}</li>
+                    </ul>
+                </div>
+                <div class="col-auto">
+                    <ul class="list-unstyled">
+                        <li><em>Address: </em>
+                            {{ $user->address }}
+                        @if($user->address2)
+                            <br>
+                            {{ $user->address2 }}
+                        @endif
+                        </li>
+                        <li><em>City: </em>{{ $user->city }}</li>
+                        <li><em>Country: </em>{{ $user->country->name }}</li>
+                        <li><em>Postal Code: </em>{{ $user->postal_code }}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="form-group col-12 col-md-8 col-lg-6">
+                    <label for="delivery-method">SELECT DELIVERY METHOD</label>
+                    <select id="shipping-method" class="form-control form-control-sm" name="shippingmethod_id">
+                        @foreach($shippingmethods as $shippingmethod)
+                            <option value="{{ $shippingmethod->id }}">{{ $shippingmethod->name }} - &euro; {{ $shippingmethod->price }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-check text-center">
+                <input name="checkbox_shipping" type="checkbox" class="form-check-input" id="checkbox-shipping">
+                <label class="form-check-label" for="checkbox-shipping">Use different shipping address for this order</label>
+            </div>
+
+            <div id="shipping-form-2" class="d-none">
+                <p class="text-center pb-3"><i>All fields are required</i></p>
+                <div class="row justify-content-center py-1 py-md-2">
+                    <div class="form-group col-12 col-md-8 col-lg-6">
+                        <label for="shipping-method">SELECT SHIPPING METHOD</label>
+                        <select id="shipping-method" class="form-control form-control-sm" name="shippingmethod_id">
+                            @foreach($shippingmethods as $shippingmethod)
+                            <option value="{{ $shippingmethod->id }}">{{ $shippingmethod->name }} - &euro; {{ $shippingmethod->price }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center py-1 py-md-2">
+                    <div class="form-group col-6 col-md-4 col-lg-3">
+                        <label for="first-name">FIRST NAME</label>
+                        <input name="first_name" class="form-control" type="text" id="first-name">
+                    </div>
+                    <div class="form-group col-6 col-md-4 col-lg-3">
+                        <label for="last-name">LAST NAME</label>
+                        <input name="last_name" class="form-control" type="text" id="last-name">
+                    </div>
+                </div>
+                <div class="row justify-content-center py-1 py-md-2">
+                    <div class="form-group col-12 col-md-8 col-lg-6">
+                        <label for="address1">ADDRESS (line 1)</label>
+                        <input name="address" class="form-control" type="text" id="address1">
+                    </div>
+                </div>
+                <div class="row justify-content-center py-1 py-md-2">
+                    <div class="form-group col-12 col-md-8 col-lg-6">
+                        <label for="address2">ADDRESS (line 2)</label>
+                        <input name="address2" class="form-control" type="text" id="address2">
+                    </div>
+                </div>
+                <div class="row justify-content-center py-1 py-md-2">
+                    <div class="form-group col-6 col-md-4 col-lg-3">
+                        <label for="city">CITY</label>
+                        <input name="city" class="form-control" type="text" id="city">
+                    </div>
+                    <div class="form-group col-6 col-md-4 col-lg-3">
+                        <label for="postal-code">POSTAL CODE</label>
+                        <input name="postal_code" class="form-control" type="text" id="postal-code">
+                    </div>
+                </div>
+                <div class="row justify-content-center py-1 py-md-2">
+                    <div class="form-group col-12 col-md-8 col-lg-6">
+                        <label for="country_id">COUNTRY</label>
+                        <select id="country_id" class="form-control form-control-sm" name="country_id">
+                            @foreach($countries as $country)
+                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            @endif
+
         <div class="divider my-5"></div>
         <img class="d-block mx-auto" src="{{ asset('images/shape1.png') }}" alt="">
         <div class="divider my-5"></div>
-            @endif
 
         <!--Payment options-->
         <h2 class="text-center pt-5 text-black">PAYMENT OPTIONS</h2>
@@ -168,6 +286,10 @@
                 </div>
             </div>
         </div>
+        <div class="form-check text-center">
+            <input type="checkbox" class="form-check-input" id="checkbox-billing">
+            <label class="form-check-label" for="checkbox-billing">I have read and agree to the <a href="#" class="text-orange">terms of conditions</a></label>
+        </div>
         <div class="row justify-content-center">
             <button type="submit" class="btn btn-orange text-white px-5 py-2">ORDER NOW</button>
         </div>
@@ -180,4 +302,43 @@
 @section('scripts')
     <script src="https://js.stripe.com/v3/"></script>
     <script src="js/myStripe.js"></script>
+    <script>
+        $(function(){
+
+            //if attr('checked')->addClass d-none else removeClass d-none
+            if($('#checkbox-shipping').prop('checked')){
+                $('#shipping-form-2').removeClass('d-none');
+            }else{
+                $('#shipping-form-2').addClass('d-none');
+            }
+
+            //if attr('checked')->addClass d-none else removeClass d-none
+            if($('#create-account').prop('checked')){
+                $('#password-field').removeClass('d-none');
+            }else{
+                $('#password-field').addClass('d-none');
+            }
+
+            //Shipping form
+            $('#checkbox-shipping').click(function(){
+                //if attr('checked')->addClass d-none else removeClass d-none
+                if($('#checkbox-shipping').prop('checked')){
+                    $('#shipping-form-2').removeClass('d-none');
+                }else{
+                    $('#shipping-form-2').addClass('d-none');
+                }
+            });
+
+            //Password field
+            $('#create-account').click(function(){
+                //if attr('checked')->addClass d-none else removeClass d-none
+                if($('#create-account').prop('checked')){
+                    $('#password-field').removeClass('d-none');
+                }else{
+                    $('#password-field').addClass('d-none');
+                }
+            });
+
+        });
+    </script>
 @endsection

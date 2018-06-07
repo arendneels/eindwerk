@@ -45,7 +45,10 @@ Route::group([],function(){
     Route::get('/categories/{id}', 'FrontController@categories')->name('categories');
     Route::get('/products/{category_id1}/{category_id2?}', 'FrontController@products')->name('products');
     Route::get('/about', 'FrontController@about')->name('about');
+
     Route::get('/contact', 'FrontController@contact')->name('contact');
+    Route::post('/contact', 'FrontController@addContactMsg')->name('contact.add');
+
     Route::get('/search', 'FrontController@search')->name('search');
 
     Route::get('/history', 'FrontController@history')->middleware('auth')->name('history');
@@ -75,6 +78,7 @@ Route::middleware(['back'])->group(function () {
     Route::get('/admin/reviews', 'back\ReviewController@index')->name('reviews');
     Route::get('/admin/validatereview/{id}', 'back\ReviewController@validateReview')->name('review.validate');
     Route::delete('/admin/delete/{id}', 'back\ReviewController@destroy')->name('review.destory');
+    Route::get('/admin/messages', 'back\MessageController@index')->name('messages.index');
 
     Route::post('/dropzone', function(){
         $file = Input::file('file');

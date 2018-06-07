@@ -8,6 +8,7 @@ use App\Country;
 use App\Http\Requests\AddReviewRequest;
 use App\Http\Requests\AddSubRequest;
 use App\Http\Requests\front\UserEditRequest;
+use App\Message;
 use App\Product;
 use App\Review;
 use App\Size;
@@ -137,6 +138,11 @@ class FrontController extends Controller
 
     public function contact(){
         return view('front.contact');
+    }
+
+    public function addContactMsg(Request $request){
+        Message::create($request->all());
+        return view('front.contactsuccess');
     }
 
     public function search(Request $request){
