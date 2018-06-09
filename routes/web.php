@@ -79,6 +79,7 @@ Route::middleware(['back'])->group(function () {
     Route::get('/admin/validatereview/{id}', 'back\ReviewController@validateReview')->name('review.validate');
     Route::delete('/admin/delete/{id}', 'back\ReviewController@destroy')->name('review.destory');
     Route::get('/admin/messages', 'back\MessageController@index')->name('messages.index');
+    Route::get('/admin/messages/{id}', 'back\MessageController@show')->name('messages.show');
 
     Route::post('/dropzone', function(){
         $file = Input::file('file');

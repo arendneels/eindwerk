@@ -28,6 +28,8 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('address2')->nullable();
             $table->decimal('total');
+            $table->decimal('payment_cost');
+            $table->decimal('shipping_cost');
             $table->string('status');
             $table->integer('shippingmethod_id');
             $table->timestamp('shipping_date')->nullable();

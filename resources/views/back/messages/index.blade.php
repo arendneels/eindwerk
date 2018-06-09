@@ -21,23 +21,26 @@
                         <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Topic</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Body</th>
+                            <th>Topic</th>
                             <th>Controls</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($messages as $message)
-                            <tr>
+                            <tr
+                            @if(!$message->is_read)
+                                     style="background: #FFFACD!important;"
+                                    @endif
+
+                            >
                                 <td>{{ $message->created_at }}</td>
-                                <td>{{ $message->topic }}</td>
                                 <td>{{ $message->name }}</td>
                                 <td>{{ $message->email }}</td>
-                                <td>{{ $message->body }}</td>
+                                <td>{{ $message->topic }}</td>
                                 <th>
-                                    <a href="mailto:{{ $message->email }}" class="btn btn-success">Reply</a>
+                                    <a href="{{ route('messages.show', $message) }}" class="btn btn-primary">Read</a>
                                 </th>
                             </tr>
                         @endforeach

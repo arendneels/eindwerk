@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\back;
 
+use App\Message;
 use App\Order;
 use App\Product;
 use App\Review;
@@ -13,6 +14,7 @@ class AdminController extends Controller
 {
     public function index(){
         $newReviewCount = Review::where('validated',false)->count();
+        $newMessageCount = Message::where('is_read', false)->count();
         $totalProductCount = Product::count();
 
         //Data will be shown for last 7 months
@@ -27,7 +29,7 @@ class AdminController extends Controller
         //Get data per month
         $oldestDate = date("Y-m", strtotime("-" . $timespan ." month"));
 
-        //Build Custom Query
+        //Build Custom Query to get total amount earned
         $orders = DB::table('orders')
             ->select(DB::raw('sum(total) as total'),DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
             ->where('created_at', '>', $oldestDate)
@@ -69,6 +71,6 @@ class AdminController extends Controller
             ]]);
 
 
-        return view('back.admin', compact('chartjs', 'newReviewCount', 'totalProductCount', 'newOrderCount'));
+        return view('back.admin', compact('chartjs', 'newReviewCount', 'totalProductCount', 'newOrderCount', 'newMessageCount'));
     }
 }

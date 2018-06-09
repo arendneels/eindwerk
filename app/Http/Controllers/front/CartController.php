@@ -117,7 +117,7 @@ class CartController extends Controller
     public function paymentSuccess(Request $request){
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
-        Stripe::setApiKey("sk_test_pyvcbd3TKg8b46OuUVwJ8Q7F");
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         // Token is created using Checkout or Elements!
         // Get the payment token ID submitted by the form:
@@ -169,10 +169,14 @@ class CartController extends Controller
         }
 
         $order['shippingmethod_id'] = $_POST['shippingmethod_id'];
+        $order['shipping_cost'] = Shippingmethod::findOrFail($_POST['shippingmethod_id'])->price;
         $order['payment_method'] = 'Credit Card';
         $order['payment_id'] = $charge->id;
         $order['subtotal'] = Cart::subtotal();
         $order['total'] = Cart::subtotal() + 10;
+        //Stripe cost calculation
+        $order['payment_cost'] = $order['total'] * 0.014 + 0.25;
+
         $order['status'] = 'PAID';
 
         $order = Order::create($order);

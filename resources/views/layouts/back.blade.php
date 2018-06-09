@@ -124,6 +124,9 @@
                         <a href="{{ route('messages.index') }}">
                             <i class="fa fa-envelope fa-fw"></i>
                             Messages
+                            @if(!\App\Message::where('is_read', false)->count() == 0)
+                                &nbsp;<i class="fa fa-exclamation-circle"></i>
+                            @endif
                         </a>
                     </li>
                     <li>

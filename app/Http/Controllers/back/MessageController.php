@@ -13,4 +13,13 @@ class MessageController extends Controller
         $messages = Message::all();
         return view('back.messages.index', compact('messages'));
     }
+
+    public function show($id){
+        $message = Message::findOrFail($id);
+        if(!$message->is_read){
+            $message->is_read = true;
+            $message->save();
+        }
+        return view('back.messages.show', compact('message'));
+    }
 }

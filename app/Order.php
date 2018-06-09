@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Order extends Model
 {
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'city', 'country_id', 'postal_code', 'address', 'address2', 'shipping_date', 'subtotal', 'total', 'payment_method', 'payment_id', 'status', 'user_id', 'shippingmethod_id'
+        'first_name', 'last_name', 'email', 'city', 'country_id', 'postal_code', 'address', 'address2', 'shipping_date', 'subtotal', 'total', 'payment_method', 'payment_id', 'status', 'user_id', 'shippingmethod_id', 'payment_cost', 'shipping_cost'
     ];
 
     use SoftDeletes;
