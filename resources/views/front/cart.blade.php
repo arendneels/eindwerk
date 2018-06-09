@@ -10,6 +10,15 @@
         </span>
         </div>
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <!--SHOPPING CART TABLE!-->
     <table class="w-100 font-size1 table table-striped table-responsive-sm">
         <thead>
@@ -95,17 +104,17 @@
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="first-name">FIRST NAME</label>
-                <input name="first_name" class="form-control" type="text" id="first-name">
+                <input name="first_name" class="form-control" type="text" id="first-name" required>
             </div>
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="last-name">LAST NAME</label>
-                <input name="last_name" class="form-control" type="text" id="last-name">
+                <input name="last_name" class="form-control" type="text" id="last-name" required>
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
                 <label for="address1">ADDRESS (line 1)</label>
-                <input name="address" class="form-control" type="text" id="address1">
+                <input name="address" class="form-control" type="text" id="address1" required>
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
@@ -117,21 +126,21 @@
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="city">CITY</label>
-                <input name="city" class="form-control" type="text" id="city">
+                <input name="city" class="form-control" type="text" id="city" required>
             </div>
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="postal-code">POSTAL CODE</label>
-                <input name="postal_code" class="form-control" type="text" id="postal-code">
+                <input name="postal_code" class="form-control" type="text" id="postal-code" required>
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="phone">PHONE NUMBER</label>
-                <input name="phone" class="form-control" type="text" id="phone">
+                <input name="phone" class="form-control" type="text" id="phone" required>
             </div>
             <div class="form-group col-6 col-md-4 col-lg-3">
                 <label for="email">E-MAIL</label>
-                <input name="email" class="form-control" type="email" id="email">
+                <input name="email" class="form-control" type="email" id="email" required>
             </div>
         </div>
         <div class="row justify-content-center py-1 py-md-2">
@@ -287,8 +296,8 @@
             </div>
         </div>
         <div class="form-check text-center">
-            <input type="checkbox" class="form-check-input" id="checkbox-billing">
-            <label class="form-check-label" for="checkbox-billing">I have read and agree to the <a href="#" class="text-orange">terms of conditions</a></label>
+            <input type="checkbox" class="form-check-input" id="checkbox-billing" required>
+            <label class="form-check-label" for="checkbox-billing">I have read and agree to the <a href="{{ route('terms') }}" class="text-orange">terms of conditions</a></label>
         </div>
         <div class="row justify-content-center">
             <button type="submit" class="btn btn-orange text-white px-5 py-2">ORDER NOW</button>

@@ -207,8 +207,7 @@
             <div class="col-sm-3 border-right">
                 <p class="font-size-footer mb-1"><strong>SITE</strong></p>
                 <ul>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="{{ route('terms') }}">Terms of Conditions</a></li>
                     <li><a href="#">Copyright Policy</a></li>
                     <li><a href="#">Press Kit</a></li>
                     <li><a href="#">Support</a></li>

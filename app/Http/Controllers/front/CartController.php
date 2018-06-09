@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 
 use App\Country;
+use App\Http\Requests\front\OrderRequest;
 use App\Order;
 use App\Shippingmethod;
 use App\Stock;
@@ -114,7 +115,7 @@ class CartController extends Controller
         return redirect('/cart');
     }
 
-    public function paymentSuccess(Request $request){
+    public function paymentSuccess(OrderRequest $request){
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         Stripe::setApiKey(env('STRIPE_SECRET'));

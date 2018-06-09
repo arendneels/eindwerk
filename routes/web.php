@@ -45,6 +45,7 @@ Route::group([],function(){
     Route::get('/categories/{id}', 'FrontController@categories')->name('categories');
     Route::get('/products/{category_id1}/{category_id2?}', 'FrontController@products')->name('products');
     Route::get('/about', 'FrontController@about')->name('about');
+    Route::get('/terms-of-conditions', 'FrontController@terms')->name('terms');
 
     Route::get('/contact', 'FrontController@contact')->name('contact');
     Route::post('/contact', 'FrontController@addContactMsg')->name('contact.add');
