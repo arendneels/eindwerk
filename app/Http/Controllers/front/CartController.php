@@ -180,6 +180,7 @@ class CartController extends Controller
         $order['payment_cost'] = $order['total'] * 0.014 + 0.25;
 
         $order['status'] = 'PAID';
+        $order['created_at_ip'] = request()->ip();
 
         $order = Order::create($order);
         foreach(Cart::content() as $content){

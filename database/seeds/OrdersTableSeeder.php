@@ -30,6 +30,7 @@ class OrdersTableSeeder extends Seeder
             'payment_cost' => 2.30,
             'shipping_cost' => 8.50,
             'shipping_date' => null,
+            'created_at_ip' => 'TESTIP',
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);
@@ -52,6 +53,7 @@ class OrdersTableSeeder extends Seeder
             'payment_cost' => 2.30,
             'shipping_cost' => 8.50,
             'shipping_date' =>  date_create(),
+            'created_at_ip' => 'TESTIP',
             'created_at' => date_create(),
             'updated_at' => date_create(),
         ]);

@@ -14,7 +14,9 @@
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <li>
+                        {{ $error }}
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -90,6 +92,7 @@
         {{ csrf_field() }}
         @if(!$user = Auth::user())
         <h2 class="text-center pt-5 text-black">SHIPPING ADDRESS</h2>
+        <p class="text-center">Click <a href="{{ route('login') }}" class="text-orange">here</a> to log in if you already have an account.</p>
         <p class="text-center pb-3"><i>All fields are required</i></p>
         <div class="row justify-content-center py-1 py-md-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
@@ -277,11 +280,13 @@
         <p class="text-center text-orange pb-4">Total:&nbsp;&nbsp;<i>&euro;{{ Cart::subtotal() }}</i></p>
         <div class="row justify-content-center pb-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
-                <label for="payment-method">SELECT PAYMENT METHOD</label>
-                <select id="payment-method" class="form-control form-control-sm" name="payment-method">
-                    <option value="1">Credit Card</option>
-                    <option value="2">PayPal</option>
-                </select>
+                <div class="pb-3">
+                    <label for="payment-method">SELECT PAYMENT METHOD</label>
+                    <select id="payment-method" class="form-control form-control-sm" name="payment-method">
+                        <option value="1">Credit Card</option>
+                        <option value="2">PayPal</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="card-element">
                         Credit or debit card
@@ -296,7 +301,7 @@
             </div>
         </div>
         <div class="form-check text-center">
-            <input type="checkbox" class="form-check-input" id="checkbox-billing" required>
+            <input name="agree" type="checkbox" class="form-check-input" id="checkbox-billing" required>
             <label class="form-check-label" for="checkbox-billing">I have read and agree to the <a href="{{ route('terms') }}" class="text-orange">terms of conditions</a></label>
         </div>
         <div class="row justify-content-center">

@@ -81,6 +81,13 @@
                                 <button type="submit" class="btn btn-success">Ready for delivery&nbsp;<i class="fa fa-check"></i></button>
                             </form>
                         @endif
+                        @if($order->status == 'READY FOR DELIVERY')
+                            <form action="{{ route('orders.delivered', $order) }}" method="post" style="margin-bottom: 8px;">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="put" />
+                                <button type="submit" class="btn btn-success">Delivered!&nbsp;<i class="fa fa-check"></i></button>
+                            </form>
+                        @endif
 
                         @if($order->status <> 'CANCELLED')
                             <form action="{{ route('orders.destroy', $order) }}" method="post" style="float:right">

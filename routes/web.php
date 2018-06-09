@@ -74,7 +74,8 @@ Route::middleware(['back'])->group(function () {
     Route::resource('/admin/users', 'back\UserController');
     Route::resource('/admin/stocks', 'back\StockController');
     Route::resource('/admin/orders', 'back\OrderController');
-    Route::put('/admin/order/ready/{id}', 'back\OrderController@orderReady')->name('orders.ready');
+    Route::put('/admin/order/ready/{order}', 'back\OrderController@orderReady')->name('orders.ready');
+    Route::put('admin/order/delivered/{order}', 'back\OrderController@orderDelivered')->name('orders.delivered');
     Route::get('/admin/neworders', 'back\OrderController@newOrders')->name('orders.new');
     Route::get('/admin/reviews', 'back\ReviewController@index')->name('reviews');
     Route::get('/admin/validatereview/{id}', 'back\ReviewController@validateReview')->name('review.validate');

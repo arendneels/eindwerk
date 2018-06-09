@@ -101,4 +101,10 @@ class OrderController extends Controller
         Order::orderReady($id);
         return redirect()->back();
     }
+
+    public function orderDelivered($id)
+    {
+        Order::orderDelivered($id);
+        return redirect()->back();
+    }
 }

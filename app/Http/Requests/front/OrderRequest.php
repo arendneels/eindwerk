@@ -28,11 +28,12 @@ class OrderRequest extends FormRequest
         $user = Auth::user();
         $validationArray = [];
 
+        // For not logged in users, require form data
         if(!$user){
             $validationArray = [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|unique:users',
+                'email' => 'required',
                 'country_id' => 'required',
                 'postal_code' => 'required',
                 'city' => 'required',
@@ -41,10 +42,13 @@ class OrderRequest extends FormRequest
             ];
         }
 
+        // For not logged in users who wish to create an account, require password and unique email
         if(!$user && isset($input['checkbox_create'])){
             $validationArray['password'] = 'required|min:6';
+            $validationArray['email'] = 'required|unique:users';
         }
 
+        // For logged in users who chose a diffrent shipping address
         if($user && isset($input['checkbox_shipping'])){
             $validationArray = [
                 'first_name' => 'required',
@@ -55,6 +59,12 @@ class OrderRequest extends FormRequest
                 'address' => 'required',
             ];
         };
+
+        // Always require users to check agree checkbox
+        $validationArray['agree'] = 'required';
+
+        //Always require payment
+        $validationArray['stripeToken'] = 'required';
 
         return $validationArray;
     }

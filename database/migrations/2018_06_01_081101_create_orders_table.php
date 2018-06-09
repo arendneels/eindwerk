@@ -33,6 +33,7 @@ class CreateOrdersTable extends Migration
             $table->string('status');
             $table->integer('shippingmethod_id');
             $table->timestamp('shipping_date')->nullable();
+            $table->string('created_at_ip');
             $table->timestamps();
             $table->softDeletes();
         });
