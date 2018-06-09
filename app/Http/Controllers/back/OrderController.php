@@ -83,7 +83,10 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->status = 'CANCELLED';
+        $order->update();
+        return redirect('admin/orders');
     }
 
     public function newOrders()

@@ -118,8 +118,10 @@ class ProductController extends Controller
         //Build Custom Query
         foreach($product->stocks as $stock) {
             $dataArray = DB::table('order_stock')
-                ->select(DB::raw('sum(amt) as total_amt'), DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
-                ->where('created_at', '>', $oldestDate)
+                ->select(DB::raw('sum(amt) as total_amt'), DB::raw('YEAR(order_stock.created_at) year, MONTH(order_stock.created_at) month'))
+                ->join('orders', 'order_stock.order_id', '=', 'orders.id')
+                ->where('order_stock.created_at', '>', $oldestDate)
+                ->where('status', '<>', 'CANCELLED')
                 ->where('stock_id', $stock->id)
                 ->groupBy('year', 'month')
                 ->orderBy('year', 'asc', 'month', 'asc')

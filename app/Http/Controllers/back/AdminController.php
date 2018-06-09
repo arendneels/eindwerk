@@ -33,6 +33,7 @@ class AdminController extends Controller
         $orders = DB::table('orders')
             ->select(DB::raw('sum(total) as total'),DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
             ->where('created_at', '>', $oldestDate)
+            ->where('status', '<>', 'CANCELLED')
             ->groupBy('year', 'month')
             ->orderBy('year', 'asc', 'month', 'asc')
             ->get();

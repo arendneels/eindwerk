@@ -20,7 +20,7 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                         <tr>
-                            <th>Date</th>
+                            <th id="sort">Date</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Topic</th>
@@ -62,6 +62,9 @@
             $('#dataTables-example').DataTable({
                 responsive: true
             });
+
+            //Sort by id="sort" default
+            $('#sort').click();
         });
     </script>
 @endsection

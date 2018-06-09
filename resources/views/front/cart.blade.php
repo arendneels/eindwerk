@@ -3,12 +3,12 @@
 @section('content')
     <h1 class="text-center">YOUR SHOPPING BAG</h1>
     <p class="text-center pb-2 text-grey2"><i>Items reserved for limited time only</i></p>
-    @if(isset($errorMsg))
-    <div class="row justify-content-center">
+    @if(session('stockError'))
+        <div class="row justify-content-center">
         <span class="col-auto alert alert-danger">
-            {{ $errorMsg }}
+            {{ session('stockError') }}
         </span>
-    </div>
+        </div>
     @endif
     <!--SHOPPING CART TABLE!-->
     <table class="w-100 font-size1 table table-striped table-responsive-sm">

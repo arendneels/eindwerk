@@ -73,13 +73,23 @@
                         @endforeach
                         </tbody>
                     </table>
-                    @if($order->status == 'PAID')
-                        <form action="{{ route('orders.ready', $order->id) }}" method="post" style="float:right">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="_method" value="put" />
-                            <button type="submit" class="btn btn-success">Ready for delivery&nbsp;<i class="fa fa-check"></i></button>
-                        </form>
-                    @endif
+                    <div style="float:right">
+                        @if($order->status == 'PAID')
+                            <form action="{{ route('orders.ready', $order) }}" method="post" style="margin-bottom: 8px;">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="put" />
+                                <button type="submit" class="btn btn-success">Ready for delivery&nbsp;<i class="fa fa-check"></i></button>
+                            </form>
+                        @endif
+
+                        @if($order->status <> 'CANCELLED')
+                            <form action="{{ route('orders.destroy', $order) }}" method="post" style="float:right">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="submit" class="btn btn-danger">Cancel&nbsp;<i class="fa fa-remove"></i></button>
+                            </form>
+                            @endif
+                    </div>
                 </div>
                 <!-- /.panel-body -->
             </div>

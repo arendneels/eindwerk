@@ -22,15 +22,19 @@
                         </div>
                     </div>
                 </div>
-                @if(!$newOrdersCount == 0)
-                <a href="{{ route('orders.new') }}">
+                <a
+                        @if(!$newOrdersCount == 0)
+                             href="{{ route('orders.new') }}"
+                        @else
+                             href="{{ route('orders.index') }}"
+                        @endif
+                >
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
-                @endif
 
             </div>
         </div>
