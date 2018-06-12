@@ -20,22 +20,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Stripe\Stripe;
 
-Route::get('/test', function(){
-
-    $token = \Stripe\Token::create(array(
-        "card" => array(
-            "number" => "4242424242424242",
-            "exp_month" => 5,
-            "exp_year" => 2019,
-            "cvc" => "314"
-        )
-    ));
-
-    $user = User::find(1);
-
-    $user->newSubscription('main', 'premium')->create($token);
-});
-
 //Front Routes
 Route::group([],function(){
     Route::get('/', 'FrontController@index')->name('index');
@@ -83,22 +67,7 @@ Route::middleware(['back'])->group(function () {
     Route::get('/admin/messages', 'back\MessageController@index')->name('messages.index');
     Route::get('/admin/messages/{id}', 'back\MessageController@show')->name('messages.show');
 
-    Route::post('/dropzone', function(){
-        $file = Input::file('file');
-        $destinationPath = 'images';
-        $filenameFull = Carbon::now() . $file->getClientOriginalName();
-        $filename = str_replace([' ', ':', '/', '-'],'' , $filenameFull);
-        $upload_success = Input::file('file')->move($destinationPath, $filename);
-
-        if( $upload_success ) {
-            return response()->json([
-                'photo_name' => $filename,
-                'status' => 200,
-            ]);
-        } else {
-            return Response::json('error', 400);
-        }
-    })->name('dropzone');
+    Route::post('/dropzone', 'back\DropzoneController@add')->name('dropzone');
 });
 
 Auth::routes();

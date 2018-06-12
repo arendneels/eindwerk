@@ -21,7 +21,8 @@ use Session;
 class FrontController extends Controller
 {
     public function index(){
-        return view('front.index');
+        $newArrivals = Product::orderBy('created_at', 'desc')->limit(12)->get();
+        return view('front.index', compact('newArrivals'));
     }
 
     public function addsubscriber(AddSubRequest $request){

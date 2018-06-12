@@ -3,26 +3,15 @@
 @section('content')
     <h1 class="text-center font-size-header animated fadeIn mt-7">HAZY SHADE OF SPRING</h1>
     <p class="text-center font-size-subheader pb-5 text-grey2 animated fadeIn"><em>Quisque lorem tortor fringilla sed, vestibulum id, eleifend justo.</em></p>
-    <div class="text-center p-3 p-md-4 animated fadeIn"><a href="#" class="border p-4">CHECK NEW ARRIVALS</a></div>
+    <div class="text-center p-3 p-md-4 animated fadeIn"><a href="#newArrivals" class="border p-4">CHECK NEW ARRIVALS</a></div>
     <!--IMAGEBOARD!-->
-    <div class="row no-gutters py-6 py-md-7">
-        <div class="col-md-3 bg-test d-flex flex-column">
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightlg w-100" alt=""></a>
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-        </div>
-        <div class="col-md-3 bg-test d-flex flex-column">
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-        </div>
-        <div class="col-md-3 bg-test d-flex flex-column">
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-        </div>
-        <div class="col-md-3 bg-test d-flex flex-column">
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightsm w-100" alt=""></a>
-            <a href="detail.html"><img src="http://via.placeholder.com/350x150" class="imgheightlg w-100" alt=""></a>
+    <div id="newArrivals" class="py-6 py-md-7">
+        <div class="row no-gutters">
+            @foreach($newArrivals as $product)
+                <div class="col-md-3 bg-test d-flex flex-column">
+                    <a href="{{ route('productdetail', $product) }}"><img src="{{ asset($product->thumbnail_path()) }}" class="imgheightsm w-100" alt=""></a>
+                </div>
+            @endforeach
         </div>
     </div>
     <!--EMAIL SIGN UP!-->
