@@ -284,7 +284,6 @@
                     <label for="payment-method">SELECT PAYMENT METHOD</label>
                     <select id="payment-method" class="form-control form-control-sm" name="payment-method">
                         <option value="1">Credit Card</option>
-                        <option value="2">PayPal</option>
                     </select>
                 </div>
                 <div class="form-group">

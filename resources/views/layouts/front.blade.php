@@ -81,7 +81,7 @@
                                         </td>
                                         <td class="py-2">
                                             <a href="{{ route('productdetail', $row->options->product_id) }}">
-                                                <strong>{{ $row->name }}</strong>
+                                                <strong>{{ $row->name . " (" . $row->options->size . ")" }}</strong>
                                             </a>
                                         </td>
                                         <td>&euro;&nbsp;{{ $row->price }}</td>

@@ -9,7 +9,13 @@
         <div class="row no-gutters">
             @foreach($newArrivals as $product)
                 <div class="col-md-3 bg-test d-flex flex-column">
-                    <a href="{{ route('productdetail', $product) }}"><img src="{{ asset($product->thumbnail_path()) }}" class="imgheightsm w-100" alt=""></a>
+                    <div class="itemcard-index mx-auto text-center">
+                        <a href="{{ route('productdetail', $product->id) }}" class="">
+                            <div class="imgheightsm w-100 row justify-content-center">
+                                <img class="col-auto align-self-center" src="{{ asset($product->thumbnail_path()) }}" alt="" style="max-width:100%; max-height:100%">
+                            </div>
+                        </a>
+                    </div>
                 </div>
             @endforeach
         </div>

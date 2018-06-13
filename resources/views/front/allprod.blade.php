@@ -49,7 +49,9 @@
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="itemcard mx-auto text-center">
                     <a href="{{ route('productdetail', $product->id) }}" class="">
-                        <img class="catImg img-fluid" src="{{ $product->thumbnail_path() }}" alt="">
+                        <div class="imgheightsm w-100 row justify-content-center">
+                            <img class="col-auto align-self-center" src="{{ asset($product->thumbnail_path()) }}" alt="" style="max-width:100%; max-height:100%">
+                        </div>
                         <div class="font-size-footer">
                             <p class="text-uppercase"><strong>{{ $product->name }}</strong></p>
                             <p>&euro;{{ $product->price }}</p>
