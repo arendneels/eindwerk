@@ -44,7 +44,7 @@ class OrderStockTableSeeder extends Seeder
             'order_id' => 2,
             'stock_id' => 20,
             'price' => 230.99,
-            'amt' => 1,
+            'amt' => 2,
             'created_at' => Carbon::create(2018,03,10),
             'updated_at' => date_create(),
         ]);
@@ -63,7 +63,7 @@ class OrderStockTableSeeder extends Seeder
             'stock_id' => 25,
             'price' => 25.99,
             'amt' => 1,
-            'created_at' => Carbon::create(2018,04,10),
+            'created_at' => Carbon::create(2018,02,10),
             'updated_at' => date_create(),
         ]);
 
@@ -80,7 +80,7 @@ class OrderStockTableSeeder extends Seeder
             'order_id' => 5,
             'stock_id' => 35,
             'price' => 25.99,
-            'amt' => 1,
+            'amt' => 2,
             'created_at' => Carbon::create(2018,05,10),
             'updated_at' => date_create(),
         ]);
@@ -90,7 +90,7 @@ class OrderStockTableSeeder extends Seeder
             'stock_id' => 40,
             'price' => 25.99,
             'amt' => 1,
-            'created_at' => Carbon::create(2018,02,10),
+            'created_at' => Carbon::create(2018,05,10),
             'updated_at' => date_create(),
         ]);
 
@@ -98,7 +98,7 @@ class OrderStockTableSeeder extends Seeder
             'order_id' => 6,
             'stock_id' => 44,
             'price' => 25.99,
-            'amt' => 1,
+            'amt' => 3,
             'created_at' => Carbon::create(2018,03,10),
             'updated_at' => date_create(),
         ]);
@@ -117,7 +117,61 @@ class OrderStockTableSeeder extends Seeder
             'stock_id' => 52,
             'price' => 25.99,
             'amt' => 1,
-            'created_at' => Carbon::create(2018,05,10),
+            'created_at' => Carbon::create(2018,04,10),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('order_stock')->insert([
+            'order_id' => 7,
+            'stock_id' => 33,
+            'price' => 25.99,
+            'amt' => 1,
+            'created_at' => Carbon::create(2018,01,10),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('order_stock')->insert([
+            'order_id' => 7,
+            'stock_id' => 21,
+            'price' => 25.99,
+            'amt' => 2,
+            'created_at' => Carbon::create(2018,01,10),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('order_stock')->insert([
+            'order_id' => 7,
+            'stock_id' => 10,
+            'price' => 25.99,
+            'amt' => 1,
+            'created_at' => Carbon::create(2018,01,10),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('order_stock')->insert([
+            'order_id' => 7,
+            'stock_id' => 1,
+            'price' => 25.99,
+            'amt' => 1,
+            'created_at' => Carbon::create(2018,03,10),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('order_stock')->insert([
+            'order_id' => 7,
+            'stock_id' => 16,
+            'price' => 25.99,
+            'amt' => 1,
+            'created_at' => Carbon::create(2018,03,10),
+            'updated_at' => date_create(),
+        ]);
+
+        DB::table('order_stock')->insert([
+            'order_id' => 7,
+            'stock_id' => 22,
+            'price' => 25.99,
+            'amt' => 1,
+            'created_at' => Carbon::create(2018,03,10),
             'updated_at' => date_create(),
         ]);
     }

@@ -61,20 +61,6 @@ class Order extends Model
        $order['status'] = 'READY FOR DELIVERY';
        $order['shipping_date'] = date_create();
        $order->update();
-
-       //Remove products from stock + add stocklog
-        foreach($order->stocks as $stock) {
-            $stock['amount'] -= $stock->pivot->amt;
-            $stock->update();
-            Stocklog::create([
-                'user_id' => Auth::user()->id,
-                'add' => -$stock->pivot->amt,
-                'stock_id' => $stock->id,
-                'amount' => $stock->amount,
-                'type' => 'Order',
-                'order_id' => $order->id
-            ]);
-        }
        return ;
     }
 

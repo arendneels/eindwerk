@@ -8,6 +8,7 @@ use App\Http\Requests\front\OrderRequest;
 use App\Order;
 use App\Shippingmethod;
 use App\Stock;
+use App\Stocklog;
 use App\User;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -116,6 +117,18 @@ class CartController extends Controller
     }
 
     public function paymentSuccess(OrderRequest $request){
+
+        //Final check if stock is sufficient, if stock is insufficient the user will be redirected with the message that there is insufficient stock and the quantity in his cart adjusted
+        foreach(Cart::content() as $row){
+            $stock = Stock::findOrFail($row->id);
+            if($row->qty > $stock->amount){
+                Cart::update($row->id, $stock->amount);
+                Session::flash('stockError', ' Insufficient stock of ' . $row->name . ' size' . $row->options->size . ', quanity was adjusted, please verify');
+                return redirect('cart');
+            }
+        }
+
+
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         Stripe::setApiKey(env('STRIPE_SECRET'));
@@ -186,6 +199,23 @@ class CartController extends Controller
         foreach(Cart::content() as $content){
             $order->stocks()->attach($content->id, ['price' => $content->price, 'amt' => $content->qty, 'created_at' => date_create()]);
         };
+
+        //Remove order from stock
+        foreach($order->stocks as $stock) {
+            $stock['amount'] -= $stock->pivot->amt;
+            $stock->update();
+            $stocklog = [
+                'add' => -$stock->pivot->amt,
+                'stock_id' => $stock->id,
+                'amount' => $stock->amount,
+                'type' => 'Order',
+                'order_id' => $order->id
+            ];
+            if($user){
+                $stocklog['user_id'] = $user->id;
+            }
+            Stocklog::create($stocklog);
+        }
 
         //Destroy cart after placing order
         Cart::destroy();

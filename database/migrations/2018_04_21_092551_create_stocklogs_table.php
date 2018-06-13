@@ -16,7 +16,7 @@ class CreateStocklogsTable extends Migration
         Schema::create('stocklogs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('stock_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->integer('add');
             $table->integer('amount');
             $table->string('type')->nullable();
