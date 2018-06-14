@@ -37,7 +37,7 @@
         <tbody>
         @foreach(Cart::content() as $row)
             <?php
-                //Place queries in variables to reduct amount of queries
+                // Place queries in variables to reduce amount of queries
                 $model = $row->model;
                 $product = $model->product;
             ?>
@@ -69,14 +69,10 @@
                 </td>
                 <td class="align-middle">&euro;&nbsp;{{ $row->price }}</td>
                 <td class="text-center align-middle">
+                    <!-- Post Delete Form in navigation -->
                     <a href="#" onclick="event.preventDefault();document.getElementById('deleteForm{{$row->id}}').submit();">
                         <span class="fas fa-times"></span>
                     </a>
-                    <!-- Form -->
-                    {!! Form::open(['method' => 'DELETE', 'action' => ['front\CartController@destroy', $row->rowId], 'class' => 'col-sm-6', 'id' => 'deleteForm'.$row->id]) !!}
-                    {!! Form::submit('Delete', ['class' => 'd-none']) !!}
-                    {!! Form::close() !!}
-                    <!-- /Form -->
                 </td>
             </tr>
         @endforeach
@@ -276,8 +272,8 @@
         <h2 class="text-center pt-5 text-black">PAYMENT OPTIONS</h2>
         <p class="text-center pb-3"><i>All fields are required</i></p>
         <p class="text-center">Subtotal:&nbsp;&nbsp;<i>&euro;{{ Cart::subtotal() }}</i></p>
-        <p class="text-center">Shipping:&nbsp;&nbsp;<i>&euro;15.00</i></p>
-        <p class="text-center text-orange pb-4">Total:&nbsp;&nbsp;<i>&euro;{{ Cart::subtotal() }}</i></p>
+        <p class="text-center">Shipping:&nbsp;&nbsp;<i>&euro;<span id="shipping-cost"></span></i></p>
+        <p class="text-center text-orange pb-4">Total:&nbsp;&nbsp;<i>&euro;<span id="total"></span></i></p>
         <div class="row justify-content-center pb-2">
             <div class="form-group col-12 col-md-8 col-lg-6">
                 <div class="pb-3">
@@ -350,6 +346,34 @@
                 }else{
                     $('#password-field').addClass('d-none');
                 }
+            });
+
+            //
+            // Shipping cost
+            // Initial setting
+            var shippingCost = {{ $shippingmethods->first()->price }};
+            $('#shipping-cost').html(shippingCost.toFixed(2));
+
+
+            // After change in shipping method
+            $('#shipping-method').change(function(){
+               var shippingCostString = $('#shipping-method option:selected').html();
+               shippingCost = shippingCostString.replace( /^\D+/g, '');
+               shippingCost = parseFloat(shippingCost);
+               $('#shipping-cost').html(shippingCost);
+            });
+
+            //
+            // Total cost
+            var subtotal = {{ Cart::subtotal() }};
+            var total = subtotal + shippingCost;
+
+            $('#total').html(total.toFixed(2));
+
+            //After change in shipping method
+            $('#shipping-method').change(function(){
+                total = subtotal + shippingCost;
+                $('#total').html(total.toFixed(2));
             });
 
         });

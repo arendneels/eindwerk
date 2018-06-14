@@ -23,7 +23,7 @@
                             <tr>
                                 <th>Date</th>
                                 <th>Type</th>
-                                <th>Approved By</th>
+                                <th>By</th>
                                 <th>Amount</th>
                                 <th>New Total</th>
                             </tr>
