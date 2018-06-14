@@ -14,6 +14,9 @@ class Back
      * @param  \Closure  $next
      * @return mixed
      */
+
+    // Backend middleware
+    // Only logged in users with the role of admin are allowed in the backend
     public function handle($request, Closure $next)
     {
         if(Auth::user() && Auth::user()->isAdmin()) {

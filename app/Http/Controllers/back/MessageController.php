@@ -16,6 +16,7 @@ class MessageController extends Controller
 
     public function show($id){
         $message = Message::findOrFail($id);
+        // Make is_read property true when first opening the message
         if(!$message->is_read){
             $message->is_read = true;
             $message->save();

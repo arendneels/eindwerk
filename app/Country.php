@@ -10,6 +10,7 @@ class Country extends Model
         'name'
     ];
 
+    // Array to fill select element
     public static function countriesSelect(){
         $countries = Country::all();
         $result = [];

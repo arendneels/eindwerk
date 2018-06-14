@@ -31,14 +31,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // Many to many relationship with roles
     public function roles(){
         return $this->belongsToMany('App\Role');
     }
 
+    // One to many relationship with countries
     public function country(){
         return $this->belongsTo('App\Country');
     }
 
+    // Checks if the user has the role admin
     public function isAdmin(){
         foreach($this->roles as $role){
             if($role->name == "Admin"){
@@ -48,6 +51,7 @@ class User extends Authenticatable
         return false;
     }
 
+    // One to many relationship with orders
     public function orders(){
         return $this->hasMany('App\Order')->orderBy('created_at', 'desc');
     }

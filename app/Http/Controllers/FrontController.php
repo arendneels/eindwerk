@@ -33,6 +33,7 @@ class FrontController extends Controller
 
     public function productdetail($id){
         $product = Product::findOrFail($id);
+        // Check if products are out of stock
         $hasSizesOutOfStock = $product->hasSizesOutOfStock();
         //Eager load users + Limit reviews to 5 reviews per page
         $reviews = $product->reviews()->with('user')->paginate(5);
@@ -48,6 +49,7 @@ class FrontController extends Controller
         return redirect()->back();
     }
 
+    // Shows all subcategories for after choosing a main category (men/women/kids)
     public function categories($id){
         $mainCategory = Category::findOrFail($id);
         $productIds = $mainCategory->products()->pluck('products.id')->all();
@@ -59,6 +61,8 @@ class FrontController extends Controller
         return view('front.allcat', compact('mainCategory', 'categories', 'productIds'));
     }
 
+    // Shows all products within the main and subcategory (also able to show all products for main category)
+    // Has option so filter with get variables
     public function products($category_id1, $category_id2 = null, Request $request){
         $category1 = Category::findOrFail($category_id1);
         $productIds = $category1->products()->pluck('products.id')->all();
@@ -150,19 +154,21 @@ class FrontController extends Controller
         return view('front.contactsuccess');
     }
 
+    // Search results (Laravel scout is probably a better solution)
     public function search(Request $request){
         $searchterm = $request->all()['term'];
         $productsQuery = Product::where('name', 'like', "%" . $searchterm . "%");
         //Get total count for counter on search page
         $count = $productsQuery->count();
         //Get paginated results
-        $products = $productsQuery->with('photos')->paginate(20)->withPath('?term=' . $searchterm);
+        $products = $productsQuery->with('photos')->paginate(4)->withPath('?term=' . $searchterm);
         return view('front.search', compact('products', 'count'));
     }
 
+    // Order history
     public function history(){
         $user = Auth()->user();
-        //Nested eager loading
+        // Nested eager loading
         $orders = $user->orders()->with(['stocks', 'stocks.product', 'stocks.size'])->paginate(5);
         return view('front.history', compact('user', 'orders'));
     }

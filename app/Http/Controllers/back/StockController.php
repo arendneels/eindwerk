@@ -86,6 +86,7 @@ class StockController extends Controller
         $input = $request->all();
         $stock->amount = $stock->amount + $input['add'];
         $stock->update();
+
         //Make Stocklog entry with new amount
         $stocklog['add'] = $input['add'];
         $stocklog['user_id'] = Auth::user()->id;
@@ -93,6 +94,7 @@ class StockController extends Controller
         $stocklog['amount'] = $stock->amount;
         $stocklog['type'] = 'Add to stock';
         Stocklog::create($stocklog);
+
         //Return response
         return response()->json($stock);
     }

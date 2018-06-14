@@ -13,11 +13,15 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends Controller
 {
     public function index(){
+        //Count reviews, messages, and total products
         $newReviewCount = Review::where('validated',false)->count();
         $newMessageCount = Message::where('is_read', false)->count();
         $totalProductCount = Product::count();
 
-        //Data will be shown for last 7 months
+        // Getting data for chart.js
+        // Will be displaying the total amount of money earned per month as a bar chart
+        // X-axis: months, Y-axis: Sum of revenue for the month
+        // Data will be shown for last 7 months
         $timespan = 7;
         $lastMonths = [];
         $totalEarned = [];

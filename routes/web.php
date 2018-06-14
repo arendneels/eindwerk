@@ -70,6 +70,5 @@ Route::middleware(['back'])->group(function () {
     Route::post('/dropzone', 'back\DropzoneController@add')->name('dropzone');
 });
 
+//Authorization routes
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

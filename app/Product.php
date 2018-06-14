@@ -16,24 +16,29 @@ class Product extends Model
         'name', 'article_no', 'price', 'description'
     ];
 
+    // Many to many relationship with colors
     public function colors() {
         return $this->belongsToMany('\App\Color');
     }
 
+    // Many to many relationship with categories
     public function categories() {
         return $this->belongsToMany('\App\Category');
     }
 
+    // One to many relationship with review
     public function reviews(){
         //Always return the thumbnail as first photo in the array
         return $this->hasMany('\App\Review')->where('validated', true)->orderBy('created_at', 'desc');
     }
 
+    // Return all reviews
     public function allreviews(){
         //Always return the thumbnail as first photo in the array
         return $this->hasMany('\App\Review')->orderBy('created_at', 'desc');
     }
 
+    // One on many relationship with photos
     public function photos(){
         //Always return the thumbnail as first photo in the array
         return $this->hasMany('\App\Photo')->orderBy('thumbnail', 'desc');
@@ -80,6 +85,7 @@ class Product extends Model
         return false;
     }
 
+    //Returns the size units for shoes or kids as string (returns false for regular sizes)
     public function sizeUnits(){
         if($this->hasShoesCategory()){
             return '(EU Shoe Size)';

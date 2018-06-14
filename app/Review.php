@@ -13,10 +13,12 @@ class Review extends Model
         'product_id', 'user_id', 'title', 'body', 'rating', 'valdiated'
     ];
 
+    // One to many relationship with users
     public function user(){
         return $this->belongsTo('App\User');
     }
 
+    // One to many relationship with products
     public function product(){
         return $this->belongsTo('App\Product');
     }

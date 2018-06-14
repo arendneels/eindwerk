@@ -39,14 +39,17 @@ class Order extends Model
      */
     protected $dates = ['deleted_at', 'shipping_date'];
 
+    // One to many relationship with users
     public function user() {
         return $this->belongsTo('App\User');
     }
 
+    // One to many relationship with countries
     public function country() {
         return $this->belongsTo('App\Country');
     }
 
+    // Many to many relationship with stocks
     public function stocks() {
         return $this->belongsToMany('App\Stock')->withPivot('price', 'amt');
     }
@@ -55,6 +58,7 @@ class Order extends Model
         return self::where('status','PAID');
     }
 
+    // Updates order when it's ready
     public static function orderReady($id) {
        $order = self::findOrFail($id);
        //Set status + shipment date (assumed to be shipped the same day as it is approved)
@@ -64,6 +68,7 @@ class Order extends Model
        return ;
     }
 
+    // Updates order when it's delivered
     public static function orderDelivered($id) {
         $order = self::findOrFail($id);
         $order['status'] = 'DELIVERED';

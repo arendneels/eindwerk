@@ -93,16 +93,20 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    // Remove entire row from the cart
     public function destroy($rowId)
     {
         Cart::remove($rowId);
         return redirect()->back();
     }
 
+    // Add single item to the cart. Stock id used as row id for cart.
     public function add($id){
         $stock = Stock::findOrFail($id);
         $product = $stock->product;
         $row = Cart::add($id, $product->name, 1, $product->price, ['size' => $stock->size->name, 'product_id' => $product->id, 'thumbnail_path' => $product->thumbnail_path(), 'article_no' => $product->article_no])->associate('App\Stock');
+        //Prevent client from adding a higher quantity of the product to his cart than the current stock
         if($row->qty > $stock->amount){
             Cart::update($row->rowId, $row->qty - 1);
             Session::flash('stockError', 'Insufficient stock of ' . $row->name . ' size ' . $row->options->size . ', please order more later');
@@ -110,6 +114,7 @@ class CartController extends Controller
         return redirect('/cart');
     }
 
+    // Remove 1 item from the cart
     public function remove($rowId){
         $currentQty = Cart::get($rowId)->qty;
         Cart::update($rowId, $currentQty - 1);
@@ -143,25 +148,26 @@ class CartController extends Controller
             'source' => $token,
         ]);
 
-        $input = $request->all();
 
+        $input = $request->all();
         $user = Auth::user();
         $order = [];
 
+        // If user isn't logged in, but wants to create a new account, bcrypt the password field and create the user
         if(!$user && isset($_POST['checkbox_create'])){
             $input['password'] = bcrypt($input['password']);
             $user = User::create($request->all());
             Auth::login($user);
         }
 
-        //If user is logged in, link the id to the order
+        // If user is logged in, link the id to the order
         if($user) {
             $order['user_id'] = $user->id;
             $order['email'] = $user->email;
         }else{
             $order['email'] = $input['email'];
         }
-        //If user is logged in and didn't chose a different shipping address
+        // If user is logged in and didn't chose a different shipping address, get data from user
         if($user && !isset($_POST['checkbox_shipping'])) {
             $order['first_name'] = $user->first_name;
             $order['last_name'] = $user->last_name;
@@ -170,7 +176,9 @@ class CartController extends Controller
             $order['city'] = $user->city;
             $order['address'] = $user->address;
             $order['address2'] = $user->address2;
-        }else{
+        }
+        // Else fill the order object with input fields
+        else{
             $order['first_name'] = $_POST['first_name'];
             $order['last_name'] = $_POST['last_name'];
             $order['country_id'] = $_POST['country_id'];
@@ -182,9 +190,12 @@ class CartController extends Controller
             }
         }
 
+
         $order['shippingmethod_id'] = $_POST['shippingmethod_id'];
         $order['shipping_cost'] = Shippingmethod::findOrFail($_POST['shippingmethod_id'])->price;
+        // Currently only single payment method
         $order['payment_method'] = 'Credit Card';
+        // Payment_id contains the stripe charge id for reference
         $order['payment_id'] = $charge->id;
         $order['subtotal'] = Cart::subtotal();
         //Total equals cost of products + shipping cost
@@ -196,6 +207,7 @@ class CartController extends Controller
         $order['created_at_ip'] = request()->ip();
 
         $order = Order::create($order);
+        // Link the products (as stocks to include size) sold with the order
         foreach(Cart::content() as $content){
             $order->stocks()->attach($content->id, ['price' => $content->price, 'amt' => $content->qty, 'created_at' => date_create()]);
         };
@@ -214,13 +226,14 @@ class CartController extends Controller
             if($user){
                 $stocklog['user_id'] = $user->id;
             }
+            //Create a stocklog for the order
             Stocklog::create($stocklog);
         }
 
         //Destroy cart after placing order
         Cart::destroy();
 
-        //Return successful view
+        //Return 'order successful' view
         return view('front.ordersuccess');
     }
 }

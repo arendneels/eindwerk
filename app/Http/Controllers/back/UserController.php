@@ -86,6 +86,7 @@ class UserController extends Controller
     public function update(UserEditRequest $request, $id)
     {
         $input = $request->all();
+        // If password field is left empty, keep old password, else bcrypt the input
         if($input['password'] == null){
             $input = array_except($input, ['password']);
         }else{

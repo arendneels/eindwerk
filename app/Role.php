@@ -10,6 +10,7 @@ class Role extends Model
         'name',
     ];
 
+    // Many to many relationship with users
     public function users(){
         return $this->belongsToMany('App\User');
     }

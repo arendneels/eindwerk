@@ -35,6 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        // Arrays for select fields
         $colorsSelect = Color::colorsSelect();
         $categoriesSelect = Category::categoriesSelect();
         $regularSizes = Size::regularSizes();
@@ -100,7 +101,12 @@ class ProductController extends Controller
     {
         $product = Product::with(['categories', 'colors', 'stocks', 'stocks.size'])->findOrFail($id);
 
-        //Data will be shown for last 7 months
+
+
+        // Get data for Chart.js
+        // Will be displaying the total units sold per month for each size of the product as stacked columns
+        // X-axis: months, Y-axis: sum of amount of products sold, grouped per size
+        // Data will be shown for last 7 months
         $timespan = 7;
         $lastMonths = [];
         $totalEarned = [];
@@ -190,11 +196,15 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+
+        // Arrays for select field
         $colorsSelect = Color::colorsSelect();
         $categoriesSelect = Category::categoriesSelect();
         $regularSizes = Size::regularSizes();
         $shoeSizes = Size::shoeSizes();
         $kidSizes = Size::kidSizes();
+
+        // Show correct select field on load
         if($product->hasShoesCategory()){
             $currentSizes = $shoeSizes;
         }elseif($product->hasKidsCategory()){
@@ -202,11 +212,9 @@ class ProductController extends Controller
         }else {
             $currentSizes = $regularSizes;
         }
-        $stocks = Stock::where('product_id', $product->id)->get();
-        $sizes = [];
-        foreach($stocks as $stock){
-            array_push($sizes, $stock->size_id);
-        }
+
+        //Put size id's already available for the product in an array
+        $sizes = Stock::where('product_id', $product->id)->pluck('size_id')->all();
         return view('back.products.edit', compact('product', 'colorsSelect', 'categoriesSelect', 'regularSizes', 'shoeSizes', 'kidSizes' ,'currentSizes', 'sizes'));
     }
 

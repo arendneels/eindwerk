@@ -15,10 +15,12 @@ class Category extends Model
         'name'
     ];
 
+    // Many to many relationship with products
     public function products() {
         return $this->belongsToMany('\App\Product');
     }
 
+    // Return an array with the category id as key and category name as value for select fields
     public static function categoriesSelect(){
         $categories = Category::all();
         $result = [];

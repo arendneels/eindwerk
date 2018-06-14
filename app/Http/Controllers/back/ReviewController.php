@@ -13,6 +13,7 @@ class ReviewController extends Controller
         return view('back.reviews.index', compact('reviews'));
     }
 
+    // Backend user has to validate the review before it will be shown on the website.
     public function validateReview($id){
         $review = Review::findOrFail($id);
         $review->validated = !$review->validated;
