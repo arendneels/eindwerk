@@ -156,7 +156,7 @@ class CartController extends Controller
         // If user isn't logged in, but wants to create a new account, bcrypt the password field and create the user
         if(!$user && isset($_POST['checkbox_create'])){
             $input['password'] = bcrypt($input['password']);
-            $user = User::create($request->all());
+            $user = User::create($input);
             Auth::login($user);
         }
 
