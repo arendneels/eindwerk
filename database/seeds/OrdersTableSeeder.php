@@ -105,7 +105,7 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         DB::table('orders')->insert([
-            'user_id' => 3,
+            'user_id' => 2,
             'first_name' => 'Client1',
             'last_name' => 'Hazy',
             'email' => 'hazyclient1@hotmail.com',

@@ -25,12 +25,16 @@
                 {{ $order->created_at->format('d/m/Y') }}
             </td>
             <td>
-                @foreach($order->stocks as $stock)
+                @foreach($order->stocks()->with('product')->get() as $stock)
                 <div class="d-flex py-1">
-                    <img src="http://via.placeholder.com/350x150" alt="" class="img-history pr-2">
+                    <div class="d-flex" style="width:50px;">
+                        <img src="{{ asset($stock->product->thumbnail_path()) }}" alt="" class="img-history pr-2 mx-auto">
+                    </div>
                     <p class="mb-0">
                         <strong>
-                            {{ $stock->product->name . ' - Size ' . $stock->size->name }}
+                            <a href="{{ route('productdetail', $stock->product->id) }}">
+                                {{ $stock->product->name . ' - Size ' . $stock->size->name }}
+                            </a>
                             @if($stock->pivot->amt > 1)
                                 {{ ' (' . $stock->pivot->amt . ' pcs)' }}
                             @endif
